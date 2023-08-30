@@ -1,4 +1,4 @@
-﻿namespace FreeRealmsLocaleTools
+﻿namespace FreeRealmsLocaleTools.IdHashing
 {
     /// <summary>
     /// Port of Bob Jenkins' lookup2 algorithm. Source: <see href="https://burtleburtle.net/bob/c/lookup2.c"/>
