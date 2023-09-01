@@ -8,40 +8,46 @@ namespace FreeRealmsLocaleTools.IdHashing
     public static class Preimaging
     {
         /// <summary>
-        /// Assigns an ID to each locale entry in the specified dictionary, and returns the set of entries.
+        /// Assigns an ID to each locale entry in the specified list, and returns the set of entries.
         /// </summary>
-        /// <remarks>
-        /// This is essentially a conversion from the one-to-many relation, hash -> <see cref="LocaleEntry"/>,
-        /// to the one-to-one relation, ID -> <see cref="LocaleEntry"/>.
-        /// <para/>
-        /// If the specified dictionary contains hashes that were not generated via
-        /// the <see cref="GetHash(uint)"/> algorithm, this operation may hang.
-        /// </remarks>
         /// <returns>A sorted set of locale entries, ordered by ID number.</returns>
-        public static SortedSet<LocaleEntry> CreateEntryIdSet(Dictionary<uint, LocaleEntry[]> hashToLocaleEntry)
+        public static SortedSet<LocaleEntry> CreateEntryIdSet(LocaleEntry[] localeEntries)
         {
-            // Create a shallow copy of the original dictionary.
-            hashToLocaleEntry = new(hashToLocaleEntry);
-            SortedSet<LocaleEntry> localeEntries = new();
+            Dictionary<uint, LocaleEntry> hashToLocaleEntry = new();
+            SortedSet<LocaleEntry> idEntries = new();
+
+            // Create a mapping from hash to locale entry.
+            foreach (LocaleEntry localeEntry in localeEntries)
+            {
+                switch (localeEntry.Tag)
+                {
+                    // Add locale entries that can be hashed via ID to the dictionary.
+                    case LocaleTag.ucdt:
+                    case LocaleTag.ucdn:
+                        hashToLocaleEntry.Add(localeEntry.Hash, localeEntry);
+                        break;
+                    // Add locale entries that already have IDs to the ID set.
+                    case LocaleTag.mcdt:
+                    case LocaleTag.mcdn:
+                        idEntries.Add(localeEntry);
+                        break;
+                }
+            }
 
             // Until all hashes have been processed, keep creating IDs and hashing them.
             for (uint id = 0; hashToLocaleEntry.Count > 0; id++)
             {
                 uint hash = GetHash(id);
 
-                // If the hash maps to one or more locale entries, remove the hash from the dictionary.
-                if (hashToLocaleEntry.Remove(hash, out LocaleEntry[]? entries))
+                // If the hash maps to a locale entry, remove the hash from the dictionary.
+                if (hashToLocaleEntry.Remove(hash, out LocaleEntry? entry))
                 {
-                    // Initialize each entry's ID and add it to the set.
-                    foreach (LocaleEntry entry in entries)
-                    {
-                        entry.Id ??= id;
-                        localeEntries.Add(entry);
-                    }
+                    entry.Id = id;
+                    idEntries.Add(entry);
                 }
             }
 
-            return localeEntries;
+            return idEntries;
         }
 
         /// <summary>

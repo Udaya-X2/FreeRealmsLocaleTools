@@ -1,5 +1,4 @@
-﻿using FreeRealmsLocaleTools.IdHashing;
-using System.Data;
+﻿using System.Data;
 using System.Text.RegularExpressions;
 
 namespace FreeRealmsLocaleTools.LocaleParser
@@ -14,63 +13,28 @@ namespace FreeRealmsLocaleTools.LocaleParser
         private const uint SkipMcdChars = 18u; // Number of chars between the locale text and ID
 
         /// <summary>
-        /// Reads the specified locale files, assigns an ID to each locale entry, and returns the set of entries.
+        /// Opens the locale files, reads all locale entries from the files, and then closes the files.
         /// </summary>
-        /// <returns>A sorted set of locale entries, ordered by ID number.</returns>
-        public static SortedSet<LocaleEntry> ReadEntries(string localeDatPath, string localeDirPath)
-        {
-            return Preimaging.CreateEntryIdSet(ReadMappedEntries(localeDatPath, localeDirPath));
-        }
-
-        /// <summary>
-        /// Reads the specified locale files and returns a mapping from hash to locale entry.
-        /// </summary>
-        /// <returns>A mapping from hashes to locale entries.</returns>
-        public static Dictionary<uint, LocaleEntry[]> ReadMappedEntries(string localeDatPath, string localeDirPath)
+        /// <returns>An array containing all locale entries from the files.</returns>
+        public static LocaleEntry[] ReadEntries(string localeDatPath, string localeDirPath)
         {
             // Read the location of each locale entry from the .dir file.
-            LocaleEntryLocation[] locations = ReadEntryLocations(localeDirPath);
+            List<LocaleEntryLocation> locations = ReadEntryLocations(localeDirPath);
 
             // Open the .dat file for reading.
             using FileStream localeDatStream = File.OpenRead(localeDatPath);
             using BinaryReader datReader = new(localeDatStream);
             char[] buffer = new char[locations.Select(x => x.Size).Max()];
-            Dictionary<uint, LocaleEntry[]> hashToLocaleEntry = new();
+            LocaleEntry[] localeEntries = new LocaleEntry[locations.Count];
 
             // Look up the locale entry corresponding to each location.
-            foreach (LocaleEntryLocation location in locations)
+            for (int i = 0; i < locations.Count; i++)
             {
-                LocaleEntry localeEntry = LookupLocaleEntry(datReader, buffer, location);
-
-                switch (localeEntry.Tag)
-                {
-                    // If the locale tag cannot be hashed by "Global.Text.<id>", skip the locale entry.
-                    case LocaleTag.ugdt:
-                    case LocaleTag.ugdn:
-                        break;
-                    // If the locale tag indicates a hash collision, map the hash to the locale entries.
-                    case LocaleTag.mcdt:
-                    case LocaleTag.mcdn:
-                        localeEntry.Id = ReadMcdEntryId(datReader, buffer);
-
-                        // Hash collisions are small and infrequent, so array resizing is feasible here.
-                        if (hashToLocaleEntry.TryGetValue(location.Hash, out LocaleEntry[]? entries))
-                        {
-                            Array.Resize(ref entries, entries.Length + 1);
-                            entries[^1] = localeEntry;
-                            hashToLocaleEntry[location.Hash] = entries;
-                            break;
-                        }
-
-                        goto default;
-                    // Otherwise, map the hash to the locale entry.
-                    default:
-                        hashToLocaleEntry[location.Hash] = new LocaleEntry[] { localeEntry };
-                        break;
-                }
+                LocaleEntryLocation location = locations[i];
+                localeEntries[i] = LookupLocaleEntry(datReader, buffer, location);
             }
 
-            return hashToLocaleEntry;
+            return localeEntries;
         }
 
         /// <summary>
@@ -101,12 +65,12 @@ namespace FreeRealmsLocaleTools.LocaleParser
         /// Reads the location of each locale entry from the specified .dir file, and returns them in an array.
         /// </summary>
         /// <returns>An array of locale entry locations.</returns>
-        private static LocaleEntryLocation[] ReadEntryLocations(string localeDirPath)
+        private static List<LocaleEntryLocation> ReadEntryLocations(string localeDirPath)
         {
             return File.ReadLines(localeDirPath)
                        .SkipWhile(x => x.StartsWith(MetadataHeader))
                        .Select(x => ReadLocaleEntryLocation(x))
-                       .ToArray();
+                       .ToList();
         }
 
         /// <summary>
@@ -134,7 +98,15 @@ namespace FreeRealmsLocaleTools.LocaleParser
             uint startIndex = GetDigitsLength(location.Hash) + SkipTagChars;
             LocaleTag tag = Enum.Parse<LocaleTag>(new string(buffer, (int)startIndex - 5, 4));
             string text = new(buffer, (int)startIndex, (int)(location.Size - startIndex));
-            return new LocaleEntry { Tag = tag, Text = text };
+
+            // Initialize the ID if the locale tag starts with mcd.
+            return new LocaleEntry
+            {
+                Id = tag is LocaleTag.mcdt or LocaleTag.mcdn ? ReadMcdEntryId(reader, buffer) : null,
+                Hash = location.Hash,
+                Tag = tag,
+                Text = text
+            };
         }
 
         /// <summary>

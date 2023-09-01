@@ -6,6 +6,7 @@
     public class LocaleEntry : IComparable<LocaleEntry>
     {
         public uint? Id { get; set; }
+        public uint Hash { get; init; }
         public LocaleTag Tag { get; init; }
         public string Text { get; init; } = "";
 
