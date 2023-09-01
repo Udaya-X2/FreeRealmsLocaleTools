@@ -11,8 +11,8 @@ namespace FreeRealmsLocaleTools.LocaleParser
         public uint? Count { get; set; }
         public string? Database { get; set; }
         public string? Date { get; set; }
-        public string? Game { get; set; }
-        public string? Locale { get; set; }
+        public Game? Game { get; set; }
+        public Locale? Locale { get; set; }
         public string? MD5Checksum { get; set; }
         public string? T4Version { get; set; }
         public uint? TextLength { get; set; }
@@ -31,8 +31,8 @@ namespace FreeRealmsLocaleTools.LocaleParser
             "Count" => Count = uint.Parse(value),
             "Database" => Database = value,
             "Date" => Date = value,
-            "Game" => Game = value,
-            "Locale" => Locale = value,
+            "Game" => Game = Enum.Parse<Game>(value),
+            "Locale" => Locale = Enum.Parse<Locale>(value),
             "MD5Checksum" => MD5Checksum = value,
             "T4Version" => T4Version = value,
             "TextLength" => TextLength = uint.Parse(value),
@@ -41,6 +41,11 @@ namespace FreeRealmsLocaleTools.LocaleParser
             "Extraction version" => ExtractionVersion = value,
             _ => throw new ArgumentException($"Unrecognized metadata name: '{name}'", nameof(name)),
         };
+
+        /// <summary>
+        /// Returns true if the metadata does not include older American English TCG locale properties.
+        /// </summary>
+        public bool UsesDefaultMetadataFormat() => ExtractionDate == null && ExtractionVersion == null;
 
         /// <summary>
         /// Returns a metadata line with the specified name and value, or an empty string if the value is null.
@@ -57,8 +62,7 @@ namespace FreeRealmsLocaleTools.LocaleParser
         {
             StringBuilder sb = new();
 
-            // If the metadata does not include older TCG locale properties, use the default format.
-            if (ExtractionDate == null && ExtractionVersion == null)
+            if (UsesDefaultMetadataFormat())
             {
                 sb.Append(CreateMetadataLine("CidLength", CidLength))
                   .Append(CreateMetadataLine("Count", Count))
@@ -71,7 +75,6 @@ namespace FreeRealmsLocaleTools.LocaleParser
                   .Append(CreateMetadataLine("TextLength", TextLength))
                   .Append(CreateMetadataLine("Version", Version));
             }
-            // Otherwise, use the older TCG locale format.
             else
             {
                 sb.Append("##\r\n")

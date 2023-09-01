@@ -14,7 +14,7 @@
         /// </summary>
         ucdn,
         /// <summary>
-        /// Used for names.
+        /// Used for some text.
         /// </summary>
         ugdt,
         /// <summary>
@@ -22,18 +22,37 @@
         /// </summary>
         ugdn,
         /// <summary>
+        /// Used for some text in non-English locales.
+        /// </summary>
+        utdt,
+        /// <summary>
+        /// Used for possessive pronoun macros in German locales.
+        /// </summary>
+        umdt,
+        /// <summary>
+        /// Used for the text "informal" in French and German locales.
+        /// </summary>
+        uidt,
+        /// <summary>
         /// Used for text followed by
-        /// <code>\t0017\tGlobal.Text.&lt;id&gt;</code>
-        /// Where id is a number such that <see cref="JenkinsLookup2.Hash(string)"/> returns the hash
-        /// corresponding to the text's locale entry when "Global.Text.&lt;id&gt;" is given as the key.
+        /// <code>\t0017\tGlobal.Text.&lt;ID&gt;</code>
+        /// Where ID is a number such that the Jenkins lookup2 function returns the hash corresponding
+        /// to the text's locale entry when "Global.Text.&lt;ID&gt;" is given as the key.
         /// </summary>
         mcdt,
         /// <summary>
         /// Used for blank text followed by
-        /// <code>\t0017\tGlobal.Text.&lt;id&gt;</code>
-        /// Where id is a number such that <see cref="JenkinsLookup2.Hash(string)"/> returns the hash
-        /// corresponding to the text's locale entry when "Global.Text.&lt;id&gt;" is given as the key.
+        /// <code>\t0017\tGlobal.Text.&lt;ID&gt;</code>
+        /// Where ID is a number such that the Jenkins lookup2 function returns the hash corresponding
+        /// to the text's locale entry when "Global.Text.&lt;ID&gt;" is given as the key.
         /// </summary>
-        mcdn
+        mcdn,
+        /// <summary>
+        /// Used for older TCG locale text followed by
+        /// <code>\t0006\t&lt;KEY&gt;</code>
+        /// Where key is a string such that the Jenkins lookup2 function returns the hash
+        /// corresponding to the text's locale entry when KEY is given as the key.
+        /// </summary>
+        mgdt
     }
 }
