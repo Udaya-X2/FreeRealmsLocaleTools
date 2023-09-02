@@ -14,7 +14,7 @@ namespace FreeRealmsLocaleTools.LocaleParser
 
         private static readonly Decoder UTF8Decoder = Encoding.UTF8.GetDecoder();
         private static readonly Regex MetaRegex = new(@"^## (.*?):\t(.*)$");
-        private static readonly Regex McdRegex = new(@"^\t0017\tGlobal\.Text\.(\d+)$");
+        private static readonly Regex McdRegex = new(@"\t0017\tGlobal\.Text\.(\d+)$", RegexOptions.RightToLeft);
 
         /// <summary>
         /// Opens the locale file, reads all locale entries from the file, and then closes the file.
@@ -186,8 +186,7 @@ namespace FreeRealmsLocaleTools.LocaleParser
                 case LocaleTag.mcdt:
                 case LocaleTag.mcdn:
                     text = ReadLine(stream, cbuf, startIndex, charLen);
-                    startIndex = charLen - startIndex;
-                    id = int.Parse(McdRegex.Match(text, startIndex, text.Length - startIndex).Groups[1].Value);
+                    id = int.Parse(McdRegex.Match(text).Groups[1].Value);
                     break;
                 // If the tag starts with "m", add the leftover chars to the text.
                 case LocaleTag.mgdt:
