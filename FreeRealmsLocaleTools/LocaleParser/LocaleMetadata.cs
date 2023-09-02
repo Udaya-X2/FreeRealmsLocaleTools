@@ -7,15 +7,15 @@ namespace FreeRealmsLocaleTools.LocaleParser
     /// </summary>
     public class LocaleMetadata
     {
-        public uint? CidLength { get; set; }
-        public uint? Count { get; set; }
+        public int? CidLength { get; set; }
+        public int? Count { get; set; }
         public string? Database { get; set; }
         public string? Date { get; set; }
         public Game? Game { get; set; }
         public Locale? Locale { get; set; }
         public string? MD5Checksum { get; set; }
         public string? T4Version { get; set; }
-        public uint? TextLength { get; set; }
+        public int? TextLength { get; set; }
         public string? Version { get; set; }
         public string? ExtractionDate { get; set; }
         public string? ExtractionVersion { get; set; }
@@ -27,15 +27,15 @@ namespace FreeRealmsLocaleTools.LocaleParser
         /// <exception cref="ArgumentException"></exception>
         public object SetProperty(string name, string value) => name switch
         {
-            "CidLength" => CidLength = uint.Parse(value),
-            "Count" => Count = uint.Parse(value),
+            "CidLength" => CidLength = int.Parse(value),
+            "Count" => Count = int.Parse(value),
             "Database" => Database = value,
             "Date" => Date = value,
             "Game" => Game = Enum.Parse<Game>(value),
             "Locale" => Locale = Enum.Parse<Locale>(value),
             "MD5Checksum" => MD5Checksum = value,
             "T4Version" => T4Version = value,
-            "TextLength" => TextLength = uint.Parse(value),
+            "TextLength" => TextLength = int.Parse(value),
             "Version" => Version = value,
             "Extraction Date" => ExtractionDate = value,
             "Extraction version" => ExtractionVersion = value,

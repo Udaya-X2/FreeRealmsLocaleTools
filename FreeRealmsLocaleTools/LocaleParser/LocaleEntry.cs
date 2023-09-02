@@ -3,32 +3,54 @@
     /// <summary>
     /// Represents a locale entry in a Free Realms .dat file.
     /// </summary>
-    public class LocaleEntry : IComparable<LocaleEntry>
+    public class LocaleEntry : IEquatable<LocaleEntry?>
     {
-        public uint? Id { get; set; }
-        public uint Hash { get; init; }
-        public LocaleTag Tag { get; init; }
-        public string Text { get; init; } = "";
+        public int Id { get; set; } = -1;
+        public uint Hash { get; set; }
+        public LocaleTag Tag { get; set; }
+        public string Text { get; set; } = "";
 
         /// <summary>
-        /// Compares this instance to the specified locale entry and returns an indication of their relative ID values.
+        /// Determines whether this instance and another specified object, which
+        /// must also be a <see cref="LocaleEntry"/> object, have the same value.
         /// </summary>
-        /// <returns><inheritdoc/></returns>
-        /// <exception cref="ArgumentNullException"></exception>
-        /// <exception cref="InvalidOperationException"></exception>
-        public int CompareTo(LocaleEntry? other)
-        {
-            if (other == null) throw new ArgumentNullException(nameof(other));
-            if (Id == null) throw new InvalidOperationException("Calling object's ID has not been initialized.");
-            if (other.Id == null) throw new InvalidOperationException("Passed object's ID has not been initialized.");
-            if (Id < other.Id) return -1;
-            if (Id > other.Id) return 1;
-            return 0;
-        }
+        /// <returns><see langword="true"/> if <paramref name="other"/> is a <see cref="LocaleEntry"/> and its
+        /// value is the same as this instance; otherwise, <see langword="false"/>. If <paramref name="other"/>
+        /// is <see langword="null"/>, this method returns <see langword="false"/>.</returns>
+        public override bool Equals(object? obj) => Equals(obj as LocaleEntry);
+
+        /// <summary>
+        /// Determines whether this instance and another specified
+        /// <see cref="LocaleEntry"/> object have the same value.
+        /// </summary>
+        /// <returns><see langword="true"/> if the value of the <paramref name="other"/> parameter is the same
+        /// as the value of this instance; otherwise, <see langword="false"/>. If <paramref name="other"/>
+        /// is <see langword="null"/>, this method returns <see langword="false"/>.</returns>
+        public bool Equals(LocaleEntry? other) => other is not null
+                                                  && Id == other.Id
+                                                  && Hash == other.Hash
+                                                  && Tag == other.Tag
+                                                  && Text == other.Text;
+
+        /// <summary>
+        /// Returns the hash code for this instance.
+        /// </summary>
+        /// <returns>A 32-bit signed integer hash code.</returns>
+        public override int GetHashCode() => HashCode.Combine(Id, Hash, Tag, Text);
 
         /// <summary>
         /// Returns a string representation of this locale entry.
         /// </summary>
-        public override string ToString() => $"ID: {Id}, Tag: {Tag}, Text: {Text}";
+        public override string ToString() => $"{Hash}\t{Tag}\t{Text}";
+
+        public static bool operator ==(LocaleEntry? left, LocaleEntry? right)
+        {
+            return left is null ? right is null : left.Equals(right);
+        }
+
+        public static bool operator !=(LocaleEntry? left, LocaleEntry? right)
+        {
+            return !(left == right);
+        }
     }
 }

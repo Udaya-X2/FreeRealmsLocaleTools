@@ -11,10 +11,11 @@ namespace FreeRealmsLocaleTools.IdHashing
         /// Assigns an ID to each locale entry in the specified list, and returns the set of entries.
         /// </summary>
         /// <returns>A sorted set of locale entries, ordered by ID number.</returns>
-        public static SortedSet<LocaleEntry> CreateEntryIdSet(LocaleEntry[] localeEntries)
+        public static SortedSet<LocaleEntry> CreateEntryIdSet(IEnumerable<LocaleEntry> localeEntries)
         {
+            Comparer<LocaleEntry> comparer = Comparer<LocaleEntry>.Create((a, b) => a.Id.CompareTo(b.Id));
             Dictionary<uint, LocaleEntry> hashToLocaleEntry = new();
-            SortedSet<LocaleEntry> idEntries = new();
+            SortedSet<LocaleEntry> idEntries = new(comparer);
 
             // Create a mapping from hash to locale entry.
             foreach (LocaleEntry localeEntry in localeEntries)
@@ -35,7 +36,7 @@ namespace FreeRealmsLocaleTools.IdHashing
             }
 
             // Until all hashes have been processed, keep creating IDs and hashing them.
-            for (uint id = 0; hashToLocaleEntry.Count > 0; id++)
+            for (int id = 0; hashToLocaleEntry.Count > 0; id++)
             {
                 uint hash = GetHash(id);
 
@@ -53,6 +54,6 @@ namespace FreeRealmsLocaleTools.IdHashing
         /// <summary>
         /// Returns the locale hash of the specified ID.
         /// </summary>
-        public static uint GetHash(uint id) => JenkinsLookup2.Hash($"Global.Text.{id}");
+        public static uint GetHash(int id) => JenkinsLookup2.Hash($"Global.Text.{id}");
     }
 }
