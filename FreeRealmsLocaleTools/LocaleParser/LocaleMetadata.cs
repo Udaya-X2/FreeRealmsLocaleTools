@@ -3,7 +3,7 @@
 namespace FreeRealmsLocaleTools.LocaleParser
 {
     /// <summary>
-    /// Provides properties and instance methods to serialize and deserialize metadata from a Free Realms .dir file.
+    /// Provides properties and instance methods to store metadata from a Free Realms .dir file.
     /// </summary>
     public class LocaleMetadata
     {

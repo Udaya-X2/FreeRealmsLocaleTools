@@ -12,9 +12,7 @@ namespace FreeRealmsLocaleTools.LocaleParser
         private const string MetadataHeader = "##"; // Chars that appear at the start of .dir metadata lines
         private const int SkipTagChars = 6; // Number of chars between the hash and locale text
 
-        private static readonly Decoder UTF8Decoder = Encoding.UTF8.GetDecoder();
         private static readonly Regex MetaRegex = new(@"^## (.*?):\t(.*)$");
-        private static readonly Regex McdRegex = new(@"\t0017\tGlobal\.Text\.(\d+)$", RegexOptions.RightToLeft);
 
         /// <summary>
         /// Opens the locale file, reads all locale entries from the file, and then closes the file.
@@ -35,7 +33,8 @@ namespace FreeRealmsLocaleTools.LocaleParser
                 }
                 else
                 {
-                    localeEntries[^1].Text += $"\n{line}";
+                    entry = localeEntries[^1];
+                    localeEntries[^1] = entry with { Text = $"{entry.Text}\n{line}" };
                 }
             }
 
@@ -125,12 +124,7 @@ namespace FreeRealmsLocaleTools.LocaleParser
                 && hashIndex + 5 < line.Length
                 && Enum.TryParse(line.AsSpan(hashIndex + 1, 4), out LocaleTag tag))
             {
-                entry = new LocaleEntry
-                {
-                    Hash = hash,
-                    Tag = tag,
-                    Text = line[(hashIndex + 6)..]
-                };
+                entry = new LocaleEntry(hash, tag, line[(hashIndex + 6)..]);
                 return true;
             }
 
@@ -172,42 +166,26 @@ namespace FreeRealmsLocaleTools.LocaleParser
             // Read the bytes at the offset, then decode them into chars.
             stream.Seek(location.Offset, SeekOrigin.Begin);
             stream.Read(buf, 0, location.Size);
-            int charLen = UTF8Decoder.GetChars(buf, 0, location.Size, cbuf, 0);
+            int charLen = Encoding.UTF8.GetChars(buf, 0, location.Size, cbuf, 0);
 
-            // Skip the chars before the text portion of the locale entry.
+            // Parse the tag from the locale entry.
             int startIndex = GetDigitsLength(location.Hash) + SkipTagChars;
             LocaleTag tag = Enum.Parse<LocaleTag>(new string(cbuf, startIndex - 5, 4));
-            string text;
-            int id;
 
-            switch (tag)
+            // If the tag starts with 'm', read the leftover chars into the buffer.
+            if (tag is LocaleTag.mcdt or LocaleTag.mcdn or LocaleTag.mgdt)
             {
-                // If the tag starts with "mcd", add the leftover chars to the text and initialize the ID.
-                case LocaleTag.mcdt:
-                case LocaleTag.mcdn:
-                    text = ReadLine(stream, cbuf, startIndex, charLen);
-                    id = int.Parse(McdRegex.Match(text).Groups[1].Value);
-                    break;
-                // If the tag starts with "m", add the leftover chars to the text.
-                case LocaleTag.mgdt:
-                    text = ReadLine(stream, cbuf, startIndex, charLen);
-                    id = -1;
-                    break;
-                // For all other tags, use the buffered chars for the text.
-                default:
-                    text = new(cbuf, startIndex, charLen - startIndex);
-                    id = -1;
-                    break;
+                charLen = ReadLine(stream, cbuf, charLen);
             }
 
-            return new LocaleEntry { Id = id, Hash = location.Hash, Tag = tag, Text = text };
+            return new LocaleEntry(location.Hash, tag, new(cbuf, startIndex, charLen - startIndex));
         }
 
         /// <summary>
         /// Reads a line of characters from the stream into the buffer, starting from <paramref name="pos"/>.
         /// </summary>
-        /// <returns>The next line from the input stream, starting from <paramref name="startIndex"/>.</returns>
-        private static string ReadLine(FileStream stream, char[] cbuf, int startIndex, int pos)
+        /// <returns>The new buffer position.</returns>
+        private static int ReadLine(FileStream stream, char[] cbuf, int pos)
         {
             int b;
 
@@ -216,7 +194,7 @@ namespace FreeRealmsLocaleTools.LocaleParser
                 cbuf[pos++] = (char)b;
             }
 
-            return new string(cbuf, startIndex, pos - startIndex);
+            return pos;
         }
 
         /// <summary>

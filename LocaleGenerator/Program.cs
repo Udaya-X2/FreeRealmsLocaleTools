@@ -3,46 +3,56 @@ using FreeRealmsLocaleTools.IdHashing;
 using FreeRealmsLocaleTools.LocaleParser;
 using System.Diagnostics;
 using System.Globalization;
-using System.Text;
 
 namespace LocaleGenerator
 {
     public static class Program
     {
         private static readonly string ClientPath = Environment.ExpandEnvironmentVariables("%CLIENTPATH%");
-        //private static readonly string ClientPath = @"C:\Users\udaya\Downloads\FR Files\Free Realms [2010-03-29, Jonathan]\Free Realms\tcg";
         private static readonly string ClientFiles = Environment.ExpandEnvironmentVariables("%FRF%");
         private static readonly string OutputPath = "output.csv";
+        private static readonly Stopwatch sw = Stopwatch.StartNew();
 
         public static void Main()
         {
-            //Stopwatch sw = Stopwatch.StartNew();
             //string localeDatFile = $@"{ClientPath}\locale\en_us_data.dat";
             //string localeDirFile = $@"{ClientPath}\locale\en_us_data.dir";
-            //LocaleEntry[] entries = LocaleReader.ReadEntries(localeDatFile, localeDirFile);
-            //SortedSet<LocaleEntry> idEntries = Preimaging.CreateEntryIdSet(entries);
+            //LocaleEntry[] entries = LocaleReader.ReadEntries(localeDatFile);
+            //SortedDictionary<uint, LocaleEntry> idToEntry = Preimaging.CreateIdMapping(entries);
             //using StreamWriter writer = new(OutputPath);
             //using var csv = new CsvWriter(writer, CultureInfo.InvariantCulture);
-            //csv.WriteRecords(idEntries);
+            //csv.WriteHeader(new { Id = 0u, Hash = 0u, Tag = default(LocaleTag), Text = "" }.GetType());
+            //csv.NextRecord();
+            //csv.WriteRecords(idToEntry);
             //Console.WriteLine($"Elapsed time: {sw.Elapsed}");
             //return;
+
             Console.Clear();
             Console.ForegroundColor = ConsoleColor.White;
-            Console.OutputEncoding = Encoding.Latin1;
 
-            // Read each entry from the locale files.
-            foreach (string dirPath in Directory.EnumerateFiles(ClientFiles, "*.dir", SearchOption.AllDirectories))
+            foreach (string datPath in Directory.EnumerateFiles(ClientFiles, "*data.dat", SearchOption.AllDirectories))
             {
-                if (dirPath.Contains("__MACOSX")) continue;
+                if (datPath.Contains("__MACOSX")) continue;
 
-                string datPath = Path.ChangeExtension(dirPath, ".dat");
+                string dirPath = Path.ChangeExtension(datPath, ".dir");
                 Console.WriteLine(datPath);
 
                 try
                 {
-                    LocaleEntry[] localeEntries = LocaleReader.ReadEntries(datPath, dirPath);
+                    LocaleEntry[] localeEntries1 = LocaleReader.ReadEntries(datPath);
+                    LocaleEntry[] localeEntries2 = LocaleReader.ReadEntries(datPath, dirPath);
+
+                    for (int i = 0; i < localeEntries1.Length; i++)
+                    {
+                        if (localeEntries1[i] != localeEntries2[i])
+                        {
+                            Console.WriteLine(localeEntries1[i]);
+                            Console.WriteLine(localeEntries2[i]);
+                        }
+                    }
+
                     LocaleMetadata metadata = LocaleReader.ReadMetadata(dirPath);
-                    var tagCounts = localeEntries.GroupBy(x => x.Tag)
+                    var tagCounts = localeEntries1.GroupBy(x => x.Tag)
                                                  .Select(x => new { Tag = x.Key, Count = x.Count() })
                                                  .OrderBy(x => x.Count)
                                                  .Reverse();
@@ -59,6 +69,8 @@ namespace LocaleGenerator
                     Console.ForegroundColor = ConsoleColor.White;
                 }
             }
+
+            Console.WriteLine($"Elapsed time: {sw.Elapsed}");
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using FreeRealmsLocaleTools.LocaleParser;
+using System.Text.RegularExpressions;
 
 namespace FreeRealmsLocaleTools.IdHashing
 {
@@ -7,53 +8,54 @@ namespace FreeRealmsLocaleTools.IdHashing
     /// </summary>
     public static class Preimaging
     {
-        /// <summary>
-        /// Assigns an ID to each locale entry in the specified list, and returns the set of entries.
-        /// </summary>
-        /// <returns>A sorted set of locale entries, ordered by ID number.</returns>
-        public static SortedSet<LocaleEntry> CreateEntryIdSet(IEnumerable<LocaleEntry> localeEntries)
-        {
-            Comparer<LocaleEntry> comparer = Comparer<LocaleEntry>.Create((a, b) => a.Id.CompareTo(b.Id));
-            Dictionary<uint, LocaleEntry> hashToLocaleEntry = new();
-            SortedSet<LocaleEntry> idEntries = new(comparer);
+        private static readonly Regex IdRegex = new(@"\t0017\tGlobal\.Text\.(\d+)$", RegexOptions.RightToLeft);
 
+        /// <summary>
+        /// Creates an ID for each hashable locale entry in the specified collection.
+        /// </summary>
+        /// <returns>A sorted dictionary mapping IDs to hashable locale entries.</returns>
+        public static SortedDictionary<uint, LocaleEntry> CreateIdMapping(IEnumerable<LocaleEntry> localeEntries)
+        {
+            Dictionary<uint, LocaleEntry> hashToLocaleEntry = new();
+            SortedDictionary<uint, LocaleEntry> idToLocaleEntry = new();
+            
             // Create a mapping from hash to locale entry.
             foreach (LocaleEntry localeEntry in localeEntries)
             {
                 switch (localeEntry.Tag)
                 {
-                    // Add locale entries that can be hashed via ID to the dictionary.
+                    // Add locale entries that can be hashed via ID to the hash dictionary.
                     case LocaleTag.ucdt:
                     case LocaleTag.ucdn:
                         hashToLocaleEntry.Add(localeEntry.Hash, localeEntry);
                         break;
-                    // Add locale entries that already have IDs to the ID set.
+                    // Add locale entries that already have IDs to the ID dictionary.
                     case LocaleTag.mcdt:
                     case LocaleTag.mcdn:
-                        idEntries.Add(localeEntry);
+                        uint id = uint.Parse(IdRegex.Match(localeEntry.Text).Groups[1].Value);
+                        idToLocaleEntry.Add(id, localeEntry);
                         break;
                 }
             }
 
             // Until all hashes have been processed, keep creating IDs and hashing them.
-            for (int id = 0; hashToLocaleEntry.Count > 0; id++)
+            for (uint id = 0; hashToLocaleEntry.Count > 0; id++)
             {
                 uint hash = GetHash(id);
 
                 // If the hash maps to a locale entry, remove the hash from the dictionary.
                 if (hashToLocaleEntry.Remove(hash, out LocaleEntry? entry))
                 {
-                    entry.Id = id;
-                    idEntries.Add(entry);
+                    idToLocaleEntry.Add(id, entry);
                 }
             }
 
-            return idEntries;
+            return idToLocaleEntry;
         }
 
         /// <summary>
         /// Returns the locale hash of the specified ID.
         /// </summary>
-        public static uint GetHash(int id) => JenkinsLookup2.Hash($"Global.Text.{id}");
+        public static uint GetHash(uint id) => JenkinsLookup2.Hash($"Global.Text.{id}");
     }
 }
