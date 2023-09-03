@@ -39,8 +39,8 @@ namespace LocaleGenerator
 
                 try
                 {
-                    LocaleEntry[] localeEntries1 = LocaleReader.ReadEntries(datPath);
-                    LocaleEntry[] localeEntries2 = LocaleReader.ReadEntries(datPath, dirPath);
+                    LocaleEntry[] localeEntries1 = LocaleFile.ReadEntries(datPath);
+                    LocaleEntry[] localeEntries2 = LocaleFile.ReadEntries(datPath, dirPath);
 
                     for (int i = 0; i < localeEntries1.Length; i++)
                     {
@@ -50,8 +50,8 @@ namespace LocaleGenerator
                             Console.WriteLine(localeEntries2[i]);
                         }
                     }
-
-                    LocaleMetadata metadata = LocaleReader.ReadMetadata(dirPath);
+                    continue;
+                    LocaleMetadata metadata = LocaleFile.ReadMetadata(dirPath);
                     var tagCounts = localeEntries1.GroupBy(x => x.Tag)
                                                  .Select(x => new { Tag = x.Key, Count = x.Count() })
                                                  .OrderBy(x => x.Count)

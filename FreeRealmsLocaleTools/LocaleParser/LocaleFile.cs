@@ -7,7 +7,7 @@ namespace FreeRealmsLocaleTools.LocaleParser
     /// <summary>
     /// Provides static methods for obtaining information from Free Realms locale files.
     /// </summary>
-    public static class LocaleReader
+    public static class LocaleFile
     {
         private const string MetadataHeader = "##"; // Chars that appear at the start of .dir metadata lines
         private const int SkipTagChars = 6; // Number of chars between the hash and locale text
@@ -20,8 +20,7 @@ namespace FreeRealmsLocaleTools.LocaleParser
         /// <returns>An array containing all locale entries from the file.</returns>
         public static LocaleEntry[] ReadEntries(string localeDatPath)
         {
-            using StreamReader reader = new(localeDatPath);
-            byte[] byteOrderMark = ReadByteOrderMark(reader.BaseStream);
+            using FileReader reader = new(localeDatPath);
             List<LocaleEntry> localeEntries = new();
             string? line;
 
@@ -34,7 +33,7 @@ namespace FreeRealmsLocaleTools.LocaleParser
                 else
                 {
                     entry = localeEntries[^1];
-                    localeEntries[^1] = entry with { Text = $"{entry.Text}\n{line}" };
+                    localeEntries[^1] = entry with { Text = $"{entry.Text}{reader.PreviousLineEnding}{line}" };
                 }
             }
 
@@ -53,7 +52,7 @@ namespace FreeRealmsLocaleTools.LocaleParser
             // Open the .dat file for reading.
             using FileStream stream = File.OpenRead(localeDatPath);
             byte[] buf = new byte[locations.Select(x => x.Size).Max()];
-            char[] cbuf = new char[buf.Length];
+            char[] cbuf = new char[Encoding.UTF8.GetMaxCharCount(buf.Length)];
             LocaleEntry[] localeEntries = new LocaleEntry[locations.Count];
 
             // Look up the locale entry corresponding to each location.
@@ -87,27 +86,6 @@ namespace FreeRealmsLocaleTools.LocaleParser
             }
 
             return metadata;
-        }
-
-        /// <summary>
-        /// Reads the byte order mark from the start of the stream.
-        /// </summary>
-        /// <returns>A byte array containing the byte order mark.</returns>
-        private static byte[] ReadByteOrderMark(Stream stream)
-        {
-            stream.Seek(0, SeekOrigin.Begin);
-            List<byte> byteOrderMark = new();
-            int b;
-
-            // Locale entries always start with hashes, so read all non-digit bytes.
-            while ((b = stream.ReadByte()) is < '0' or > '9')
-            {
-                byteOrderMark.Add((byte)b);
-            }
-
-            // Rewind to the last non-digit byte.
-            stream.Seek(-1, SeekOrigin.Current);
-            return byteOrderMark.ToArray();
         }
 
         /// <summary>
