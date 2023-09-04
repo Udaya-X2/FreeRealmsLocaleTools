@@ -17,24 +17,16 @@ namespace FreeRealmsLocaleTools.LocaleParser
         /// <summary>
         /// Opens the locale file, reads all locale entries from the file, and then closes the file.
         /// </summary>
-        /// <returns>An array containing all locale entries from the file.</returns>
+        /// <returns>An array containing all locale entries from the specified file.</returns>
         public static LocaleEntry[] ReadEntries(string localeDatPath)
         {
-            using FileReader reader = new(localeDatPath);
+            using LocaleReader reader = new(localeDatPath);
             List<LocaleEntry> localeEntries = new();
-            string? line;
+            LocaleEntry? entry;
 
-            while ((line = reader.ReadLine()) != null)
+            while ((entry = reader.ReadEntry()) != null)
             {
-                if (TryParseEntry(line, out LocaleEntry entry))
-                {
-                    localeEntries.Add(entry);
-                }
-                else
-                {
-                    entry = localeEntries[^1];
-                    localeEntries[^1] = entry with { Text = $"{entry.Text}{reader.PreviousLineEnding}{line}" };
-                }
+                localeEntries.Add(entry);
             }
 
             return localeEntries.ToArray();
@@ -43,7 +35,7 @@ namespace FreeRealmsLocaleTools.LocaleParser
         /// <summary>
         /// Opens the locale files, reads all locale entries from the files, and then closes the files.
         /// </summary>
-        /// <returns>An array containing all locale entries from the files.</returns>
+        /// <returns>An array containing all locale entries from the specified files.</returns>
         public static LocaleEntry[] ReadEntries(string localeDatPath, string localeDirPath)
         {
             // Read the location of each locale entry from the .dir file.
@@ -89,32 +81,10 @@ namespace FreeRealmsLocaleTools.LocaleParser
         }
 
         /// <summary>
-        /// Tries to convert the specified line to its locale entry equivalent.
-        /// A return value indicates whether the conversion succeeded or failed.
-        /// </summary>
-        /// <returns><see langword="true"/> if the conversion succeeded; <see langword="false"/> otherwise.</returns>
-        private static bool TryParseEntry(string line, out LocaleEntry entry)
-        {
-            int hashIndex = line.IndexOf('\t');
-
-            if (hashIndex != -1
-                && uint.TryParse(line.AsSpan(0, hashIndex), out uint hash)
-                && hashIndex + 5 < line.Length
-                && Enum.TryParse(line.AsSpan(hashIndex + 1, 4), out LocaleTag tag))
-            {
-                entry = new LocaleEntry(hash, tag, line[(hashIndex + 6)..]);
-                return true;
-            }
-
-            entry = null!;
-            return false;
-        }
-
-        /// <summary>
         /// Reads the location of each locale entry from the specified .dir file, and returns them in an array.
         /// </summary>
         /// <returns>An array of locale entry locations.</returns>
-        private static List<LocaleEntryLocation> ReadEntryLocations(string localeDirPath)
+        public static List<LocaleEntryLocation> ReadEntryLocations(string localeDirPath)
         {
             return File.ReadLines(localeDirPath)
                        .SkipWhile(x => x.StartsWith(MetadataHeader))
@@ -160,6 +130,11 @@ namespace FreeRealmsLocaleTools.LocaleParser
         }
 
         /// <summary>
+        /// Returns the number of digits in the given 32-bit unsigned integer.
+        /// </summary>
+        private static int GetDigitsLength(uint n) => (int)Math.Log10(Math.Max(n, 1u)) + 1;
+
+        /// <summary>
         /// Reads a line of characters from the stream into the buffer, starting from <paramref name="pos"/>.
         /// </summary>
         /// <returns>The new buffer position.</returns>
@@ -174,10 +149,5 @@ namespace FreeRealmsLocaleTools.LocaleParser
 
             return pos;
         }
-
-        /// <summary>
-        /// Returns the number of digits in the given 32-bit unsigned integer.
-        /// </summary>
-        private static int GetDigitsLength(uint n) => (int)Math.Log10(Math.Max(n, 1u)) + 1;
     }
 }

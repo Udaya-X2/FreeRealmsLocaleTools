@@ -15,6 +15,25 @@ namespace LocaleGenerator
 
         public static void Main()
         {
+            foreach (string datPath in Directory.EnumerateFiles(ClientFiles, "*data.dat", SearchOption.AllDirectories))
+            {
+                if (datPath.Contains("__MACOSX")
+                    || datPath.Contains("PS3")
+                    || (datPath.Contains("tcg") && datPath.Contains("zh_cn"))) continue;
+
+                string dirPath = Path.ChangeExtension(datPath, ".dir");
+
+                if (File.Exists(dirPath))
+                {
+                    Console.WriteLine(datPath);
+                    //LocaleFile.ReadEntries(datPath);
+                    //LocaleFile.ReadEntries(datPath, dirPath);
+                }
+            }
+
+            Console.WriteLine($"Elapsed time: {sw.Elapsed}");
+            return;
+
             //string localeDatFile = $@"{ClientPath}\locale\en_us_data.dat";
             //string localeDirFile = $@"{ClientPath}\locale\en_us_data.dir";
             //LocaleEntry[] entries = LocaleReader.ReadEntries(localeDatFile);
@@ -46,9 +65,16 @@ namespace LocaleGenerator
                     {
                         if (localeEntries1[i] != localeEntries2[i])
                         {
-                            Console.WriteLine(localeEntries1[i]);
-                            Console.WriteLine(localeEntries2[i]);
+                            Console.WriteLine(localeEntries1[i].ToString().Replace("\r", "^M"));
+                            Console.WriteLine(string.Concat(Enumerable.Repeat("-", Console.WindowWidth)));
+                            Console.WriteLine(localeEntries2[i].ToString().Replace("\r", "^M"));
                         }
+                    }
+
+                    if (!localeEntries1.SequenceEqual(localeEntries2))
+                    {
+                        Console.WriteLine("DISCREPANCY FOUND");
+                        Environment.Exit(0);
                     }
                     continue;
                     LocaleMetadata metadata = LocaleFile.ReadMetadata(dirPath);
