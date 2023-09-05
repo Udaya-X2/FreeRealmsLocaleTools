@@ -1,8 +1,6 @@
-﻿using CsvHelper;
-using FreeRealmsLocaleTools.IdHashing;
+﻿using FreeRealmsLocaleTools.IdHashing;
 using FreeRealmsLocaleTools.LocaleParser;
 using System.Diagnostics;
-using System.Globalization;
 
 namespace LocaleGenerator
 {
@@ -11,27 +9,24 @@ namespace LocaleGenerator
         private static readonly string ClientPath = Environment.ExpandEnvironmentVariables("%CLIENTPATH%");
         private static readonly string ClientFiles = Environment.ExpandEnvironmentVariables("%FRF%");
         private static readonly string OutputPath = "output.csv";
-        private static readonly Stopwatch sw = Stopwatch.StartNew();
+        private static readonly Stopwatch SW = Stopwatch.StartNew();
 
         public static void Main()
         {
             foreach (string datPath in Directory.EnumerateFiles(ClientFiles, "*data.dat", SearchOption.AllDirectories))
             {
-                if (datPath.Contains("__MACOSX")
-                    || datPath.Contains("PS3")
-                    || (datPath.Contains("tcg") && datPath.Contains("zh_cn"))) continue;
+                if (datPath.Contains("__MACOSX") || datPath.Contains("PS3")) continue;
 
                 string dirPath = Path.ChangeExtension(datPath, ".dir");
 
                 if (File.Exists(dirPath))
                 {
                     Console.WriteLine(datPath);
-                    //LocaleFile.ReadEntries(datPath);
-                    //LocaleFile.ReadEntries(datPath, dirPath);
+                    LocaleFileInfo info = new(datPath, dirPath, true);
                 }
             }
 
-            Console.WriteLine($"Elapsed time: {sw.Elapsed}");
+            Console.WriteLine($"Elapsed time: {SW.Elapsed}");
             return;
 
             //string localeDatFile = $@"{ClientPath}\locale\en_us_data.dat";
@@ -96,7 +91,7 @@ namespace LocaleGenerator
                 }
             }
 
-            Console.WriteLine($"Elapsed time: {sw.Elapsed}");
+            Console.WriteLine($"Elapsed time: {SW.Elapsed}");
         }
     }
 }

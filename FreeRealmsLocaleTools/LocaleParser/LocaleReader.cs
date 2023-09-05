@@ -12,9 +12,6 @@ namespace FreeRealmsLocaleTools.LocaleParser
         private const string UnixLineEnding = "\n";
         private const string MacLineEnding = "\r";
 
-        private static readonly byte[] UTF8Preamble1 = new byte[3] { 0xEF, 0xBB, 0xBF };
-        private static readonly byte[] UTF8Preamble2 = new byte[6] { 0xC3, 0xAF, 0xC2, 0xBB, 0xC2, 0xBF };
-
         private readonly FileStream _stream;
         private readonly Encoding _encoding;
         private readonly Decoder _decoder;
@@ -39,7 +36,7 @@ namespace FreeRealmsLocaleTools.LocaleParser
             _decoder = _encoding.GetDecoder();
             _byteBuffer = new byte[BufferSize];
             _charBuffer = new char[_encoding.GetMaxCharCount(BufferSize)];
-            Preamble = ReadPreamble();
+            Preamble = LocaleFile.ReadPreamble(_stream);
             _currEntry = ParseEntry(ReadLine());
         }
 
@@ -74,30 +71,6 @@ namespace FreeRealmsLocaleTools.LocaleParser
         }
 
         /// <summary>
-        /// Reads the preamble bytes at the beginning of the file.
-        /// </summary>
-        /// <returns>The bytes at the beginning of the file.</returns>
-        /// <exception cref="InvalidDataException"></exception>
-        private byte[] ReadPreamble()
-        {
-            _stream.Read(_byteBuffer, 0, 6);
-
-            if (_byteBuffer.Take(3).SequenceEqual(UTF8Preamble1))
-            {
-                _stream.Seek(3, SeekOrigin.Begin);
-                return UTF8Preamble1;
-            }
-            else if (_byteBuffer.Take(6).SequenceEqual(UTF8Preamble2))
-            {
-                return UTF8Preamble2;
-            }
-            else
-            {
-                throw new InvalidDataException($"Unrecognized preamble bytes in file '{_stream.Name}'");
-            }
-        }
-
-        /// <summary>
         /// Reads the next block of bytes from the stream into the buffers.
         /// </summary>
         /// <returns>The number of chars decoded from the block of bytes.</returns>
@@ -107,6 +80,34 @@ namespace FreeRealmsLocaleTools.LocaleParser
             _byteLen = _stream.Read(_byteBuffer, 0, BufferSize);
             _charLen = _decoder.GetChars(_byteBuffer, 0, _byteLen, _charBuffer, 0);
             return _charLen;
+        }
+
+        /// <summary>
+        /// Reads all locale entries from the current position to the end of the file.
+        /// </summary>
+        /// <returns>
+        /// The rest of the file as a list of locale entries, from the current position to the end.
+        /// If the current position is at the end of the file, returns an empty list.
+        /// </returns>
+        public List<LocaleEntry> ReadToEnd()
+        {
+            ThrowIfDisposed();
+            List<LocaleEntry> entries = new();
+
+            while (_currEntry != null)
+            {
+                LocaleEntry prevEntry = _currEntry!;
+                string? currLine = ReadLine();
+
+                if (!TryParseEntry(currLine, out _currEntry))
+                {
+                    prevEntry = ReadMultiLineEntry(prevEntry, currLine);
+                }
+
+                entries.Add(prevEntry);
+            }
+
+            return entries;
         }
 
         /// <summary>
@@ -139,6 +140,7 @@ namespace FreeRealmsLocaleTools.LocaleParser
             string text = $"{prevEntry.Text}{LineEnding}{currLine}";
             StringBuilder sb = new(text, text.Length + 80);
 
+            // Keep reading lines until we encounter the next locale entry.
             while (!TryParseEntry(currLine = ReadLine(), out _currEntry))
             {
                 sb.Append(LineEnding).Append(currLine);
@@ -221,12 +223,20 @@ namespace FreeRealmsLocaleTools.LocaleParser
         /// <returns>A locale entry equivalent to the contents in <paramref name="line"/>.</returns>
         private LocaleEntry? ParseEntry(string? line)
         {
-            if (!TryParseEntry(line, out LocaleEntry? entry))
-            {
-                throw new InvalidDataException($"Invalid locale entry in '{_stream.Name}': {line}");
-            }
+            if (string.IsNullOrWhiteSpace(line)) return null;
 
-            return entry;
+            try
+            {
+                int hashIndex = line.IndexOf('\t');
+                uint hash = uint.Parse(line.AsSpan(0, hashIndex));
+                LocaleTag tag = Enum.Parse<LocaleTag>(line.AsSpan(hashIndex + 1, 4));
+                string text = line[(hashIndex + 6)..];
+                return new LocaleEntry(hash, tag, text);
+            }
+            catch (Exception ex)
+            {
+                throw new InvalidDataException($"Invalid locale data in file '{_stream.Name}'", ex);
+            }
         }
 
         /// <summary>
