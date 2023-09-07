@@ -8,6 +8,9 @@ namespace FreeRealmsLocaleTools.IdHashing
     /// </summary>
     public static class Preimaging
     {
+        /// <summary>
+        /// Maximum ID that can appear in a locale .dat file.
+        /// </summary>
         public const int MaxId = 5103267;
 
         private static readonly Regex IdRegex = new(@"\t0017\tGlobal\.Text\.(\d+)$", RegexOptions.RightToLeft);

@@ -281,6 +281,7 @@ namespace FreeRealmsLocaleTools.LocaleParser
             }
         }
 
+        /// <inheritdoc/>
         public void Dispose()
         {
             if (_disposed) return;
