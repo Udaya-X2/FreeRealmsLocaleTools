@@ -17,6 +17,7 @@ namespace FreeRealmsLocaleTools.LocaleParser
         private readonly Decoder _decoder;
         private readonly byte[] _byteBuffer;
         private readonly char[] _charBuffer;
+        private readonly byte[] _preamble;
 
         private int _byteLen;
         private int _charPos;
@@ -36,14 +37,14 @@ namespace FreeRealmsLocaleTools.LocaleParser
             _decoder = _encoding.GetDecoder();
             _byteBuffer = new byte[BufferSize];
             _charBuffer = new char[_encoding.GetMaxCharCount(BufferSize)];
-            Preamble = LocaleFile.ReadPreamble(_stream);
+            _preamble = LocaleFile.ReadPreamble(_stream).ToArray();
             _currEntry = ParseEntry(ReadLine());
         }
 
         /// <summary>
         /// Gets the preamble bytes at the beginning of the file.
         /// </summary>
-        public byte[] Preamble { get; private init; }
+        public ReadOnlySpan<byte> Preamble => _preamble;
 
         /// <summary>
         /// Returns <see langword="true"/> if the reader can read a locale entry; otherwise <see langword="false"/>.
@@ -68,18 +69,6 @@ namespace FreeRealmsLocaleTools.LocaleParser
                 _prevLineEnding = _currLineEnding;
                 _currLineEnding = value;
             }
-        }
-
-        /// <summary>
-        /// Reads the next block of bytes from the stream into the buffers.
-        /// </summary>
-        /// <returns>The number of chars decoded from the block of bytes.</returns>
-        private int ReadBuffer()
-        {
-            _charPos = 0;
-            _byteLen = _stream.Read(_byteBuffer, 0, BufferSize);
-            _charLen = _decoder.GetChars(_byteBuffer, 0, _byteLen, _charBuffer, 0);
-            return _charLen;
         }
 
         /// <summary>
@@ -147,6 +136,18 @@ namespace FreeRealmsLocaleTools.LocaleParser
             }
 
             return prevEntry with { Text = sb.ToString() };
+        }
+
+        /// <summary>
+        /// Reads the next block of bytes from the stream into the buffers.
+        /// </summary>
+        /// <returns>The number of chars decoded from the block of bytes.</returns>
+        private int ReadBuffer()
+        {
+            _charPos = 0;
+            _byteLen = _stream.Read(_byteBuffer, 0, BufferSize);
+            _charLen = _decoder.GetChars(_byteBuffer, 0, _byteLen, _charBuffer, 0);
+            return _charLen;
         }
 
         /// <summary>
@@ -269,6 +270,16 @@ namespace FreeRealmsLocaleTools.LocaleParser
             return false;
         }
 
+        /// <inheritdoc/>
+        public void Dispose()
+        {
+            if (_disposed) return;
+
+            _disposed = true;
+            _stream.Dispose();
+            GC.SuppressFinalize(this);
+        }
+
         /// <summary>
         /// Throws an exception if this object has been disposed.
         /// </summary>
@@ -279,16 +290,6 @@ namespace FreeRealmsLocaleTools.LocaleParser
             {
                 throw new ObjectDisposedException(GetType().Name);
             }
-        }
-
-        /// <inheritdoc/>
-        public void Dispose()
-        {
-            if (_disposed) return;
-
-            _disposed = true;
-            _stream.Dispose();
-            GC.SuppressFinalize(this);
         }
     }
 }

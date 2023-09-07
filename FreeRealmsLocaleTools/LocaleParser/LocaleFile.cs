@@ -1,6 +1,7 @@
 ﻿using System.Data;
 using System.Text;
 using System.Text.RegularExpressions;
+using System.Xml.Linq;
 
 namespace FreeRealmsLocaleTools.LocaleParser
 {
@@ -43,22 +44,22 @@ namespace FreeRealmsLocaleTools.LocaleParser
         /// in <paramref name="locations"/>, and then closes the file.
         /// </summary>
         /// <returns>An array containing all locale entries specified in <paramref name="locations"/>.</returns>
-        public static LocaleEntry[] ReadEntries(string localeDatPath, IReadOnlyList<LocaleEntryLocation> locations)
+        public static LocaleEntry[] ReadEntries(string localeDatPath, IEnumerable<LocaleEntryLocation> locations)
         {
             // Open the .dat file for reading.
             using FileStream stream = File.OpenRead(localeDatPath);
-            byte[] buf = new byte[locations.Select(x => x.Size).Max()];
+            byte[] buf = new byte[locations.MaxOrDefault(x => x.Size)];
             char[] cbuf = new char[Encoding.UTF8.GetMaxCharCount(buf.Length)];
-            LocaleEntry[] localeEntries = new LocaleEntry[locations.Count];
+            LocaleEntry[] entries = new LocaleEntry[locations.Count()];
+            int entry = 0;
 
             // Look up the locale entry corresponding to each location.
-            for (int i = 0; i < locations.Count; i++)
+            foreach (LocaleEntryLocation location in locations)
             {
-                LocaleEntryLocation location = locations[i];
-                localeEntries[i] = ReadEntry(stream, buf, cbuf, location);
+                entries[entry++] = ReadEntry(stream, buf, cbuf, location);
             }
 
-            return localeEntries;
+            return entries;
         }
 
         /// <summary>
@@ -66,7 +67,7 @@ namespace FreeRealmsLocaleTools.LocaleParser
         /// </summary>
         /// <returns>The bytes at the beginning of the locale .dat file.</returns>
         /// <exception cref="InvalidDataException"></exception>
-        public static byte[] ReadPreamble(string localeDatPath)
+        public static ReadOnlySpan<byte> ReadPreamble(string localeDatPath)
         {
             using FileStream stream = new(localeDatPath, FileMode.Open, FileAccess.Read, FileShare.Read, PreambleSize);
             return ReadPreamble(stream);
@@ -78,7 +79,7 @@ namespace FreeRealmsLocaleTools.LocaleParser
         /// <param name="stream"></param>
         /// <returns>The bytes at the beginning of the stream.</returns>
         /// <exception cref="InvalidDataException"></exception>
-        public static byte[] ReadPreamble(FileStream stream)
+        public static ReadOnlySpan<byte> ReadPreamble(FileStream stream)
         {
             byte[] buffer = new byte[PreambleSize];
             stream.Read(buffer, 0, PreambleSize);
@@ -172,7 +173,7 @@ namespace FreeRealmsLocaleTools.LocaleParser
                 LocaleTag tag = Enum.Parse<LocaleTag>(new string(cbuf, startIndex - 5, 4));
 
                 // If the tag starts with 'm', read the leftover chars into the buffer.
-                if (tag is LocaleTag.mcdt or LocaleTag.mcdn or LocaleTag.mgdt)
+                if (tag.IsMtag())
                 {
                     charLen = ReadLine(stream, cbuf, charLen);
                 }

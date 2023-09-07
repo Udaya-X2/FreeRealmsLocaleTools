@@ -115,7 +115,7 @@ namespace FreeRealmsLocaleTools.LocaleParser
             string md5Checksum = Convert.ToHexString(md5.ComputeHash(stream));
 
             // Compute the maximum text length, in bytes.
-            int textLength = entries.Select(x => Encoding.UTF8.GetByteCount(x.Text)).DefaultIfEmpty().Max();
+            int textLength = entries.MaxOrDefault(x => Encoding.UTF8.GetByteCount(x.Text));
 
             return this with
             {

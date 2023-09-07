@@ -25,24 +25,14 @@ namespace FreeRealmsLocaleTools.IdHashing
 
             foreach (LocaleEntry entry in entries)
             {
-                switch (entry.Tag)
+                // If the tag indicates a hash collision, add the entry to the existing mapping.
+                if (entry.Tag.IsMtag() && hashToEntry.TryGetValue(entry.Hash, out List<LocaleEntry>? entryList))
                 {
-                    // If the tag indicates a hash collision, check whether a mapping already exists.
-                    case LocaleTag.mcdt:
-                    case LocaleTag.mcdn:
-                    case LocaleTag.mgdt:
-                        // Add the entry to the existing mapping.
-                        if (hashToEntry.TryGetValue(entry.Hash, out List<LocaleEntry>? entryList))
-                        {
-                            entryList.Add(entry);
-                            break;
-                        }
-                        
-                        goto default;
-                    // Create a new mapping from hash to entry.
-                    default:
-                        hashToEntry.Add(entry.Hash, new(1) { entry });
-                        break;
+                    entryList.Add(entry);
+                }
+                else
+                {
+                    hashToEntry.Add(entry.Hash, new(1) { entry });
                 }
             }
 
