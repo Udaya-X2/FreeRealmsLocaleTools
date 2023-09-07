@@ -8,7 +8,7 @@ namespace FreeRealmsLocaleTools.IdHashing
     /// </summary>
     public static class Preimaging
     {
-        private const int MaxId = 5103267;
+        public const int MaxId = 5103267;
 
         private static readonly Regex IdRegex = new(@"\t0017\tGlobal\.Text\.(\d+)$", RegexOptions.RightToLeft);
 
@@ -22,13 +22,24 @@ namespace FreeRealmsLocaleTools.IdHashing
 
             foreach (LocaleEntry entry in entries)
             {
-                if (hashToEntry.TryGetValue(entry.Hash, out List<LocaleEntry>? entryList))
+                switch (entry.Tag)
                 {
-                    entryList.Add(entry);
-                }
-                else
-                {
-                    hashToEntry[entry.Hash] = new(1) { entry };
+                    // If the tag indicates a hash collision, check whether a mapping already exists.
+                    case LocaleTag.mcdt:
+                    case LocaleTag.mcdn:
+                    case LocaleTag.mgdt:
+                        // Add the entry to the existing mapping.
+                        if (hashToEntry.TryGetValue(entry.Hash, out List<LocaleEntry>? entryList))
+                        {
+                            entryList.Add(entry);
+                            break;
+                        }
+                        
+                        goto default;
+                    // Create a new mapping from hash to entry.
+                    default:
+                        hashToEntry.Add(entry.Hash, new(1) { entry });
+                        break;
                 }
             }
 
@@ -39,10 +50,10 @@ namespace FreeRealmsLocaleTools.IdHashing
         /// Creates an ID for each hashable locale entry in the specified collection.
         /// </summary>
         /// <returns>A sorted dictionary mapping IDs to hashable locale entries.</returns>
-        public static SortedDictionary<uint, LocaleEntry> CreateIdMapping(IEnumerable<LocaleEntry> entries)
+        public static SortedDictionary<int, LocaleEntry> CreateIdMapping(IEnumerable<LocaleEntry> entries)
         {
             Dictionary<uint, LocaleEntry> hashToEntry = new();
-            SortedDictionary<uint, LocaleEntry> idToEntry = new();
+            SortedDictionary<int, LocaleEntry> idToEntry = new();
 
             // Create a mapping from hash to locale entry.
             foreach (LocaleEntry entry in entries)
@@ -57,14 +68,14 @@ namespace FreeRealmsLocaleTools.IdHashing
                     // Add locale entries that already have IDs to the ID dictionary.
                     case LocaleTag.mcdt:
                     case LocaleTag.mcdn:
-                        uint id = uint.Parse(IdRegex.Match(entry.Text).Groups[1].Value);
+                        int id = int.Parse(IdRegex.Match(entry.Text).Groups[1].Value);
                         idToEntry.Add(id, entry);
                         break;
                 }
             }
 
             // Until all hashes have been processed, keep creating IDs and hashing them.
-            for (uint id = 0; hashToEntry.Count > 0 && id <= MaxId; id++)
+            for (int id = 0; hashToEntry.Count > 0 && id <= MaxId; id++)
             {
                 uint hash = GetHash(id);
 
@@ -81,6 +92,6 @@ namespace FreeRealmsLocaleTools.IdHashing
         /// <summary>
         /// Returns the locale hash of the specified ID.
         /// </summary>
-        public static uint GetHash(uint id) => JenkinsLookup2.Hash($"Global.Text.{id}");
+        public static uint GetHash(int id) => JenkinsLookup2.Hash($"Global.Text.{id}");
     }
 }

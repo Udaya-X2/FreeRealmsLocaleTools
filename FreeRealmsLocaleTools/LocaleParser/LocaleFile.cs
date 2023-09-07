@@ -9,8 +9,9 @@ namespace FreeRealmsLocaleTools.LocaleParser
     /// </summary>
     public static class LocaleFile
     {
+        internal const int SkipTagChars = 6;        // Number of chars between the hash and locale text
+
         private const string MetadataHeader = "##"; // Chars that appear at the start of .dir metadata lines
-        private const int SkipTagChars = 6;         // Number of chars between the hash and locale text
         private const int PreambleSize = 6;         // Maximum preamble size
 
         private static readonly byte[] UTF8Preamble1 = new byte[3] { 0xEF, 0xBB, 0xBF };
@@ -98,9 +99,10 @@ namespace FreeRealmsLocaleTools.LocaleParser
         }
 
         /// <summary>
-        /// Reads the metadata lines from the specified .dir file, and returns it as a serialized object.
+        /// Reads the metadata lines from the specified .dir file.
         /// </summary>
         /// <returns>The metadata from the specified .dir file.</returns>
+        /// <exception cref="InvalidDataException"></exception>
         public static LocaleMetadata ReadMetadata(string localeDirPath)
         {
             LocaleMetadata metadata = new();
@@ -111,9 +113,16 @@ namespace FreeRealmsLocaleTools.LocaleParser
 
                 if (match.Success)
                 {
-                    string name = match.Groups[1].Value;
-                    string value = match.Groups[2].Value;
-                    metadata.SetProperty(name, value);
+                    try
+                    {
+                        string name = match.Groups[1].Value;
+                        string value = match.Groups[2].Value;
+                        metadata.SetProperty(name, value);
+                    }
+                    catch (Exception ex)
+                    {
+                        throw new InvalidDataException($"Invalid metadata line: {line}", ex);
+                    }
                 }
             }
 

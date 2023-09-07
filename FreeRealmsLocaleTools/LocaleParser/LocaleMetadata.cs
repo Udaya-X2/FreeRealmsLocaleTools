@@ -8,7 +8,7 @@ namespace FreeRealmsLocaleTools.LocaleParser
     /// <summary>
     /// Provides properties and instance methods to store metadata from a Free Realms .dir file.
     /// </summary>
-    public class LocaleMetadata
+    public record LocaleMetadata()
     {
         private const string LocaleDateFormat = "ddd MMM dd HH:mm:ss \"{0}\" yyyy";
         private const int LocaleFileNameLength = 14;
@@ -77,38 +77,55 @@ namespace FreeRealmsLocaleTools.LocaleParser
         public Version? ExtractionVersion { get; set; }
 
         /// <summary>
-        /// Initializes this metadata instance's properties with the specified .dat file and locale entries.
+        /// Creates a new instance of <see cref="LocaleMetadata"/> from the specified .dat file and locale entries.
         /// </summary>
-        /// <returns>This metadata instance.</returns>
-        public LocaleMetadata Populate(string localeDatFile, IEnumerable<LocaleEntry> entries)
+        /// <returns>A new metadata instance with some properties initialized.</returns>
+        public static LocaleMetadata Create(string localeDatFile, IEnumerable<LocaleEntry> entries)
+        {
+            return new LocaleMetadata().Update(localeDatFile, entries);
+        }
+
+        /// <summary>
+        /// Creates a copy of this metadata and updates its properties with the specified .dat file and locale entries.
+        /// </summary>
+        /// <returns>A copy of this metadata instance with the updated properties.</returns>
+        public LocaleMetadata Update(string localeDatFile, IEnumerable<LocaleEntry> entries)
         {
             // Count the number of locale entries.
-            Count = entries.Count();
+            int count = entries.Count();
 
-            // Use the current date for the metadata, if one does not exist yet.
-            Date ??= DateTime.UtcNow.ToString(GetDateFormat("UTC"));
-            ExtractionDate ??= (IsExtracted() ? Date : null);
+            // Use the current date for the metadata, if uninitialized.
+            string date = DateTime.UtcNow.ToString(GetDateFormat("UTC"));
 
-            // Get the locale type from the filename, if possible.
+            // Get the locale type from the filename, if uninitialized.
             string filename = Path.GetFileName(localeDatFile);
+            Locale? locale = null;
 
             if (filename.Length == LocaleFileNameLength)
             {
-                if (Enum.TryParse(filename[..LocaleCodeLength], ignoreCase: true, out Locale locale))
+                if (Enum.TryParse(filename[..LocaleCodeLength], ignoreCase: true, out Locale fileLocale))
                 {
-                    Locale = locale;
+                    locale = fileLocale;
                 }
             }
 
             // Compute the MD5 checksum.
             using MD5 md5 = MD5.Create();
             using FileStream stream = File.OpenRead(localeDatFile);
-            MD5Checksum = Convert.ToHexString(md5.ComputeHash(stream));
+            string md5Checksum = Convert.ToHexString(md5.ComputeHash(stream));
 
             // Compute the maximum text length, in bytes.
-            TextLength = entries.Select(x => x.GetByteLength()).DefaultIfEmpty().Max();
+            int textLength = entries.Select(x => Encoding.UTF8.GetByteCount(x.Text)).DefaultIfEmpty().Max();
 
-            return this;
+            return this with
+            {
+                Count = count,
+                Date = Date ?? date,
+                Locale = Locale ?? locale,
+                MD5Checksum = md5Checksum,
+                TextLength = textLength,
+                ExtractionDate = IsExtracted() ? (ExtractionDate ?? date) : null,
+            };
         }
 
         /// <summary>
@@ -140,7 +157,7 @@ namespace FreeRealmsLocaleTools.LocaleParser
         public bool IsExtracted() => ExtractionDate != null || ExtractionVersion != null;
 
         /// <summary>
-        /// Returns <see langword="true"/> if the metadata refers to a TCG locale; <see langword="false"/> otherwise.
+        /// Returns <see langword="true"/> if the metadata refers to a TCG locale; otherwise <see langword="false"/>.
         /// </summary>
         public bool IsTCG() => (IsExtracted(), Game) switch
         {
