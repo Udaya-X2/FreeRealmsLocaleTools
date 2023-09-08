@@ -1,7 +1,6 @@
 ﻿using System.Data;
 using System.Text;
 using System.Text.RegularExpressions;
-using System.Xml.Linq;
 
 namespace FreeRealmsLocaleTools.LocaleParser
 {
@@ -138,20 +137,8 @@ namespace FreeRealmsLocaleTools.LocaleParser
         {
             return File.ReadLines(localeDirPath)
                        .SkipWhile(x => x.StartsWith(MetadataHeader))
-                       .Select(x => ReadEntryLocation(x))
+                       .Select(x => LocaleEntryLocation.Parse(x))
                        .ToArray();
-        }
-
-        /// <summary>
-        /// Initializes a new instance of <see cref="LocaleEntryLocation"/> by parsing the given .dir file line.
-        /// </summary>
-        private static LocaleEntryLocation ReadEntryLocation(string localeDirLine)
-        {
-            string[] components = localeDirLine.Split('\t');
-            uint hash = uint.Parse(components[0]);
-            int offset = int.Parse(components[1]);
-            int size = int.Parse(components[2]);
-            return new LocaleEntryLocation(hash, offset, size);
         }
 
         /// <summary>

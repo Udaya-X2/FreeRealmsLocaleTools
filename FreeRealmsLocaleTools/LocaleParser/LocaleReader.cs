@@ -38,7 +38,7 @@ namespace FreeRealmsLocaleTools.LocaleParser
             _byteBuffer = new byte[BufferSize];
             _charBuffer = new char[_encoding.GetMaxCharCount(BufferSize)];
             _preamble = LocaleFile.ReadPreamble(_stream).ToArray();
-            _currEntry = ParseEntry(ReadLine());
+            _currEntry = ParseEntryOrDefault(ReadLine());
         }
 
         /// <summary>
@@ -218,26 +218,14 @@ namespace FreeRealmsLocaleTools.LocaleParser
             return sb.ToString();
         }
 
-        /// <summary>
-        /// Converts the specified line to its locale entry equivalent.
-        /// </summary>
-        /// <returns>A locale entry equivalent to the contents in <paramref name="line"/>.</returns>
-        private LocaleEntry? ParseEntry(string? line)
+        /// <summary><inheritdoc cref="LocaleEntry.Parse(string)"/></summary>
+        /// <returns>
+        /// The locale entry parsed from the contents of <paramref name="line"/>,
+        /// or <paramref name="defaultValue"/> if the line is null or whitespace.
+        /// </returns>
+        private static LocaleEntry? ParseEntryOrDefault(string? line, LocaleEntry? defaultValue = default)
         {
-            if (string.IsNullOrWhiteSpace(line)) return null;
-
-            try
-            {
-                int hashIndex = line.IndexOf('\t');
-                uint hash = uint.Parse(line.AsSpan(0, hashIndex));
-                LocaleTag tag = Enum.Parse<LocaleTag>(line.AsSpan(hashIndex + 1, 4));
-                string text = line[(hashIndex + 6)..];
-                return new LocaleEntry(hash, tag, text);
-            }
-            catch (Exception ex)
-            {
-                throw new InvalidDataException($"Invalid locale data in file '{_stream.Name}'", ex);
-            }
+            return string.IsNullOrWhiteSpace(line) ? defaultValue : LocaleEntry.Parse(line);
         }
 
         /// <summary>

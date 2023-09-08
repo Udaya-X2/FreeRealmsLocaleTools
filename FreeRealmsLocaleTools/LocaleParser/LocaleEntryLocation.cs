@@ -9,6 +9,27 @@
     public record LocaleEntryLocation(uint Hash, int Offset, int Size)
     {
         /// <summary>
+        /// Initializes a new instance of <see cref="LocaleEntryLocation"/> by parsing the given .dir file line.
+        /// </summary>
+        /// <returns>The locale entry location parsed from the contents of <paramref name="line"/>.</returns>
+        /// <exception cref="FormatException"/>
+        public static LocaleEntryLocation Parse(string line)
+        {
+            try
+            {
+                string[] components = line.Split('\t');
+                uint hash = uint.Parse(components[0]);
+                int offset = int.Parse(components[1]);
+                int size = int.Parse(components[2]);
+                return new LocaleEntryLocation(hash, offset, size);
+            }
+            catch (Exception ex)
+            {
+                throw new FormatException($"Invalid locale entry location: {line}", ex);
+            }
+        }
+
+        /// <summary>
         /// Returns a string representation of this locale entry location.
         /// </summary>
         public override string ToString() => $"{Hash}\t{Offset}\t{Size}\td";

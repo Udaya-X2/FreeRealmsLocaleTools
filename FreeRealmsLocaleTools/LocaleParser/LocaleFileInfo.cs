@@ -24,14 +24,14 @@ namespace FreeRealmsLocaleTools.LocaleParser
         /// Initializes a new instance of <see cref="LocaleFileInfo"/>
         /// from the specified locale .dat file and optional settings.
         /// </summary>
-        public LocaleFileInfo(string localeDatFile, bool canAddEntries = false)
+        public LocaleFileInfo(string localeDatPath, bool canAddEntries = false)
         {
-            LocaleDatFile = new(localeDatFile);
-            LocaleDirFile = new(Path.ChangeExtension(localeDatFile, ".dir"));
-            Preamble = LocaleFile.ReadPreamble(localeDatFile);
+            LocaleDatFile = new(localeDatPath);
+            LocaleDirFile = new(Path.ChangeExtension(localeDatPath, ".dir"));
+            Preamble = LocaleFile.ReadPreamble(localeDatPath);
             Locations = Array.Empty<LocaleEntryLocation>();
-            Entries = LocaleFile.ReadEntries(localeDatFile);
-            Metadata = LocaleMetadata.Create(localeDatFile, Entries);
+            Entries = LocaleFile.ReadEntries(localeDatPath);
+            Metadata = LocaleMetadata.Create(localeDatPath, Entries);
             CanAddEntries = canAddEntries;
         }
 
@@ -39,19 +39,19 @@ namespace FreeRealmsLocaleTools.LocaleParser
         /// Initializes a new instance of <see cref="LocaleFileInfo"/> from the
         /// specified locale .dat file, locale .dir file, and optional settings.
         /// </summary>
-        public LocaleFileInfo(string localeDatFile, string localeDirFile, bool canAddEntries = false)
+        public LocaleFileInfo(string localeDatPath, string localeDirPath, bool canAddEntries = false)
         {
-            LocaleDatFile = new(localeDatFile);
-            LocaleDirFile = new(localeDirFile);
-            Preamble = LocaleFile.ReadPreamble(localeDatFile);
-            Metadata = LocaleFile.ReadMetadata(localeDirFile);
-            Locations = LocaleFile.ReadEntryLocations(localeDirFile);
+            LocaleDatFile = new(localeDatPath);
+            LocaleDirFile = new(localeDirPath);
+            Preamble = LocaleFile.ReadPreamble(localeDatPath);
+            Metadata = LocaleFile.ReadMetadata(localeDirPath);
+            Locations = LocaleFile.ReadEntryLocations(localeDirPath);
 
             // Some Simplified Chinese TCG locales have incorrect .dir files,
             // so use the .dat file exclusively to read entries for them.
             Entries = Metadata.IsTCG() && Metadata.Locale == Locale.zh_CN
-                    ? LocaleFile.ReadEntries(localeDatFile)
-                    : LocaleFile.ReadEntries(localeDatFile, localeDirFile);
+                    ? LocaleFile.ReadEntries(localeDatPath)
+                    : LocaleFile.ReadEntries(localeDatPath, localeDirPath);
 
             CanAddEntries = canAddEntries;
         }
@@ -59,8 +59,8 @@ namespace FreeRealmsLocaleTools.LocaleParser
         /// <summary>
         /// Initializes a new instance of <see cref="LocaleFileInfo"/> from the specified parameters.
         /// </summary>
-        private LocaleFileInfo(FileInfo localeDatFile, FileInfo localeDirFile, ReadOnlySpan<byte> preamble,
-                               LocaleMetadata metadata, LocaleEntryLocation[] locations, LocaleEntry[] entries)
+        internal LocaleFileInfo(FileInfo localeDatFile, FileInfo localeDirFile, ReadOnlySpan<byte> preamble,
+                                LocaleMetadata metadata, LocaleEntryLocation[] locations, LocaleEntry[] entries)
         {
             LocaleDatFile = localeDatFile;
             LocaleDirFile = localeDirFile;
@@ -159,6 +159,11 @@ namespace FreeRealmsLocaleTools.LocaleParser
         }
 
         /// <summary>
+        /// Gets the current ID.
+        /// </summary>
+        private int CurrentId => _unusedIds!.Current;
+
+        /// <summary>
         /// Gets the next unused ID.
         /// </summary>
         private int NextId => _unusedIds!.MoveNext()
@@ -166,7 +171,7 @@ namespace FreeRealmsLocaleTools.LocaleParser
                             : throw new InvalidOperationException("No more IDs to add entries.");
 
         /// <summary>
-        /// Adds a locale entry for each string in the specified collection to the ID/hash -> entry mappings.
+        /// Adds the specified collection of strings as locale entries to the ID/hash -> entry mappings.
         /// </summary>
         /// <remarks><inheritdoc cref="AddEntry(string)"/></remarks>
         public void AddEntries(IEnumerable<string> contents)
@@ -188,21 +193,16 @@ namespace FreeRealmsLocaleTools.LocaleParser
             if (!_canAddEntries) throw new InvalidOperationException("Adding entries is not supported.");
             if (text == null) throw new ArgumentNullException(nameof(text));
 
-            // Generate an ID, hash, and tag for the new locale entry.
-            int id = NextId;
-            uint hash = Preimaging.GetHash(id);
-            LocaleTag tag = text != "" ? LocaleTag.ucdt : LocaleTag.ucdn;
-            LocaleEntry entry = new(hash, tag, text);
+            // Generate an new locale entry from the next unused ID.
+            LocaleEntry entry = Preimaging.GenerateEntry(NextId, text);
 
-            // If the current ID's hash collides with an existing hash, find another ID.
-            while (!_hashToEntry!.TryAdd(hash, new(1) { entry }))
+            // If the current ID's hash collides with another entry, find another ID.
+            while (!_hashToEntry!.TryAdd(entry.Hash, new(1) { entry }))
             {
-                id = NextId;
-                hash = Preimaging.GetHash(id);
-                entry = entry with { Hash = hash };
+                entry = entry with { Hash = Preimaging.GetHash(NextId) };
             }
 
-            _idToEntry!.Add(id, entry);
+            _idToEntry!.Add(CurrentId, entry);
         }
 
         /// <summary>
@@ -217,9 +217,9 @@ namespace FreeRealmsLocaleTools.LocaleParser
         /// Writes the stored locale entries to the specified .dat file and .dir file.
         /// </summary>
         /// <returns><inheritdoc cref="WriteEntries(FileInfo, FileInfo)"/></returns>
-        public LocaleFileInfo WriteEntries(string localeDatFile, string localeDirFile)
+        public LocaleFileInfo WriteEntries(string localeDatPath, string localeDirPath)
         {
-            return WriteEntries(new FileInfo(localeDatFile), new FileInfo(localeDirFile));
+            return WriteEntries(new FileInfo(localeDatPath), new FileInfo(localeDirPath));
         }
 
         /// <summary>

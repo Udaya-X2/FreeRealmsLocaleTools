@@ -83,6 +83,49 @@ namespace FreeRealmsLocaleTools.IdHashing
         }
 
         /// <summary>
+        /// Generates an array of locale entries from the specified collection of strings.
+        /// </summary>
+        /// <returns>An array of locale entries with unique hashes, ordered by distinct ID number.</returns>
+        public static LocaleEntry[] GenerateEntries(IEnumerable<string> strings)
+        {
+            LocaleEntry[] entries = new LocaleEntry[strings.Count()];
+            HashSet<uint> hashes = new();
+            int index = 0;
+            int id = 1;
+
+            if (entries.Length > MaxId)
+            {
+                throw new ArgumentException($"Collection size ({entries.Length}) exceeds maximum ID ({MaxId}).");
+            }
+
+            foreach (string text in strings)
+            {
+                LocaleEntry entry = GenerateEntry(id++, text);
+
+                // If the current ID's hash collides with another entry, find another ID.
+                while (!hashes.Add(entry.Hash))
+                {
+                    entry = entry with { Hash = GetHash(id++) };
+                }
+
+                entries[index++] = entry;
+            }
+
+            return entries;
+        }
+
+        /// <summary>
+        /// Initializes a new instance of <see cref="LocaleEntry"/> from the specified ID and text.
+        /// </summary>
+        /// <returns>A locale entry with the specified text and hash generated from the ID.</returns>
+        public static LocaleEntry GenerateEntry(int id, string text)
+        {
+            uint hash = GetHash(id);
+            LocaleTag tag = text != "" ? LocaleTag.ucdt : LocaleTag.ucdn;
+            return new(hash, tag, text);
+        }
+
+        /// <summary>
         /// Returns the locale hash of the specified ID.
         /// </summary>
         public static uint GetHash(int id) => JenkinsLookup2.Hash($"Global.Text.{id}");
