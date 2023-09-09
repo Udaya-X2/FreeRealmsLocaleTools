@@ -5,7 +5,7 @@ using System.Text.RegularExpressions;
 namespace FreeRealmsLocaleTools.LocaleParser
 {
     /// <summary>
-    /// Provides static methods for obtaining information from Free Realms locale files.
+    /// Provides static methods for reading and writing Free Realms locale files.
     /// </summary>
     public static class LocaleFile
     {
@@ -139,6 +139,32 @@ namespace FreeRealmsLocaleTools.LocaleParser
                        .SkipWhile(x => x.StartsWith(MetadataHeader))
                        .Select(x => LocaleEntryLocation.Parse(x))
                        .ToArray();
+        }
+
+        /// <summary>
+        /// Adds the specified collection of strings as locale entries to the given .dat file and .dir file.
+        /// </summary>
+        /// <returns>A <see cref="LocaleFileInfo"/> instance that wraps the locale files.</returns>
+        public static LocaleFileInfo AddEntries(string localeDatPath,
+                                                string localeDirPath,
+                                                IEnumerable<string> strings)
+        {
+            LocaleFileInfo localeFile = new(localeDatPath, localeDirPath);
+            localeFile.AddEntries(strings);
+            return localeFile.WriteEntries();
+        }
+
+        /// <summary>
+        /// Removes all locale entries that match the specified predicate from the given .dat file and .dir file.
+        /// </summary>
+        /// <returns>A <see cref="LocaleFileInfo"/> instance that wraps the locale files.</returns>
+        public static LocaleFileInfo RemoveEntries(string localeDatPath,
+                                                   string localeDirPath,
+                                                   Func<LocaleEntry, bool> predicate)
+        {
+            LocaleFileInfo localeFile = new(localeDatPath, localeDirPath);
+            localeFile.RemoveEntries(predicate);
+            return localeFile.WriteEntries();
         }
 
         /// <summary>

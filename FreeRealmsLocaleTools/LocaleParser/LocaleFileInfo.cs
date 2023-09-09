@@ -55,8 +55,8 @@ namespace FreeRealmsLocaleTools.LocaleParser
         /// <summary>
         /// Initializes a new instance of <see cref="LocaleFileInfo"/> from the specified parameters.
         /// </summary>
-        internal LocaleFileInfo(FileInfo localeDatFile, FileInfo localeDirFile, ReadOnlySpan<byte> preamble,
-                                LocaleMetadata metadata, LocaleEntryLocation[] locations, LocaleEntry[] entries)
+        private LocaleFileInfo(FileInfo localeDatFile, FileInfo localeDirFile, ReadOnlySpan<byte> preamble,
+                               LocaleMetadata metadata, LocaleEntryLocation[] locations, LocaleEntry[] entries)
         {
             LocaleDatFile = localeDatFile;
             LocaleDirFile = localeDirFile;
@@ -161,6 +161,7 @@ namespace FreeRealmsLocaleTools.LocaleParser
         /// <summary>
         /// Adds the specified collection of strings as locale entries to the ID/hash -> entry mappings.
         /// </summary>
+        /// <remarks>The stored entries can be written with any of the <c>WriteEntries()</c> methods.</remarks>
         /// <exception cref="ArgumentNullException"/>
         public void AddEntries(IEnumerable<string> contents)
         {
@@ -175,6 +176,7 @@ namespace FreeRealmsLocaleTools.LocaleParser
         /// <summary>
         /// Adds a locale entry with the specified text to the ID/hash -> entry mappings.
         /// </summary>
+        /// <remarks><inheritdoc cref="AddEntries(IEnumerable{string})"/></remarks>
         /// <exception cref="ArgumentNullException"></exception>
         public void AddEntry(string text)
         {
@@ -195,6 +197,7 @@ namespace FreeRealmsLocaleTools.LocaleParser
         /// <summary>
         /// Removes all entries that match the specified predicate from the ID/hash -> entry mappings.
         /// </summary>
+        /// <remarks><inheritdoc cref="AddEntries(IEnumerable{string})"/></remarks>
         /// <returns>The number of locale entries removed.</returns>
         public int RemoveEntries(Func<LocaleEntry, bool> predicate)
         {

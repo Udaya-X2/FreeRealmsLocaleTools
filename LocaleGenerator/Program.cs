@@ -1,7 +1,5 @@
-﻿using CsvHelper;
-using FreeRealmsLocaleTools.LocaleParser;
+﻿using FreeRealmsLocaleTools.LocaleParser;
 using System.Diagnostics;
-using System.Globalization;
 
 namespace LocaleGenerator
 {
@@ -14,18 +12,17 @@ namespace LocaleGenerator
         public static void Main()
         {
             Stopwatch sw = Stopwatch.StartNew();
-            LocaleFileInfo localeFile = new($@"C:\Users\udaya\Downloads\FR Files\Free Realms [2014-03-27, Nird]\Free Realms\locale\en_us_data.dat",
-                                            $@"C:\Users\udaya\Downloads\FR Files\Free Realms [2014-03-27, Nird]\Free Realms\locale\en_us_data.dir");
-            Console.WriteLine(localeFile.IdToEntry.Count);
-            Console.WriteLine(localeFile.RemoveEntries(x => x.Tag is (LocaleTag.ucdt)));
-            Console.WriteLine(localeFile.IdToEntry.Count);
-            localeFile.WriteEntries($@"{ClientPath}\locale\en_us_data.dat", $@"{ClientPath}\locale\en_us_data.dir");
+            string datFile2014 = $@"C:\Users\udaya\Downloads\FR Files\Free Realms [2014-03-27, Nird]\Free Realms\locale\en_us_data.dat";
+            string dirFile2014 = $@"C:\Users\udaya\Downloads\FR Files\Free Realms [2014-03-27, Nird]\Free Realms\locale\en_us_data.dir";
+            LocaleFile.RemoveEntries($@"{ClientPath}\locale\en_us_data.dat",
+                                     $@"{ClientPath}\locale\en_us_data.dir",
+                                     x => x.Tag is LocaleTag.ugdn);
 
-            using StreamWriter writer = new(OutputPath);
-            using var csv = new CsvWriter(writer, CultureInfo.InvariantCulture);
-            csv.WriteHeader(new { Id = 0u, Hash = 0u, Tag = default(LocaleTag), Text = "" }.GetType());
-            csv.NextRecord();
-            csv.WriteRecords(localeFile.IdToEntry);
+            //using StreamWriter writer = new(OutputPath);
+            //using var csv = new CsvWriter(writer, CultureInfo.InvariantCulture);
+            //csv.WriteHeader(new { Id = 0u, Hash = 0u, Tag = default(LocaleTag), Text = "" }.GetType());
+            //csv.NextRecord();
+            //csv.WriteRecords(localeFile.IdToEntry);
 
             Console.WriteLine($"Elapsed time: {sw.Elapsed}");
             return;
