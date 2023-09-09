@@ -18,13 +18,12 @@ namespace FreeRealmsLocaleTools.LocaleParser
         private SortedDictionary<int, LocaleEntry>? _idToEntry;
         private SortedDictionary<uint, List<LocaleEntry>>? _hashToEntry;
         private IEnumerator<int>? _unusedIds;
-        private bool _canAddEntries;
 
         /// <summary>
         /// Initializes a new instance of <see cref="LocaleFileInfo"/>
         /// from the specified locale .dat file and optional settings.
         /// </summary>
-        public LocaleFileInfo(string localeDatPath, bool canAddEntries = false)
+        public LocaleFileInfo(string localeDatPath)
         {
             LocaleDatFile = new(localeDatPath);
             LocaleDirFile = new(Path.ChangeExtension(localeDatPath, ".dir"));
@@ -32,14 +31,13 @@ namespace FreeRealmsLocaleTools.LocaleParser
             Locations = Array.Empty<LocaleEntryLocation>();
             Entries = LocaleFile.ReadEntries(localeDatPath);
             Metadata = LocaleMetadata.Create(localeDatPath, Entries);
-            CanAddEntries = canAddEntries;
         }
 
         /// <summary>
         /// Initializes a new instance of <see cref="LocaleFileInfo"/> from the
         /// specified locale .dat file, locale .dir file, and optional settings.
         /// </summary>
-        public LocaleFileInfo(string localeDatPath, string localeDirPath, bool canAddEntries = false)
+        public LocaleFileInfo(string localeDatPath, string localeDirPath)
         {
             LocaleDatFile = new(localeDatPath);
             LocaleDirFile = new(localeDirPath);
@@ -52,8 +50,6 @@ namespace FreeRealmsLocaleTools.LocaleParser
             Entries = Metadata.IsTCG() && Metadata.Locale == Locale.zh_CN
                     ? LocaleFile.ReadEntries(localeDatPath)
                     : LocaleFile.ReadEntries(localeDatPath, localeDirPath);
-
-            CanAddEntries = canAddEntries;
         }
 
         /// <summary>
@@ -106,6 +102,11 @@ namespace FreeRealmsLocaleTools.LocaleParser
         public LocaleEntry[] Entries { get; private init; }
 
         /// <summary>
+        /// Gets whether adding locale entries is supported.
+        /// </summary>
+        public bool CanAddEntries => !Metadata.IsTCG();
+
+        /// <summary>
         /// Gets a sorted mapping from IDs to locale entries.
         /// </summary>
         /// <exception cref="InvalidOperationException"></exception>
@@ -113,10 +114,12 @@ namespace FreeRealmsLocaleTools.LocaleParser
         {
             get
             {
-                if (Metadata.IsTCG()) throw new InvalidOperationException("Cannot create IDs for a TCG locale file.");
-
-                _idToEntry ??= Preimaging.CreateIdMapping(Entries);
-                return _idToEntry;
+                // TCG locale files don't hash IDs the same way as game locale
+                // files, so creating IDs for TCG locale files is unsupported.
+                if (_idToEntry != null) return _idToEntry;
+                else if (_hashToEntry != null) return _idToEntry = Preimaging.CreateIdMapping(StoredEntries);
+                else if (CanAddEntries) return _idToEntry = Preimaging.CreateIdMapping(Entries);
+                else throw new InvalidOperationException("Cannot create IDs for a TCG locale file.");
             }
         }
 
@@ -127,55 +130,42 @@ namespace FreeRealmsLocaleTools.LocaleParser
         {
             get
             {
-                _hashToEntry ??= Preimaging.CreateHashMapping(Entries);
-                return _hashToEntry;
+                return _hashToEntry ??= Preimaging.CreateHashMapping(Entries);
             }
         }
 
         /// <summary>
-        /// Gets or sets whether adding locale entries is supported.
+        /// Gets a view of the stored locale entries, including additions and removals, ordered by hash.
         /// </summary>
-        public bool CanAddEntries
-        {
-            get => _canAddEntries;
-            set
-            {
-                // TCG locale files don't hash IDs the same way as game locale
-                // files, so adding entries to TCG locale files is unsupported.
-                if (value && !Metadata.IsTCG())
-                {
-                    _idToEntry ??= Preimaging.CreateIdMapping(Entries);
-                    _hashToEntry ??= Preimaging.CreateHashMapping(Entries);
-                    _unusedIds ??= Enumerable.Range(1, Preimaging.MaxId)
-                                             .Where(x => !_idToEntry.ContainsKey(x))
-                                             .GetEnumerator();
-                    _canAddEntries = true;
-                }
-                else
-                {
-                    _canAddEntries = false;
-                }
-            }
-        }
+        public IEnumerable<LocaleEntry> StoredEntries => HashToEntry.SelectMany(x => x.Value);
+
+        /// <summary>
+        /// Gets an enumerator for unused IDs.
+        /// </summary>
+        private IEnumerator<int> UnusedIds => _unusedIds ??= Enumerable.Range(1, Preimaging.MaxId)
+                                                                       .Where(x => !IdToEntry.ContainsKey(x))
+                                                                       .GetEnumerator();
 
         /// <summary>
         /// Gets the current ID.
         /// </summary>
-        private int CurrentId => _unusedIds!.Current;
+        private int CurrentId => UnusedIds.Current;
 
         /// <summary>
         /// Gets the next unused ID.
         /// </summary>
-        private int NextId => _unusedIds!.MoveNext()
-                            ? _unusedIds.Current
+        private int NextId => UnusedIds.MoveNext()
+                            ? UnusedIds.Current
                             : throw new InvalidOperationException("No more IDs to add entries.");
 
         /// <summary>
         /// Adds the specified collection of strings as locale entries to the ID/hash -> entry mappings.
         /// </summary>
-        /// <remarks><inheritdoc cref="AddEntry(string)"/></remarks>
+        /// <exception cref="ArgumentNullException"/>
         public void AddEntries(IEnumerable<string> contents)
         {
+            if (contents == null) throw new ArgumentNullException(nameof(contents));
+
             foreach (string text in contents)
             {
                 AddEntry(text);
@@ -185,24 +175,64 @@ namespace FreeRealmsLocaleTools.LocaleParser
         /// <summary>
         /// Adds a locale entry with the specified text to the ID/hash -> entry mappings.
         /// </summary>
-        /// <remarks>The stored entries can be written with any of the <c>WriteEntries()</c> methods.</remarks>
-        /// <exception cref="InvalidOperationException"></exception>
         /// <exception cref="ArgumentNullException"></exception>
         public void AddEntry(string text)
         {
-            if (!_canAddEntries) throw new InvalidOperationException("Adding entries is not supported.");
             if (text == null) throw new ArgumentNullException(nameof(text));
 
             // Generate an new locale entry from the next unused ID.
             LocaleEntry entry = Preimaging.GenerateEntry(NextId, text);
 
             // If the current ID's hash collides with another entry, find another ID.
-            while (!_hashToEntry!.TryAdd(entry.Hash, new(1) { entry }))
+            while (!HashToEntry.TryAdd(entry.Hash, new(1) { entry }))
             {
                 entry = entry with { Hash = Preimaging.GetHash(NextId) };
             }
 
-            _idToEntry!.Add(CurrentId, entry);
+            IdToEntry.Add(CurrentId, entry);
+        }
+
+        /// <summary>
+        /// Removes all entries that match the specified predicate from the ID/hash -> entry mappings.
+        /// </summary>
+        /// <returns>The number of locale entries removed.</returns>
+        public int RemoveEntries(Func<LocaleEntry, bool> predicate)
+        {
+            HashSet<LocaleEntry> entries = StoredEntries.Where(predicate).ToHashSet();
+            int entriesRemoved = 0;
+
+            // Remove entries from the hash -> entry mapping.
+            foreach (LocaleEntry entry in entries)
+            {
+                // If the tag indicates a hash collision, remove identical entries from the bucket.
+                if (entry.Tag.IsMtag())
+                {
+                    List<LocaleEntry> mtagEntries = HashToEntry[entry.Hash];
+                    entriesRemoved += mtagEntries.RemoveAll(x => x == entry);
+
+                    // If the bucket is empty, remove the element from the dictionary.
+                    if (mtagEntries.Count == 0)
+                    {
+                        HashToEntry.Remove(entry.Hash);
+                    }
+                }
+                else
+                {
+                    HashToEntry.Remove(entry.Hash);
+                    entriesRemoved++;
+                }
+            }
+
+            // Remove entries from the ID -> entry mapping, if one was created.
+            foreach (var kvp in _idToEntry?.ToList() ?? Enumerable.Empty<KeyValuePair<int, LocaleEntry>>())
+            {
+                if (entries.Contains(kvp.Value))
+                {
+                    IdToEntry.Remove(kvp.Key);
+                }
+            }
+
+            return entriesRemoved;
         }
 
         /// <summary>
@@ -230,7 +260,7 @@ namespace FreeRealmsLocaleTools.LocaleParser
         /// </returns>
         public LocaleFileInfo WriteEntries(FileInfo localeDatFile, FileInfo localeDirFile)
         {
-            LocaleEntry[] entries = HashToEntry.SelectMany(x => x.Value).ToArray();
+            LocaleEntry[] entries = StoredEntries.ToArray();
             LocaleEntryLocation[] locations = new LocaleEntryLocation[entries.Length];
 
             using (StreamWriter localeDatWriter = new(localeDatFile.Open(FileMode.Create, FileAccess.Write)))
