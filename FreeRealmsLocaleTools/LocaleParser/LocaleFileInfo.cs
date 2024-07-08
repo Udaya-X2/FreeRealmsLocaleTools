@@ -195,6 +195,36 @@ namespace FreeRealmsLocaleTools.LocaleParser
         }
 
         /// <summary>
+        /// Replaces the text from all entries that match the specified predicate with the specified text.
+        /// </summary>
+        /// <remarks><inheritdoc cref="AddEntries(IEnumerable{string})"/></remarks>
+        /// <returns>The number of locale entries with text replaced.</returns>
+        public int ReplaceEntries(Func<LocaleEntry, bool> predicate, string text)
+        {
+            HashSet<LocaleEntry> entries = StoredEntries.Where(predicate).ToHashSet();
+            int entriesReplaced = 0;
+
+            // Replace the text from entries from the hash -> entry mapping.
+            foreach (LocaleEntry entry in entries)
+            {
+                List<LocaleEntry> newEntries = HashToEntry[entry.Hash].Select(x => x with { Text = text }).ToList();
+                HashToEntry[entry.Hash] = newEntries;
+                entriesReplaced += newEntries.Count;
+            }
+
+            // Replace the text from entries from the ID -> entry mapping, if one was created.
+            foreach (var kvp in _idToEntry?.ToList() ?? Enumerable.Empty<KeyValuePair<int, LocaleEntry>>())
+            {
+                if (entries.Contains(kvp.Value))
+                {
+                    IdToEntry[kvp.Key] = kvp.Value with { Text = text };
+                }
+            }
+
+            return entriesReplaced;
+        }
+
+        /// <summary>
         /// Removes all entries that match the specified predicate from the ID/hash -> entry mappings.
         /// </summary>
         /// <remarks><inheritdoc cref="AddEntries(IEnumerable{string})"/></remarks>
