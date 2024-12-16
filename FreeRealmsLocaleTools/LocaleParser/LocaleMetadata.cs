@@ -1,7 +1,6 @@
 ﻿using System.Globalization;
 using System.Security.Cryptography;
 using System.Text;
-using System.Text.RegularExpressions;
 
 namespace FreeRealmsLocaleTools.LocaleParser
 {
@@ -10,7 +9,8 @@ namespace FreeRealmsLocaleTools.LocaleParser
     /// </summary>
     public record LocaleMetadata()
     {
-        private const string LocaleDateFormat = "ddd MMM dd HH:mm:ss \"{0}\" yyyy";
+        private const string LocaleDateFormat = "ddd MMM dd HH:mm:ss '{0}' yyyy";
+        private const int LocaleDateLength = 28;
         private const int LocaleFileNameLength = 14;
         private const int LocaleCodeLength = 5;
 
@@ -141,7 +141,7 @@ namespace FreeRealmsLocaleTools.LocaleParser
             "Date" => Date = ValidateValue(ValidateDate, value),
             "Game" => Game = ParseValue(Enum.Parse<Game>, value),
             "Locale" => Locale = ParseValue(Enum.Parse<Locale>, value),
-            "MD5Checksum" => MD5Checksum = ValidateValue(x => Regex.IsMatch(x, @"^[A-F0-9]{32}$"), value),
+            "MD5Checksum" => MD5Checksum = ValidateValue(x => x.Length == 32 && x.All(IsUpperHexCharacter), value),
             "T4Version" => T4Version = ParseValue(x => new Version(x), value),
             "TextLength" => TextLength = ParseValue(int.Parse, value),
             "Version" => Version = ParseValue(x => new Version(x), value),
@@ -149,6 +149,19 @@ namespace FreeRealmsLocaleTools.LocaleParser
             "Extraction version" => ExtractionVersion = ParseValue(x => new Version(x), value),
             _ => throw new ArgumentException($"Unrecognized metadata name: '{name}'", nameof(name)),
         };
+
+        /// <summary>
+        /// Returns the <see cref="DateTime"/> for the metadata.
+        /// </summary>
+        public DateTime GetDate()
+        {
+            if ((Date ?? ExtractionDate) is not string date)
+            {
+                throw new InvalidOperationException("Date is not initialized.");
+            }
+
+            return DateTime.ParseExact(date, GetDateFormat(GetTimeZone(date)), CultureInfo.InvariantCulture);
+        }
 
         /// <summary>
         /// Returns <see langword="true"/> if the metadata includes
@@ -215,9 +228,11 @@ namespace FreeRealmsLocaleTools.LocaleParser
         /// </summary>
         private bool ValidateDate(string value)
         {
-            string timezone = value[20..23];
+            if (value.Length != LocaleDateLength) return false;
 
-            if (Regex.IsMatch(timezone, @"^[A-Z]{3}$"))
+            string timezone = GetTimeZone(value);
+
+            if (timezone.All(char.IsUpper))
             {
                 DateTime.ParseExact(value, GetDateFormat(timezone), CultureInfo.InvariantCulture);
                 return true;
@@ -227,9 +242,20 @@ namespace FreeRealmsLocaleTools.LocaleParser
         }
 
         /// <summary>
+        /// Returns the timezone from the specified date.
+        /// </summary>
+        private static string GetTimeZone(string date) => date[20..23];
+
+        /// <summary>
         /// Returns the locale date format for the specified timezone.
         /// </summary>
         private static string GetDateFormat(string timezone) => string.Format(LocaleDateFormat, timezone);
+
+        /// <summary>
+        /// Returns <see langword="true"/> if the char is an uppercase
+        /// hex character; otherwise <see langword="false"/>.
+        /// </summary>
+        private static bool IsUpperHexCharacter(char c) => '0' <= c && c <= '9' || 'A' <= c && c <= 'F';
 
         /// <summary>
         /// Returns a metadata line with the specified name and value, or an empty string if the value is null.
