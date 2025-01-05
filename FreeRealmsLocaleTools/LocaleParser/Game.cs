@@ -18,6 +18,10 @@ public enum Game
     /// </summary>
     FRLMLV,
     /// <summary>
+    /// Used for early 2009 locales.
+    /// </summary>
+    ALL,
+    /// <summary>
     /// Used for all TCG locales except Simplified Chinese.
     /// </summary>
     FRLMTCG,
