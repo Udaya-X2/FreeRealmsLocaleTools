@@ -221,7 +221,7 @@ public class LocaleFileInfo
         }
 
         // Replace the text from entries from the ID -> entry mapping, if one was created.
-        foreach (var kvp in _idToEntry?.ToList() ?? Enumerable.Empty<KeyValuePair<int, LocaleEntry>>())
+        foreach (var kvp in _idToEntry ?? [])
         {
             if (entries.Contains(kvp.Value))
             {
@@ -265,7 +265,7 @@ public class LocaleFileInfo
         }
 
         // Remove entries from the ID -> entry mapping, if one was created.
-        foreach (var kvp in _idToEntry?.ToList() ?? Enumerable.Empty<KeyValuePair<int, LocaleEntry>>())
+        foreach (var kvp in _idToEntry ?? [])
         {
             if (entries.Contains(kvp.Value))
             {
