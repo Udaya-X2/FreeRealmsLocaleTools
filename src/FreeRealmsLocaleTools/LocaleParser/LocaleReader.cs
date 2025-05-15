@@ -28,11 +28,11 @@ public class LocaleReader : IDisposable
     private LocaleEntry? _currEntry;
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="LocaleReader"/> class for the specified file name.
+    /// Initializes a new instance of the <see cref="LocaleReader"/> class for the specified locale .dat file.
     /// </summary>
-    public LocaleReader(string path)
+    public LocaleReader(string localeDatPath)
     {
-        _stream = File.OpenRead(path);
+        _stream = File.OpenRead(localeDatPath);
         _encoding = Encoding.UTF8;
         _decoder = _encoding.GetDecoder();
         _byteBuffer = new byte[BufferSize];

@@ -162,23 +162,29 @@ public class LocaleFileInfo
     /// Adds the specified collection of strings as locale entries to the ID/hash -> entry mappings.
     /// </summary>
     /// <remarks>The stored entries can be written with any of the <c>WriteEntries()</c> methods.</remarks>
+    /// <returns>The IDs of the new locale entries.</returns>
     /// <exception cref="ArgumentNullException"/>
-    public void AddEntries(IEnumerable<string> contents)
+    public List<int> AddEntries(IEnumerable<string> contents)
     {
         ArgumentNullException.ThrowIfNull(contents, nameof(contents));
+    
+        List<int> ids = [];
 
         foreach (string text in contents)
         {
-            AddEntry(text);
+            ids.Add(AddEntry(text));
         }
+
+        return ids;
     }
 
     /// <summary>
     /// Adds a locale entry with the specified text to the ID/hash -> entry mappings.
     /// </summary>
     /// <remarks><inheritdoc cref="AddEntries(IEnumerable{string})"/></remarks>
+    /// <returns>The ID of the new locale entry.</returns>
     /// <exception cref="ArgumentNullException"/>
-    public void AddEntry(string text)
+    public int AddEntry(string text)
     {
         ArgumentNullException.ThrowIfNull(text, nameof(text));
 
@@ -191,7 +197,9 @@ public class LocaleFileInfo
             entry = entry with { Hash = Preimaging.GetHash(NextId) };
         }
 
-        IdToEntry.Add(CurrentId, entry);
+        int id = CurrentId;
+        IdToEntry.Add(id, entry);
+        return id;
     }
 
     /// <summary>
