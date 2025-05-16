@@ -116,9 +116,9 @@ public class LocaleFileInfo
             // TCG locale files don't hash IDs the same way as game locale
             // files, so creating IDs for TCG locale files is unsupported.
             if (_idToEntry != null) return _idToEntry;
+            else if (!CanAddEntries) throw new InvalidOperationException("Cannot create IDs for a TCG locale file.");
             else if (_hashToEntry != null) return _idToEntry = Preimaging.CreateIdMapping(StoredEntries);
-            else if (CanAddEntries) return _idToEntry = Preimaging.CreateIdMapping(Entries);
-            else throw new InvalidOperationException("Cannot create IDs for a TCG locale file.");
+            else return _idToEntry = Preimaging.CreateIdMapping(Entries);
         }
     }
 
