@@ -215,6 +215,7 @@ public class LocaleFileInfo
         foreach (LocaleEntry entry in entries)
         {
             List<LocaleEntry> hashEntries = HashToEntry[entry.Hash];
+            LocaleEntry updatedEntry = entry with { Text = text };
 
             // If the tag indicates a hash collision, replace text from matching entries in the bucket.
             if (entry.Tag.IsMtag())
@@ -223,24 +224,29 @@ public class LocaleFileInfo
                 {
                     if (hashEntries[i] == entry)
                     {
-                        hashEntries[i] = hashEntries[i] with { Text = text };
+                        hashEntries[i] = updatedEntry;
                         entriesReplaced++;
                     }
                 }
             }
             else
             {
-                hashEntries[0] = entry with { Text = text };
+                hashEntries[0] = updatedEntry;
                 entriesReplaced++;
             }
         }
 
         // Replace the text from entries from the ID -> entry mapping, if one was created.
+        int idsLeft = entriesReplaced;
+
         foreach (var kvp in _idToEntry ?? [])
         {
+            if (idsLeft == 0) break;
+
             if (entries.Contains(kvp.Value))
             {
                 IdToEntry[kvp.Key] = kvp.Value with { Text = text };
+                idsLeft--;
             }
         }
 
@@ -280,11 +286,16 @@ public class LocaleFileInfo
         }
 
         // Remove entries from the ID -> entry mapping, if one was created.
+        int idsLeft = entriesRemoved;
+
         foreach (var kvp in _idToEntry ?? [])
         {
+            if (idsLeft == 0) break;
+
             if (entries.Contains(kvp.Value))
             {
                 IdToEntry.Remove(kvp.Key);
+                idsLeft--;
             }
         }
 
