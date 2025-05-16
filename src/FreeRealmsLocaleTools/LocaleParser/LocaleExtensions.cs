@@ -12,16 +12,13 @@ internal static class LocaleExtensions
     /// <returns>
     /// The maximum value in the sequence, or <paramref name="defaultValue"/> when the sequence is empty.
     /// </returns>
+    /// <exception cref="ArgumentNullException"/>
     public static int MaxOrDefault<T>(this IEnumerable<T> source, Func<T, int> selector, int defaultValue = 0)
     {
-        if (source == null)
-        {
-            throw new ArgumentNullException(nameof(source));
-        }
-        else
-        {
-            return source.Any() ? source.Max(selector) : defaultValue;
-        }
+        ArgumentNullException.ThrowIfNull(source, nameof(source));
+        ArgumentNullException.ThrowIfNull(selector, nameof(selector));
+
+        return source.Any() ? source.Max(selector) : defaultValue;
     }
 
     /// <summary>

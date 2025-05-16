@@ -30,9 +30,10 @@ public class LocaleReader : IDisposable
     /// <summary>
     /// Initializes a new instance of the <see cref="LocaleReader"/> class for the specified locale .dat file.
     /// </summary>
+    /// <exception cref="ArgumentNullException"/>
     public LocaleReader(string localeDatPath)
     {
-        _stream = File.OpenRead(localeDatPath);
+        _stream = File.OpenRead(localeDatPath ?? throw new ArgumentNullException(nameof(localeDatPath)));
         _encoding = Encoding.UTF8;
         _decoder = _encoding.GetDecoder();
         _byteBuffer = new byte[BufferSize];
@@ -49,6 +50,7 @@ public class LocaleReader : IDisposable
     /// <summary>
     /// Returns <see langword="true"/> if the reader can read a locale entry; otherwise <see langword="false"/>.
     /// </summary>
+    /// <exception cref="ObjectDisposedException"/>
     public bool HasEntry
     {
         get
@@ -78,6 +80,7 @@ public class LocaleReader : IDisposable
     /// The rest of the file as a list of locale entries, from the current position to the end.
     /// If the current position is at the end of the file, returns an empty list.
     /// </returns>
+    /// <exception cref="ObjectDisposedException"/>
     public List<LocaleEntry> ReadToEnd()
     {
         ObjectDisposedException.ThrowIf(_disposed, this);
@@ -105,6 +108,7 @@ public class LocaleReader : IDisposable
     /// <returns>
     /// The next locale entry from the file, or <see langword="null"/> if the end of the file is reached.
     /// </returns>
+    /// <exception cref="ObjectDisposedException"/>
     public LocaleEntry? ReadEntry()
     {
         if (!HasEntry) return null;

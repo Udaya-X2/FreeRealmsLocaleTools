@@ -12,9 +12,12 @@ public record LocaleEntryLocation(uint Hash, int Offset, int Size)
     /// Initializes a new instance of <see cref="LocaleEntryLocation"/> by parsing the given .dir file line.
     /// </summary>
     /// <returns>The locale entry location parsed from the contents of <paramref name="line"/>.</returns>
+    /// <exception cref="ArgumentNullException"/>
     /// <exception cref="FormatException"/>
     public static LocaleEntryLocation Parse(string line)
     {
+        ArgumentNullException.ThrowIfNull(line, nameof(line));
+
         try
         {
             string[] components = line.Split('\t');

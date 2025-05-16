@@ -1,5 +1,4 @@
 ﻿using FreeRealmsLocaleTools.IdHashing;
-using System.ComponentModel;
 using System.Text;
 
 namespace FreeRealmsLocaleTools.LocaleParser;
@@ -23,9 +22,10 @@ public class LocaleFileInfo
     /// <summary>
     /// Initializes a new instance of <see cref="LocaleFileInfo"/> from the specified locale .dat file.
     /// </summary>
+    /// <exception cref="ArgumentNullException"/>
     public LocaleFileInfo(string localeDatPath)
     {
-        LocaleDatFile = new(localeDatPath);
+        LocaleDatFile = new(localeDatPath ?? throw new ArgumentNullException(nameof(localeDatPath)));
         LocaleDirFile = new(Path.ChangeExtension(localeDatPath, ".dir"));
         Preamble = LocaleFile.ReadPreamble(localeDatPath);
         Locations = [];
@@ -36,10 +36,11 @@ public class LocaleFileInfo
     /// <summary>
     /// Initializes a new instance of <see cref="LocaleFileInfo"/> from the specified locale .dat and .dir file.
     /// </summary>
+    /// <exception cref="ArgumentNullException"/>
     public LocaleFileInfo(string localeDatPath, string localeDirPath)
     {
-        LocaleDatFile = new(localeDatPath);
-        LocaleDirFile = new(localeDirPath);
+        LocaleDatFile = new(localeDatPath ?? throw new ArgumentNullException(localeDatPath));
+        LocaleDirFile = new(localeDirPath ?? throw new ArgumentNullException(localeDirPath));
         Preamble = LocaleFile.ReadPreamble(localeDatPath);
         Metadata = LocaleFile.ReadMetadata(localeDirPath);
         Locations = LocaleFile.ReadEntryLocations(localeDirPath);
@@ -54,15 +55,16 @@ public class LocaleFileInfo
     /// <summary>
     /// Initializes a new instance of <see cref="LocaleFileInfo"/> from the specified parameters.
     /// </summary>
+    /// <exception cref="ArgumentNullException"/>
     private LocaleFileInfo(FileInfo localeDatFile, FileInfo localeDirFile, ReadOnlySpan<byte> preamble,
                            LocaleMetadata metadata, LocaleEntryLocation[] locations, LocaleEntry[] entries)
     {
-        LocaleDatFile = localeDatFile;
-        LocaleDirFile = localeDirFile;
+        LocaleDatFile = localeDatFile ?? throw new ArgumentNullException(nameof(localeDatFile));
+        LocaleDirFile = localeDirFile ?? throw new ArgumentNullException(nameof(localeDirFile));
         Preamble = preamble;
-        Metadata = metadata;
-        Locations = locations;
-        Entries = entries;
+        Metadata = metadata ?? throw new ArgumentNullException(nameof(metadata));
+        Locations = locations ?? throw new ArgumentNullException(nameof(locations));
+        Entries = entries ?? throw new ArgumentNullException(nameof(entries));
     }
 
     /// <summary>
@@ -206,8 +208,12 @@ public class LocaleFileInfo
     /// </summary>
     /// <remarks><inheritdoc cref="AddEntries(IEnumerable{string})"/></remarks>
     /// <returns>The number of locale entries with text replaced.</returns>
+    /// <exception cref="ArgumentNullException"/>
     public int ReplaceEntries(Func<LocaleEntry, bool> predicate, string text)
     {
+        ArgumentNullException.ThrowIfNull(predicate, nameof(predicate));
+        ArgumentNullException.ThrowIfNull(text, nameof(text));
+
         HashSet<LocaleEntry> entries = [.. StoredEntries.Where(predicate)];
         int entriesReplaced = 0;
 
@@ -258,8 +264,11 @@ public class LocaleFileInfo
     /// </summary>
     /// <remarks><inheritdoc cref="AddEntries(IEnumerable{string})"/></remarks>
     /// <returns>The number of locale entries removed.</returns>
+    /// <exception cref="ArgumentNullException"/>
     public int RemoveEntries(Func<LocaleEntry, bool> predicate)
     {
+        ArgumentNullException.ThrowIfNull(predicate, nameof(predicate));
+
         HashSet<LocaleEntry> entries = [.. StoredEntries.Where(predicate)];
         int entriesRemoved = 0;
 
@@ -314,10 +323,10 @@ public class LocaleFileInfo
     /// Writes the stored locale entries to the specified .dat file and .dir file.
     /// </summary>
     /// <returns><inheritdoc cref="WriteEntries(FileInfo, FileInfo)"/></returns>
+    /// <exception cref="ArgumentNullException"/>
     public LocaleFileInfo WriteEntries(string localeDatPath, string localeDirPath)
-    {
-        return WriteEntries(new FileInfo(localeDatPath), new FileInfo(localeDirPath));
-    }
+        => WriteEntries(new FileInfo(localeDatPath ?? throw new ArgumentNullException(nameof(localeDatPath))),
+                        new FileInfo(localeDirPath ?? throw new ArgumentNullException(nameof(localeDirPath))));
 
     /// <summary>
     /// Writes the stored locale entries to the specified .dat file and .dir file.
@@ -325,8 +334,12 @@ public class LocaleFileInfo
     /// <returns>
     /// A new instance of <see cref="LocaleFileInfo"/> for the specified .dat file and .dir file.
     /// </returns>
+    /// <exception cref="ArgumentNullException"/>
     public LocaleFileInfo WriteEntries(FileInfo localeDatFile, FileInfo localeDirFile)
     {
+        ArgumentNullException.ThrowIfNull(localeDatFile, nameof(localeDatFile));
+        ArgumentNullException.ThrowIfNull(localeDirFile, nameof(localeDirFile));
+
         LocaleEntry[] entries = [.. StoredEntries];
         LocaleEntryLocation[] locations = new LocaleEntryLocation[entries.Length];
 
@@ -368,9 +381,12 @@ public class LocaleFileInfo
     /// <summary>
     /// Returns the size, in bytes, of the specified entry up to the pre-key section.
     /// </summary>
+    /// <exception cref="ArgumentNullException"/>
     /// <exception cref="FormatException"/>
     private static int GetMtagSize(string entry)
     {
+        ArgumentNullException.ThrowIfNull(entry, nameof(entry));
+
         byte[] bytes = Encoding.UTF8.GetBytes(entry);
         int lastIndex = Array.LastIndexOf(bytes, (byte)'\t') - MtagPreKeyChars;
         int firstIndex = Array.IndexOf(bytes, (byte)'\t') + LocaleFile.SkipTagChars;

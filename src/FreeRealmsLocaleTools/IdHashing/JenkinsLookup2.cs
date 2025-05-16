@@ -8,8 +8,11 @@ public static class JenkinsLookup2
     /// <summary>
     /// Hashes a variable-length key into a 32-bit value.
     /// </summary>
+    /// <exception cref="ArgumentNullException"/>
     public static uint Hash(string key)
     {
+        ArgumentNullException.ThrowIfNull(key, nameof(key));
+
         uint length = (uint)key.Length;
 
         if (length == 0u) return 0u;

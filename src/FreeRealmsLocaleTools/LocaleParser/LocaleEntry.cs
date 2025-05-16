@@ -12,9 +12,12 @@ public record LocaleEntry(uint Hash, LocaleTag Tag, string Text)
     /// Initializes a new instance of <see cref="LocaleEntry"/> by parsing the given .dat file line.
     /// </summary>
     /// <returns>The locale entry parsed from the contents of <paramref name="line"/>.</returns>
+    /// <exception cref="ArgumentNullException"/>
     /// <exception cref="FormatException"/>
     public static LocaleEntry Parse(string line)
     {
+        ArgumentNullException.ThrowIfNull(line, nameof(line));
+
         try
         {
             int hashIndex = line.IndexOf('\t');

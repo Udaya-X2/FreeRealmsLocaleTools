@@ -20,8 +20,11 @@ public static partial class Preimaging
     /// Creates a sorted dictionary mapping hashes to locale entries from the specified collection.
     /// </summary>
     /// <returns>A sorted dictionary mapping hashes to locale entries.</returns>
+    /// <exception cref="ArgumentNullException"/>
     public static SortedDictionary<uint, List<LocaleEntry>> CreateHashMapping(IEnumerable<LocaleEntry> entries)
     {
+        ArgumentNullException.ThrowIfNull(entries, nameof(entries));
+
         SortedDictionary<uint, List<LocaleEntry>> hashToEntry = [];
 
         foreach (LocaleEntry entry in entries)
@@ -44,8 +47,11 @@ public static partial class Preimaging
     /// Creates an ID for each hashable locale entry in the specified collection.
     /// </summary>
     /// <returns>A sorted dictionary mapping IDs to hashable locale entries.</returns>
+    /// <exception cref="ArgumentNullException"/>
     public static SortedDictionary<int, LocaleEntry> CreateIdMapping(IEnumerable<LocaleEntry> entries)
     {
+        ArgumentNullException.ThrowIfNull(entries, nameof(entries));
+
         Dictionary<uint, LocaleEntry> hashToEntry = [];
         SortedDictionary<int, LocaleEntry> idToEntry = [];
 
@@ -87,8 +93,11 @@ public static partial class Preimaging
     /// Generates an array of locale entries from the specified collection of strings.
     /// </summary>
     /// <returns>An array of locale entries with unique hashes, ordered by distinct ID number.</returns>
+    /// <exception cref="ArgumentNullException"/>
     public static LocaleEntry[] GenerateEntries(IEnumerable<string> strings)
     {
+        ArgumentNullException.ThrowIfNull(strings, nameof(strings));
+
         LocaleEntry[] entries = new LocaleEntry[strings.Count()];
         HashSet<uint> hashes = [];
         int index = 0;
@@ -119,8 +128,11 @@ public static partial class Preimaging
     /// Initializes a new instance of <see cref="LocaleEntry"/> from the specified ID and text.
     /// </summary>
     /// <returns>A locale entry with the specified text and hash generated from the ID.</returns>
+    /// <exception cref="ArgumentNullException"/>
     public static LocaleEntry GenerateEntry(int id, string text)
     {
+        ArgumentNullException.ThrowIfNull(text, nameof(text));
+
         uint hash = GetHash(id);
         LocaleTag tag = text != "" ? LocaleTag.ucdt : LocaleTag.ucdn;
         return new(hash, tag, text);

@@ -80,8 +80,12 @@ public record LocaleMetadata()
     /// Creates a new instance of <see cref="LocaleMetadata"/> from the specified .dat file and locale entries.
     /// </summary>
     /// <returns>A new metadata instance with some properties initialized.</returns>
+    /// <exception cref="ArgumentNullException"/>
     public static LocaleMetadata Create(string localeDatFile, IEnumerable<LocaleEntry> entries)
     {
+        ArgumentNullException.ThrowIfNull(localeDatFile, nameof(localeDatFile));
+        ArgumentNullException.ThrowIfNull(entries, nameof(entries));
+
         return new LocaleMetadata().Update(localeDatFile, entries);
     }
 
@@ -89,8 +93,12 @@ public record LocaleMetadata()
     /// Creates a copy of this metadata and updates its properties with the specified .dat file and locale entries.
     /// </summary>
     /// <returns>A copy of this metadata instance with the updated properties.</returns>
+    /// <exception cref="ArgumentNullException"/>
     public LocaleMetadata Update(string localeDatFile, IEnumerable<LocaleEntry> entries)
     {
+        ArgumentNullException.ThrowIfNull(localeDatFile, nameof(localeDatFile));
+        ArgumentNullException.ThrowIfNull(entries, nameof(entries));
+
         // Count the number of locale entries.
         int count = entries.Count();
 

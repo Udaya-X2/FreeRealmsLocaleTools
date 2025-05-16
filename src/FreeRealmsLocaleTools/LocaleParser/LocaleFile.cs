@@ -24,8 +24,11 @@ public static partial class LocaleFile
     /// Opens the locale file, reads all locale entries from the file, and then closes the file.
     /// </summary>
     /// <returns>An array containing all locale entries from the specified file.</returns>
+    /// <exception cref="ArgumentNullException"/>
     public static LocaleEntry[] ReadEntries(string localeDatPath)
     {
+        ArgumentNullException.ThrowIfNull(localeDatPath, nameof(localeDatPath));
+
         using LocaleReader reader = new(localeDatPath);
         return [.. reader.ReadToEnd()];
     }
@@ -34,8 +37,12 @@ public static partial class LocaleFile
     /// Opens the locale files, reads all locale entries from the files, and then closes the files.
     /// </summary>
     /// <returns>An array containing all locale entries from the specified files.</returns>
+    /// <exception cref="ArgumentNullException"/>
     public static LocaleEntry[] ReadEntries(string localeDatPath, string localeDirPath)
     {
+        ArgumentNullException.ThrowIfNull(localeDatPath, nameof(localeDatPath));
+        ArgumentNullException.ThrowIfNull(localeDirPath, nameof(localeDirPath));
+
         // Read the location of each locale entry from the .dir file.
         return ReadEntries(localeDatPath, ReadEntryLocations(localeDirPath));
     }
@@ -45,8 +52,12 @@ public static partial class LocaleFile
     /// in <paramref name="locations"/>, and then closes the file.
     /// </summary>
     /// <returns>An array containing all locale entries specified in <paramref name="locations"/>.</returns>
+    /// <exception cref="ArgumentNullException"/>
     public static LocaleEntry[] ReadEntries(string localeDatPath, IEnumerable<LocaleEntryLocation> locations)
     {
+        ArgumentNullException.ThrowIfNull(localeDatPath, nameof(localeDatPath));
+        ArgumentNullException.ThrowIfNull(locations, nameof(locations));
+
         // Open the .dat file for reading.
         using FileStream stream = File.OpenRead(localeDatPath);
         byte[] buf = new byte[locations.MaxOrDefault(x => x.Size)];
@@ -67,9 +78,12 @@ public static partial class LocaleFile
     /// Reads the preamble bytes at the beginning of the specified locale .dat file.
     /// </summary>
     /// <returns>The bytes at the beginning of the locale .dat file.</returns>
+    /// <exception cref="ArgumentNullException"/>
     /// <exception cref="InvalidDataException"/>
     public static ReadOnlySpan<byte> ReadPreamble(string localeDatPath)
     {
+        ArgumentNullException.ThrowIfNull(localeDatPath, nameof(localeDatPath));
+
         using FileStream stream = new(localeDatPath, FileMode.Open, FileAccess.Read, FileShare.Read, PreambleSize);
         return ReadPreamble(stream);
     }
@@ -77,11 +91,13 @@ public static partial class LocaleFile
     /// <summary>
     /// Reads the preamble bytes at the beginning of the specified stream.
     /// </summary>
-    /// <param name="stream"></param>
     /// <returns>The bytes at the beginning of the stream.</returns>
+    /// <exception cref="ArgumentNullException"/>
     /// <exception cref="InvalidDataException"/>
     public static ReadOnlySpan<byte> ReadPreamble(FileStream stream)
     {
+        ArgumentNullException.ThrowIfNull(stream, nameof(stream));
+
         Span<byte> buffer = stackalloc byte[PreambleSize];
         stream.ReadExactly(buffer);
 
@@ -104,9 +120,12 @@ public static partial class LocaleFile
     /// Reads the metadata lines from the specified .dir file.
     /// </summary>
     /// <returns>The metadata from the specified .dir file.</returns>
+    /// <exception cref="ArgumentNullException"/>
     /// <exception cref="InvalidDataException"/>
     public static LocaleMetadata ReadMetadata(string localeDirPath)
     {
+        ArgumentNullException.ThrowIfNull(localeDirPath, nameof(localeDirPath));
+
         LocaleMetadata metadata = new();
 
         foreach (string line in File.ReadLines(localeDirPath).TakeWhile(x => x.StartsWith(MetadataHeader)))
@@ -135,21 +154,23 @@ public static partial class LocaleFile
     /// Reads the location of each locale entry from the specified .dir file, and returns them in an array.
     /// </summary>
     /// <returns>An array of locale entry locations.</returns>
+    /// <exception cref="ArgumentNullException"/>
     public static LocaleEntryLocation[] ReadEntryLocations(string localeDirPath)
-    {
-        return [.. File.ReadLines(localeDirPath)
-                       .SkipWhile(x => x.StartsWith(MetadataHeader))
-                       .Select(x => LocaleEntryLocation.Parse(x))];
-    }
+        => [.. File.ReadLines(localeDirPath ?? throw new ArgumentNullException(nameof(localeDirPath)))
+                   .SkipWhile(x => x.StartsWith(MetadataHeader))
+                   .Select(LocaleEntryLocation.Parse)];
 
     /// <summary>
     /// Adds the specified collection of strings as locale entries to the given .dat file and .dir file.
     /// </summary>
     /// <returns>A <see cref="LocaleFileInfo"/> instance that wraps the locale files.</returns>
-    public static LocaleFileInfo AddEntries(string localeDatPath,
-                                            string localeDirPath,
-                                            IEnumerable<string> strings)
+    /// <exception cref="ArgumentNullException"/>
+    public static LocaleFileInfo AddEntries(string localeDatPath, string localeDirPath, IEnumerable<string> strings)
     {
+        ArgumentNullException.ThrowIfNull(localeDatPath, nameof(localeDatPath));
+        ArgumentNullException.ThrowIfNull(localeDirPath, nameof(localeDirPath));
+        ArgumentNullException.ThrowIfNull(strings, nameof(strings));
+
         LocaleFileInfo localeFile = new(localeDatPath, localeDirPath);
         localeFile.AddEntries(strings);
         return localeFile.WriteEntries();
@@ -159,10 +180,15 @@ public static partial class LocaleFile
     /// Removes all locale entries that match the specified predicate from the given .dat file and .dir file.
     /// </summary>
     /// <returns>A <see cref="LocaleFileInfo"/> instance that wraps the locale files.</returns>
+    /// <exception cref="ArgumentNullException"/>
     public static LocaleFileInfo RemoveEntries(string localeDatPath,
                                                string localeDirPath,
                                                Func<LocaleEntry, bool> predicate)
     {
+        ArgumentNullException.ThrowIfNull(localeDatPath, nameof(localeDatPath));
+        ArgumentNullException.ThrowIfNull(localeDirPath, nameof(localeDirPath));
+        ArgumentNullException.ThrowIfNull(predicate, nameof(predicate));
+
         LocaleFileInfo localeFile = new(localeDatPath, localeDirPath);
         localeFile.RemoveEntries(predicate);
         return localeFile.WriteEntries();
