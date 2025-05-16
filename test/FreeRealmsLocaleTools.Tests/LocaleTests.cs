@@ -71,4 +71,12 @@ public class LocaleTests
         Assert.True(Preimaging.ParseMtagTextId(text) == 88011);
         Assert.Throws<FormatException>(() => Preimaging.ParseMtagTextId("abc"));
     }
+
+    [Fact]
+    public void CreateLocale()
+    {
+        LocaleFileInfo localeFile = new();
+        localeFile.AddEntries(_localeFile.Entries.Take(10).Select(x => x.Text));
+        localeFile.WriteEntries("locale.dat", "locale.dir");
+    }
 }

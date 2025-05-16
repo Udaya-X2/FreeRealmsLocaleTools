@@ -9,13 +9,12 @@ namespace FreeRealmsLocaleTools.LocaleParser;
 /// </summary>
 public static partial class LocaleFile
 {
-    internal const int SkipTagChars = 6;        // Number of chars between the hash and locale text
+    internal const int SkipTagChars = 6;         // Number of chars between the hash and locale text
+    internal const string MetadataHeader = "##"; // Chars that appear at the start of .dir metadata lines
+    internal const int PreambleSize = 6;         // Maximum preamble size
 
-    private const string MetadataHeader = "##"; // Chars that appear at the start of .dir metadata lines
-    private const int PreambleSize = 6;         // Maximum preamble size
-
-    private static readonly byte[] UTF8Preamble1 = [0xEF, 0xBB, 0xBF];
-    private static readonly byte[] UTF8Preamble2 = [0xC3, 0xAF, 0xC2, 0xBB, 0xC2, 0xBF];
+    internal static readonly byte[] UTF8Preamble1 = [0xEF, 0xBB, 0xBF];
+    internal static readonly byte[] UTF8Preamble2 = [0xC3, 0xAF, 0xC2, 0xBB, 0xC2, 0xBF];
 
     [GeneratedRegex(@"^## (.*?):\t(.*)$")]
     private static partial Regex MetaRegex();

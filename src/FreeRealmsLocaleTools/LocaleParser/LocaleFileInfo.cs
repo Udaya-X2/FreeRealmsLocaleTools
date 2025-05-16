@@ -20,6 +20,21 @@ public class LocaleFileInfo
     private IEnumerator<int>? _unusedIds;
 
     /// <summary>
+    /// Initializes an empty instance of <see cref="LocaleFileInfo"/>.
+    /// </summary>
+    public LocaleFileInfo()
+    {
+        LocaleDatFile = new("en_us_data.dat");
+        LocaleDirFile = new("en_us_data.dir");
+        Preamble = LocaleFile.UTF8Preamble1;
+        Metadata = new();
+        Locations = [];
+        Entries = [];
+        _idToEntry = [];
+        _hashToEntry = [];
+    }
+
+    /// <summary>
     /// Initializes a new instance of <see cref="LocaleFileInfo"/> from the specified locale .dat file.
     /// </summary>
     /// <exception cref="ArgumentNullException"/>
@@ -55,7 +70,7 @@ public class LocaleFileInfo
     /// <summary>
     /// Initializes a new instance of <see cref="LocaleFileInfo"/> from the specified parameters.
     /// </summary>
-    /// <exception cref="ArgumentNullException"/>
+    /// <exception cref="ArgumentNullException"/>/// <exception cref="ArgumentNullException"/>
     private LocaleFileInfo(FileInfo localeDatFile, FileInfo localeDirFile, ReadOnlySpan<byte> preamble,
                            LocaleMetadata metadata, LocaleEntryLocation[] locations, LocaleEntry[] entries)
     {
@@ -165,6 +180,7 @@ public class LocaleFileInfo
     /// <remarks>The stored entries can be written with any of the <c>WriteEntries()</c> methods.</remarks>
     /// <returns>The IDs of the new locale entries.</returns>
     /// <exception cref="ArgumentNullException"/>
+    /// <exception cref="InvalidOperationException"/>
     public List<int> AddEntries(IEnumerable<string> contents)
     {
         ArgumentNullException.ThrowIfNull(contents, nameof(contents));
@@ -185,6 +201,7 @@ public class LocaleFileInfo
     /// <remarks><inheritdoc cref="AddEntries(IEnumerable{string})"/></remarks>
     /// <returns>The ID of the new locale entry.</returns>
     /// <exception cref="ArgumentNullException"/>
+    /// <exception cref="InvalidOperationException"/>
     public int AddEntry(string text)
     {
         ArgumentNullException.ThrowIfNull(text, nameof(text));
@@ -273,6 +290,7 @@ public class LocaleFileInfo
     /// <remarks><inheritdoc cref="AddEntries(IEnumerable{string})"/></remarks>
     /// <returns><see langword="true"/> if the text was replaced; otherwise, <see langword="false"/>.</returns>
     /// <exception cref="ArgumentNullException"/>
+    /// <exception cref="InvalidOperationException"/>
     public bool ReplaceEntry(int id, string text)
     {
         ArgumentNullException.ThrowIfNull(text, nameof(text));
@@ -369,6 +387,7 @@ public class LocaleFileInfo
     /// </summary>
     /// <remarks><inheritdoc cref="AddEntries(IEnumerable{string})"/></remarks>
     /// <returns><see langword="true"/> if the entry was removed; otherwise, <see langword="false"/>.</returns>
+    /// <exception cref="InvalidOperationException"/>
     public bool RemoveEntry(int id)
     {
         if (IdToEntry.Remove(id, out LocaleEntry? entry))
