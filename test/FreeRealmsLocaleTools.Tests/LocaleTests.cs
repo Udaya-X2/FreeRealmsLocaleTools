@@ -1,4 +1,5 @@
 using CsvHelper;
+using FreeRealmsLocaleTools.IdHashing;
 using FreeRealmsLocaleTools.LocaleParser;
 using System.Globalization;
 
@@ -58,8 +59,16 @@ public class LocaleTests
     public void EditLocaleTextTcg()
     {
         _localeFileTcg.RemoveEntries(x => x.Tag != LocaleTag.mgdt);
-        _localeFileTcg.ReplaceEntries(x => x.Text == "{v}change{3s=\"changes\"}\t0006\tCHANGE", "abc\t0006\tCHANGE");
+        _localeFileTcg.ReplaceEntries("{v}change{3s=\"changes\"}\t0006\tCHANGE", "abc\t0006\tCHANGE");
         _localeFileTcg.RemoveEntries(x => !x.Text.Contains("abc"));
         _localeFileTcg.WriteEntries(OutputLocaleTcgDatPath, OutputLocaleTcgDirPath);
+    }
+
+    [Fact]
+    public void ParseMtagId()
+    {
+        string text = "Increases Damage Addition\t0017\tGlobal.Text.88011";
+        Assert.True(Preimaging.ParseMtagTextId(text) == 88011);
+        Assert.Throws<FormatException>(() => Preimaging.ParseMtagTextId("abc"));
     }
 }

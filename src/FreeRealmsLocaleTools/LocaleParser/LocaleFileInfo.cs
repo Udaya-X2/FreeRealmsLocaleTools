@@ -160,7 +160,7 @@ public class LocaleFileInfo
                         : throw new InvalidOperationException("No more IDs to add entries.");
 
     /// <summary>
-    /// Adds the specified collection of strings as locale entries to the ID/hash -> entry mappings.
+    /// Adds the specified collection of strings as locale entries.
     /// </summary>
     /// <remarks>The stored entries can be written with any of the <c>WriteEntries()</c> methods.</remarks>
     /// <returns>The IDs of the new locale entries.</returns>
@@ -180,7 +180,7 @@ public class LocaleFileInfo
     }
 
     /// <summary>
-    /// Adds a locale entry with the specified text to the ID/hash -> entry mappings.
+    /// Adds a locale entry with the specified text.
     /// </summary>
     /// <remarks><inheritdoc cref="AddEntries(IEnumerable{string})"/></remarks>
     /// <returns>The ID of the new locale entry.</returns>
@@ -202,6 +202,14 @@ public class LocaleFileInfo
         IdToEntry.Add(id, entry);
         return id;
     }
+
+    /// <summary>
+    /// Replaces the text of all entries with the specified text.
+    /// </summary>
+    /// <remarks><inheritdoc cref="AddEntries(IEnumerable{string})"/></remarks>
+    /// <returns>The number of locale entries with text replaced.</returns>
+    /// <exception cref="ArgumentNullException"/>
+    public int ReplaceEntries(string oldText, string newText) => ReplaceEntries(x => x.Text == oldText, newText);
 
     /// <summary>
     /// Replaces the text from all entries that match the specified predicate with the specified text.
@@ -260,7 +268,52 @@ public class LocaleFileInfo
     }
 
     /// <summary>
-    /// Removes all entries that match the specified predicate from the ID/hash -> entry mappings.
+    /// Replaces the text of the ID with the given entry with the specified text.
+    /// </summary>
+    /// <remarks><inheritdoc cref="AddEntries(IEnumerable{string})"/></remarks>
+    /// <returns><see langword="true"/> if the text was replaced; otherwise, <see langword="false"/>.</returns>
+    /// <exception cref="ArgumentNullException"/>
+    public bool ReplaceEntry(int id, string text)
+    {
+        ArgumentNullException.ThrowIfNull(text, nameof(text));
+
+        if (IdToEntry.TryGetValue(id, out LocaleEntry? entry))
+        {
+            LocaleEntry updatedEntry = entry with { Text = text };
+            IdToEntry[id] = updatedEntry;
+            List<LocaleEntry> hashEntries = HashToEntry[Preimaging.GetHash(id)];
+
+            // If the tag indicates a hash collision, replace text from matching entries in the bucket.
+            if (entry.Tag.IsMtag())
+            {
+                for (int i = 0; i < hashEntries.Count; i++)
+                {
+                    if (hashEntries[i] == entry)
+                    {
+                        hashEntries[i] = updatedEntry;
+                    }
+                }
+            }
+            else
+            {
+                hashEntries[0] = updatedEntry;
+            }
+
+            return true;
+        }
+
+        return false;
+    }
+
+    /// <summary>
+    /// Removes all entries with the specified text.
+    /// </summary>
+    /// <remarks><inheritdoc cref="AddEntries(IEnumerable{string})"/></remarks>
+    /// <returns>The number of locale entries removed.</returns>
+    public int RemoveEntries(string text) => RemoveEntries(x => x.Text == text);
+
+    /// <summary>
+    /// Removes all entries that match the specified predicate.
     /// </summary>
     /// <remarks><inheritdoc cref="AddEntries(IEnumerable{string})"/></remarks>
     /// <returns>The number of locale entries removed.</returns>
@@ -309,6 +362,38 @@ public class LocaleFileInfo
         }
 
         return entriesRemoved;
+    }
+
+    /// <summary>
+    /// Removes the entry with the specified ID.
+    /// </summary>
+    /// <remarks><inheritdoc cref="AddEntries(IEnumerable{string})"/></remarks>
+    /// <returns><see langword="true"/> if the entry was removed; otherwise, <see langword="false"/>.</returns>
+    public bool RemoveEntry(int id)
+    {
+        if (IdToEntry.Remove(id, out LocaleEntry? entry))
+        {
+            // If the tag indicates a hash collision, remove matching entries from the bucket.
+            if (entry.Tag.IsMtag())
+            {
+                List<LocaleEntry> mtagEntries = HashToEntry[Preimaging.GetHash(id)];
+                mtagEntries.RemoveAll(x => x == entry);
+
+                // If the bucket is empty, remove the element from the dictionary.
+                if (mtagEntries.Count == 0)
+                {
+                    HashToEntry.Remove(entry.Hash);
+                }
+            }
+            else
+            {
+                HashToEntry.Remove(entry.Hash);
+            }
+
+            return true;
+        }
+
+        return false;
     }
 
     /// <summary>

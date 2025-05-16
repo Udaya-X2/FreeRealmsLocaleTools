@@ -68,7 +68,7 @@ public static partial class Preimaging
                 // Add locale entries that already have IDs to the ID dictionary.
                 case LocaleTag.mcdt:
                 case LocaleTag.mcdn:
-                    int id = int.Parse(IdRegex().Match(entry.Text).Groups[1].Value);
+                    int id = ParseMtagTextId(entry.Text);
                     idToEntry.Add(id, entry);
                     break;
             }
@@ -87,6 +87,33 @@ public static partial class Preimaging
         }
 
         return idToEntry;
+    }
+
+    /// <summary>
+    /// Parses the ID from the given m-tag locale entry text.
+    /// </summary>
+    /// <returns>The ID of the specified m-tag locale entry text.</returns>
+    /// <exception cref="ArgumentNullException"/>
+    /// <exception cref="FormatException"/>
+    public static int ParseMtagTextId(string text)
+        => int.Parse(IdRegex().Match(text ?? throw new ArgumentNullException(nameof(text))).Groups[1].Value);
+
+    /// <summary>
+    /// Tries to parse the ID from the given m-tag locale entry text.
+    /// A return value indicates whether the operation was successful.
+    /// </summary>
+    /// <returns><see langword="true"/> if the ID was parsed; otherwise, <see langword="false"/>.</returns>
+    public static bool TryParseMtagTextId(string? text, out int id)
+    {
+        Match match = IdRegex().Match(text ?? "");
+        
+        if (!match.Success)
+        {
+            id = 0;
+            return false;
+        }
+
+        return int.TryParse(match.Groups[1].Value, out id);
     }
 
     /// <summary>
