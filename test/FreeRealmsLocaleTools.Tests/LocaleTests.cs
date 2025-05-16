@@ -77,6 +77,8 @@ public class LocaleTests
     {
         LocaleFileInfo localeFile = new();
         localeFile.AddEntries(_localeFile.Entries.Take(10).Select(x => x.Text));
+        localeFile.ReplaceEntries(_localeFile.Entries.Take(5).Select(x => x.Text),
+                                  ["abc", "def", "ghi", "jkl", "mno"]);
         localeFile.WriteEntries("locale.dat", "locale.dir");
     }
 }

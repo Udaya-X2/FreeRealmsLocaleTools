@@ -221,7 +221,7 @@ public class LocaleFileInfo
     }
 
     /// <summary>
-    /// Replaces the text of all entries with the specified text.
+    /// Replaces the text of all entries that have the specified old text with the new text.
     /// </summary>
     /// <remarks><inheritdoc cref="AddEntries(IEnumerable{string})"/></remarks>
     /// <returns>The number of locale entries with text replaced.</returns>
@@ -270,14 +270,17 @@ public class LocaleFileInfo
         // Replace the text from entries from the ID -> entry mapping, if one was created.
         int idsLeft = entriesReplaced;
 
-        foreach (var kvp in _idToEntry ?? [])
+        if (idsLeft > 0)
         {
-            if (idsLeft == 0) break;
-
-            if (entries.Contains(kvp.Value))
+            foreach (var kvp in _idToEntry?.ToList() ?? [])
             {
-                IdToEntry[kvp.Key] = kvp.Value with { Text = text };
-                idsLeft--;
+                if (idsLeft == 0) break;
+
+                if (entries.Contains(kvp.Value))
+                {
+                    IdToEntry[kvp.Key] = kvp.Value with { Text = text };
+                    idsLeft--;
+                }
             }
         }
 
@@ -364,14 +367,17 @@ public class LocaleFileInfo
         // Replace the text from entries from the ID -> entry mapping, if one was created.
         int idsLeft = entriesReplaced;
 
-        foreach (var kvp in _idToEntry ?? [])
+        if (idsLeft > 0)
         {
-            if (idsLeft == 0) break;
-
-            if (entryToText.TryGetValue(kvp.Value, out string? text))
+            foreach (var kvp in _idToEntry?.ToList() ?? [])
             {
-                IdToEntry[kvp.Key] = kvp.Value with { Text = text };
-                idsLeft--;
+                if (idsLeft == 0) break;
+
+                if (entryToText.TryGetValue(kvp.Value, out string? text))
+                {
+                    IdToEntry[kvp.Key] = kvp.Value with { Text = text };
+                    idsLeft--;
+                }
             }
         }
 
@@ -462,14 +468,17 @@ public class LocaleFileInfo
         // Remove entries from the ID -> entry mapping, if one was created.
         int idsLeft = entriesRemoved;
 
-        foreach (var kvp in _idToEntry ?? [])
+        if (idsLeft > 0)
         {
-            if (idsLeft == 0) break;
-
-            if (entries.Contains(kvp.Value))
+            foreach (var kvp in _idToEntry?.ToList() ?? [])
             {
-                IdToEntry.Remove(kvp.Key);
-                idsLeft--;
+                if (idsLeft == 0) break;
+
+                if (entries.Contains(kvp.Value))
+                {
+                    IdToEntry.Remove(kvp.Key);
+                    idsLeft--;
+                }
             }
         }
 
