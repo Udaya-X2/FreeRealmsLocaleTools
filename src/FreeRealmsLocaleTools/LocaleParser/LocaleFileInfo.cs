@@ -285,7 +285,101 @@ public class LocaleFileInfo
     }
 
     /// <summary>
-    /// Replaces the text of the ID with the given entry with the specified text.
+    /// Replaces the text of entries matching the first sequence with the corresponding text from the second sequence.
+    /// </summary>
+    /// <remarks><inheritdoc cref="AddEntries(IEnumerable{string})"/></remarks>
+    /// <returns>The number of locale entries with text replaced.</returns>
+    /// <exception cref="ArgumentNullException"/>
+    public int ReplaceEntries(IEnumerable<string> first, IEnumerable<string> second)
+        => ReplaceEntries(Enumerable.Zip(first, second));
+
+    /// <summary>
+    /// Replaces the text of entries matching the first item with the second item in the sequence.
+    /// </summary>
+    /// <remarks><inheritdoc cref="AddEntries(IEnumerable{string})"/></remarks>
+    /// <returns>The number of locale entries with text replaced.</returns>
+    /// <exception cref="ArgumentNullException"/>
+    public int ReplaceEntries(IEnumerable<(string, string)> items)
+    {
+        Dictionary<string, string> replacements = [];
+
+        foreach ((string oldText, string newText) in items)
+        {
+            replacements[oldText] = newText;
+        }
+
+        return ReplaceEntries(replacements);
+    }
+
+    /// <summary>
+    /// Replaces the text of all entries matching keys in the dictionary with the corresponding values.
+    /// </summary>
+    /// <remarks><inheritdoc cref="AddEntries(IEnumerable{string})"/></remarks>
+    /// <returns>The number of locale entries with text replaced.</returns>
+    /// <exception cref="ArgumentNullException"/>
+    public int ReplaceEntries(Dictionary<string, string> replacements)
+    {
+        ArgumentNullException.ThrowIfNull(replacements, nameof(replacements));
+
+        Dictionary<LocaleEntry, string> entryToText = [];
+
+        // Map entries to replacement text.
+        foreach (LocaleEntry entry in StoredEntries)
+        {
+            if (replacements.TryGetValue(entry.Text, out string? text))
+            {
+                entryToText[entry] = text ?? throw new ArgumentException("Text replacement cannot be null.");
+            }
+        }
+
+        int entriesReplaced = 0;
+
+        // Replace the text from entries from the hash -> entry mapping.
+        foreach (var kvp in entryToText)
+        {
+            LocaleEntry entry = kvp.Key;
+            string text = kvp.Value;
+            List<LocaleEntry> hashEntries = HashToEntry[entry.Hash];
+            LocaleEntry updatedEntry = entry with { Text = text };
+
+            // If the tag indicates a hash collision, replace text from matching entries in the bucket.
+            if (entry.Tag.IsMtag())
+            {
+                for (int i = 0; i < hashEntries.Count; i++)
+                {
+                    if (hashEntries[i] == entry)
+                    {
+                        hashEntries[i] = updatedEntry;
+                        entriesReplaced++;
+                    }
+                }
+            }
+            else
+            {
+                hashEntries[0] = updatedEntry;
+                entriesReplaced++;
+            }
+        }
+
+        // Replace the text from entries from the ID -> entry mapping, if one was created.
+        int idsLeft = entriesReplaced;
+
+        foreach (var kvp in _idToEntry ?? [])
+        {
+            if (idsLeft == 0) break;
+
+            if (entryToText.TryGetValue(kvp.Value, out string? text))
+            {
+                IdToEntry[kvp.Key] = kvp.Value with { Text = text };
+                idsLeft--;
+            }
+        }
+
+        return entriesReplaced;
+    }
+
+    /// <summary>
+    /// Replaces the text of the entry with the given ID with the specified value.
     /// </summary>
     /// <remarks><inheritdoc cref="AddEntries(IEnumerable{string})"/></remarks>
     /// <returns><see langword="true"/> if the text was replaced; otherwise, <see langword="false"/>.</returns>
