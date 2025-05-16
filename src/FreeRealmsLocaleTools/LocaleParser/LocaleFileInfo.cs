@@ -1,4 +1,5 @@
 ﻿using FreeRealmsLocaleTools.IdHashing;
+using System.ComponentModel;
 using System.Text;
 
 namespace FreeRealmsLocaleTools.LocaleParser;
@@ -20,8 +21,7 @@ public class LocaleFileInfo
     private IEnumerator<int>? _unusedIds;
 
     /// <summary>
-    /// Initializes a new instance of <see cref="LocaleFileInfo"/>
-    /// from the specified locale .dat file and optional settings.
+    /// Initializes a new instance of <see cref="LocaleFileInfo"/> from the specified locale .dat file.
     /// </summary>
     public LocaleFileInfo(string localeDatPath)
     {
@@ -34,8 +34,7 @@ public class LocaleFileInfo
     }
 
     /// <summary>
-    /// Initializes a new instance of <see cref="LocaleFileInfo"/> from the
-    /// specified locale .dat file, locale .dir file, and optional settings.
+    /// Initializes a new instance of <see cref="LocaleFileInfo"/> from the specified locale .dat and .dir file.
     /// </summary>
     public LocaleFileInfo(string localeDatPath, string localeDirPath)
     {
@@ -167,7 +166,7 @@ public class LocaleFileInfo
     public List<int> AddEntries(IEnumerable<string> contents)
     {
         ArgumentNullException.ThrowIfNull(contents, nameof(contents));
-    
+
         List<int> ids = [];
 
         foreach (string text in contents)
@@ -215,9 +214,25 @@ public class LocaleFileInfo
         // Replace the text from entries from the hash -> entry mapping.
         foreach (LocaleEntry entry in entries)
         {
-            List<LocaleEntry> newEntries = [.. HashToEntry[entry.Hash].Select(x => x with { Text = text })];
-            HashToEntry[entry.Hash] = newEntries;
-            entriesReplaced += newEntries.Count;
+            List<LocaleEntry> hashEntries = HashToEntry[entry.Hash];
+
+            // If the tag indicates a hash collision, replace text from matching entries in the bucket.
+            if (entry.Tag.IsMtag())
+            {
+                for (int i = 0; i < hashEntries.Count; i++)
+                {
+                    if (hashEntries[i] == entry)
+                    {
+                        hashEntries[i] = hashEntries[i] with { Text = text };
+                        entriesReplaced++;
+                    }
+                }
+            }
+            else
+            {
+                hashEntries[0] = entry with { Text = text };
+                entriesReplaced++;
+            }
         }
 
         // Replace the text from entries from the ID -> entry mapping, if one was created.
@@ -245,7 +260,7 @@ public class LocaleFileInfo
         // Remove entries from the hash -> entry mapping.
         foreach (LocaleEntry entry in entries)
         {
-            // If the tag indicates a hash collision, remove identical entries from the bucket.
+            // If the tag indicates a hash collision, remove matching entries from the bucket.
             if (entry.Tag.IsMtag())
             {
                 List<LocaleEntry> mtagEntries = HashToEntry[entry.Hash];
