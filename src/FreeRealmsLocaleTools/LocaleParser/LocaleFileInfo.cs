@@ -164,7 +164,7 @@ public class LocaleFileInfo
     }
 
     /// <summary>
-    /// Gets a view of the stored locale entries, including additions and removals, ordered by hash.
+    /// Gets a view of the stored locale entries, including updates, ordered by hash.
     /// </summary>
     public IEnumerable<LocaleEntry> StoredEntries => HashToEntry.SelectMany(x => x.Value);
 

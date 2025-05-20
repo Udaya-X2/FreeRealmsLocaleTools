@@ -176,6 +176,27 @@ public static partial class LocaleFile
     }
 
     /// <summary>
+    /// Replaces the text of all locale entries matching the predicate with
+    /// the specified selector text from the given .dat file and .dir file.
+    /// </summary>
+    /// <returns>A <see cref="LocaleFileInfo"/> instance that wraps the locale files.</returns>
+    /// <exception cref="ArgumentNullException"/>
+    public static LocaleFileInfo UpdateEntries(string localeDatPath,
+                                               string localeDirPath,
+                                               Func<LocaleEntry, bool> predicate,
+                                               Func<LocaleEntry, string> selector)
+    {
+        ArgumentNullException.ThrowIfNull(localeDatPath, nameof(localeDatPath));
+        ArgumentNullException.ThrowIfNull(localeDirPath, nameof(localeDirPath));
+        ArgumentNullException.ThrowIfNull(predicate, nameof(predicate));
+        ArgumentNullException.ThrowIfNull(selector, nameof(selector));
+
+        LocaleFileInfo localeFile = new(localeDatPath, localeDirPath);
+        localeFile.UpdateEntries(predicate, selector);
+        return localeFile.WriteEntries();
+    }
+
+    /// <summary>
     /// Removes all locale entries that match the specified predicate from the given .dat file and .dir file.
     /// </summary>
     /// <returns>A <see cref="LocaleFileInfo"/> instance that wraps the locale files.</returns>
