@@ -239,7 +239,7 @@ public class LocaleFileInfo
     /// <remarks><inheritdoc cref="AddEntries(IEnumerable{string})"/></remarks>
     /// <returns>The number of locale entries with text replaced.</returns>
     /// <exception cref="ArgumentNullException"/>
-    public int ReplaceEntries(string oldText, string newText) => ReplaceEntries(x => x.Text == oldText, newText);
+    public int UpdateEntries(string oldText, string newText) => UpdateEntries(x => x.Text == oldText, newText);
 
     /// <summary>
     /// Replaces the text from all entries that match the specified predicate with the specified text.
@@ -247,10 +247,24 @@ public class LocaleFileInfo
     /// <remarks><inheritdoc cref="AddEntries(IEnumerable{string})"/></remarks>
     /// <returns>The number of locale entries with text replaced.</returns>
     /// <exception cref="ArgumentNullException"/>
-    public int ReplaceEntries(Func<LocaleEntry, bool> predicate, string text)
+    public int UpdateEntries(Func<LocaleEntry, bool> predicate, string text)
     {
         ArgumentNullException.ThrowIfNull(predicate, nameof(predicate));
         ArgumentNullException.ThrowIfNull(text, nameof(text));
+
+        return UpdateEntries(predicate, _ => text);
+    }
+
+    /// <summary>
+    /// Replaces the text from all entries that match the specified predicate with the text from the given selector.
+    /// </summary>
+    /// <remarks><inheritdoc cref="AddEntries(IEnumerable{string})"/></remarks>
+    /// <returns>The number of locale entries with text replaced.</returns>
+    /// <exception cref="ArgumentNullException"/>
+    public int UpdateEntries(Func<LocaleEntry, bool> predicate, Func<LocaleEntry, string> selector)
+    {
+        ArgumentNullException.ThrowIfNull(predicate, nameof(predicate));
+        ArgumentNullException.ThrowIfNull(selector, nameof(selector));
 
         HashSet<LocaleEntry> entries = [.. StoredEntries.Where(predicate)];
         int entriesReplaced = 0;
@@ -258,6 +272,7 @@ public class LocaleFileInfo
         // Replace the text from entries from the hash -> entry mapping.
         foreach (LocaleEntry entry in entries)
         {
+            string text = selector(entry) ?? throw new ArgumentException("Text cannot be null.");
             List<LocaleEntry> hashEntries = HashToEntry[entry.Hash];
             LocaleEntry updatedEntry = entry with { Text = text };
 
@@ -291,7 +306,8 @@ public class LocaleFileInfo
 
                 if (entries.Contains(kvp.Value))
                 {
-                    IdToEntry[kvp.Key] = kvp.Value with { Text = text };
+                    string text = selector(kvp.Value) ?? throw new ArgumentException("Text cannot be null.");
+                    IdToEntry[kvp.Key] = kvp.Value with { Text = selector(kvp.Value) };
                     idsLeft--;
                 }
             }
@@ -306,8 +322,8 @@ public class LocaleFileInfo
     /// <remarks><inheritdoc cref="AddEntries(IEnumerable{string})"/></remarks>
     /// <returns>The number of locale entries with text replaced.</returns>
     /// <exception cref="ArgumentNullException"/>
-    public int ReplaceEntries(IEnumerable<string> first, IEnumerable<string> second)
-        => ReplaceEntries(Enumerable.Zip(first, second));
+    public int UpdateEntries(IEnumerable<string> first, IEnumerable<string> second)
+        => UpdateEntries(Enumerable.Zip(first, second));
 
     /// <summary>
     /// Replaces the text of entries matching the first item with the second item in the sequence.
@@ -315,7 +331,7 @@ public class LocaleFileInfo
     /// <remarks><inheritdoc cref="AddEntries(IEnumerable{string})"/></remarks>
     /// <returns>The number of locale entries with text replaced.</returns>
     /// <exception cref="ArgumentNullException"/>
-    public int ReplaceEntries(IEnumerable<(string, string)> items)
+    public int UpdateEntries(IEnumerable<(string, string)> items)
     {
         Dictionary<string, string> replacements = [];
 
@@ -324,7 +340,7 @@ public class LocaleFileInfo
             replacements[oldText] = newText;
         }
 
-        return ReplaceEntries(replacements);
+        return UpdateEntries(replacements);
     }
 
     /// <summary>
@@ -333,7 +349,7 @@ public class LocaleFileInfo
     /// <remarks><inheritdoc cref="AddEntries(IEnumerable{string})"/></remarks>
     /// <returns>The number of locale entries with text replaced.</returns>
     /// <exception cref="ArgumentNullException"/>
-    public int ReplaceEntries(Dictionary<string, string> replacements)
+    public int UpdateEntries(Dictionary<string, string> replacements)
     {
         ArgumentNullException.ThrowIfNull(replacements, nameof(replacements));
 
@@ -344,7 +360,7 @@ public class LocaleFileInfo
         {
             if (replacements.TryGetValue(entry.Text, out string? text))
             {
-                entryToText[entry] = text ?? throw new ArgumentException("Text replacement cannot be null.");
+                entryToText[entry] = text ?? throw new ArgumentException("Text cannot be null.");
             }
         }
 
@@ -404,7 +420,7 @@ public class LocaleFileInfo
     /// <returns><see langword="true"/> if the text was replaced; otherwise, <see langword="false"/>.</returns>
     /// <exception cref="ArgumentNullException"/>
     /// <exception cref="InvalidOperationException"/>
-    public bool ReplaceEntry(int id, string text)
+    public bool UpdateEntry(int id, string text)
     {
         ArgumentNullException.ThrowIfNull(text, nameof(text));
 
