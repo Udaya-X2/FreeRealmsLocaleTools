@@ -32,13 +32,14 @@ public class LocaleFileInfo
         Entries = [];
         _idToEntry = [];
         _hashToEntry = [];
+        _unusedIds = Enumerable.Range(1, Preimaging.MaxId).GetEnumerator();
     }
 
     /// <summary>
     /// Initializes a new instance of <see cref="LocaleFileInfo"/> from the specified locale .dat file.
     /// </summary>
     /// <exception cref="ArgumentNullException"/>
-    public LocaleFileInfo(string localeDatPath)
+    public LocaleFileInfo(string localeDatPath, bool lazyInit = true)
     {
         LocaleDatFile = new(localeDatPath ?? throw new ArgumentNullException(nameof(localeDatPath)));
         LocaleDirFile = new(Path.ChangeExtension(localeDatPath, ".dir"));
@@ -46,13 +47,19 @@ public class LocaleFileInfo
         Locations = [];
         Entries = LocaleFile.ReadEntries(localeDatPath);
         Metadata = LocaleMetadata.Create(localeDatPath, Entries);
+
+        // If lazy initialization is off, compute ID/Hash -> entry mappings in the constructor.
+        if (!lazyInit)
+        {
+            _ = (IdToEntry, HashToEntry, UnusedIds);
+        }
     }
 
     /// <summary>
     /// Initializes a new instance of <see cref="LocaleFileInfo"/> from the specified locale .dat and .dir file.
     /// </summary>
     /// <exception cref="ArgumentNullException"/>
-    public LocaleFileInfo(string localeDatPath, string localeDirPath)
+    public LocaleFileInfo(string localeDatPath, string localeDirPath, bool lazyInit = true)
     {
         LocaleDatFile = new(localeDatPath ?? throw new ArgumentNullException(localeDatPath));
         LocaleDirFile = new(localeDirPath ?? throw new ArgumentNullException(localeDirPath));
@@ -65,6 +72,12 @@ public class LocaleFileInfo
         Entries = Metadata.IsTCG() && Metadata.Locale == Locale.zh_CN
                 ? LocaleFile.ReadEntries(localeDatPath)
                 : LocaleFile.ReadEntries(localeDatPath, localeDirPath);
+
+        // If lazy initialization is off, compute ID/Hash -> entry mappings in the constructor.
+        if (!lazyInit)
+        {
+            _ = (IdToEntry, HashToEntry, UnusedIds);
+        }
     }
 
     /// <summary>
