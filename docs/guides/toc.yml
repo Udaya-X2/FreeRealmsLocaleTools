@@ -1,0 +1,22 @@
+items:
+- uid: Introduction
+  name: Introduction
+  items:
+  - name: Installation
+    href: intro.md#installation
+  - name: Background
+    href: intro.md#background
+  - name: Usage
+    href: intro.md#usage
+  - name: Reading Locale Entries
+    href: intro.md#reading-locale-entries
+  - name: Adding Locale Entries
+    href: intro.md#adding-locale-entries
+  - name: Updating Locale Entries
+    href: intro.md#updating-locale-entries
+  - name: Removing Locale Entries
+    href: intro.md#removing-locale-entries
+  - name: Getting Name IDs from Locale Files
+    href: intro.md#getting-name-ids-from-locale-files
+  - name: Reading Locale Metadata
+    href: intro.md#reading-locale-metadata

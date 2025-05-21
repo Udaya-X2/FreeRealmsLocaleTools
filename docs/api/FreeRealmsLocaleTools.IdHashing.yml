@@ -1,0 +1,30 @@
+### YamlMime:ManagedReference
+items:
+- uid: FreeRealmsLocaleTools.IdHashing
+  commentId: N:FreeRealmsLocaleTools.IdHashing
+  id: FreeRealmsLocaleTools.IdHashing
+  children:
+  - FreeRealmsLocaleTools.IdHashing.JenkinsLookup2
+  - FreeRealmsLocaleTools.IdHashing.Preimaging
+  langs:
+  - csharp
+  - vb
+  name: FreeRealmsLocaleTools.IdHashing
+  nameWithType: FreeRealmsLocaleTools.IdHashing
+  fullName: FreeRealmsLocaleTools.IdHashing
+  type: Namespace
+  assemblies:
+  - FreeRealmsLocaleTools
+references:
+- uid: FreeRealmsLocaleTools.IdHashing.JenkinsLookup2
+  commentId: T:FreeRealmsLocaleTools.IdHashing.JenkinsLookup2
+  href: FreeRealmsLocaleTools.IdHashing.JenkinsLookup2.html
+  name: JenkinsLookup2
+  nameWithType: JenkinsLookup2
+  fullName: FreeRealmsLocaleTools.IdHashing.JenkinsLookup2
+- uid: FreeRealmsLocaleTools.IdHashing.Preimaging
+  commentId: T:FreeRealmsLocaleTools.IdHashing.Preimaging
+  href: FreeRealmsLocaleTools.IdHashing.Preimaging.html
+  name: Preimaging
+  nameWithType: Preimaging
+  fullName: FreeRealmsLocaleTools.IdHashing.Preimaging

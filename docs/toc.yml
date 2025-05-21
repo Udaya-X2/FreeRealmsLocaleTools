@@ -1,0 +1,6 @@
+- name: Documentation
+  href: guides/intro.md
+- name: API Reference
+  href: api/FreeRealmsLocaleTools.LocaleParser.yml
+- name: GitHub
+  href: https://github.com/Udaya-X2/FreeRealmsLocaleTools

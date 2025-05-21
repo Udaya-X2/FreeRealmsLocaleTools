@@ -1,0 +1,2293 @@
+### YamlMime:ManagedReference
+items:
+- uid: FreeRealmsLocaleTools.LocaleParser.LocaleFileInfo
+  commentId: T:FreeRealmsLocaleTools.LocaleParser.LocaleFileInfo
+  id: LocaleFileInfo
+  parent: FreeRealmsLocaleTools.LocaleParser
+  children:
+  - FreeRealmsLocaleTools.LocaleParser.LocaleFileInfo.#ctor
+  - FreeRealmsLocaleTools.LocaleParser.LocaleFileInfo.#ctor(System.String,System.Boolean)
+  - FreeRealmsLocaleTools.LocaleParser.LocaleFileInfo.#ctor(System.String,System.String,System.Boolean)
+  - FreeRealmsLocaleTools.LocaleParser.LocaleFileInfo.AddEntries(System.Collections.Generic.IEnumerable{System.String})
+  - FreeRealmsLocaleTools.LocaleParser.LocaleFileInfo.AddEntry(System.String)
+  - FreeRealmsLocaleTools.LocaleParser.LocaleFileInfo.CanAddEntries
+  - FreeRealmsLocaleTools.LocaleParser.LocaleFileInfo.Entries
+  - FreeRealmsLocaleTools.LocaleParser.LocaleFileInfo.HashToEntry
+  - FreeRealmsLocaleTools.LocaleParser.LocaleFileInfo.IdToEntry
+  - FreeRealmsLocaleTools.LocaleParser.LocaleFileInfo.LocaleDatFile
+  - FreeRealmsLocaleTools.LocaleParser.LocaleFileInfo.LocaleDirFile
+  - FreeRealmsLocaleTools.LocaleParser.LocaleFileInfo.Locations
+  - FreeRealmsLocaleTools.LocaleParser.LocaleFileInfo.Metadata
+  - FreeRealmsLocaleTools.LocaleParser.LocaleFileInfo.Preamble
+  - FreeRealmsLocaleTools.LocaleParser.LocaleFileInfo.RemoveEntries(System.Func{FreeRealmsLocaleTools.LocaleParser.LocaleEntry,System.Boolean})
+  - FreeRealmsLocaleTools.LocaleParser.LocaleFileInfo.RemoveEntries(System.String)
+  - FreeRealmsLocaleTools.LocaleParser.LocaleFileInfo.RemoveEntry(System.Int32)
+  - FreeRealmsLocaleTools.LocaleParser.LocaleFileInfo.StoredEntries
+  - FreeRealmsLocaleTools.LocaleParser.LocaleFileInfo.UpdateEntries(System.Collections.Generic.Dictionary{System.String,System.String})
+  - FreeRealmsLocaleTools.LocaleParser.LocaleFileInfo.UpdateEntries(System.Collections.Generic.IEnumerable{System.String},System.Collections.Generic.IEnumerable{System.String})
+  - FreeRealmsLocaleTools.LocaleParser.LocaleFileInfo.UpdateEntries(System.Collections.Generic.IEnumerable{System.ValueTuple{System.String,System.String}})
+  - FreeRealmsLocaleTools.LocaleParser.LocaleFileInfo.UpdateEntries(System.Func{FreeRealmsLocaleTools.LocaleParser.LocaleEntry,System.Boolean},System.Func{FreeRealmsLocaleTools.LocaleParser.LocaleEntry,System.String})
+  - FreeRealmsLocaleTools.LocaleParser.LocaleFileInfo.UpdateEntries(System.Func{FreeRealmsLocaleTools.LocaleParser.LocaleEntry,System.Boolean},System.String)
+  - FreeRealmsLocaleTools.LocaleParser.LocaleFileInfo.UpdateEntries(System.String,System.String)
+  - FreeRealmsLocaleTools.LocaleParser.LocaleFileInfo.UpdateEntry(System.Int32,System.String)
+  - FreeRealmsLocaleTools.LocaleParser.LocaleFileInfo.WriteEntries
+  - FreeRealmsLocaleTools.LocaleParser.LocaleFileInfo.WriteEntries(System.IO.FileInfo,System.IO.FileInfo)
+  - FreeRealmsLocaleTools.LocaleParser.LocaleFileInfo.WriteEntries(System.String,System.String)
+  langs:
+  - csharp
+  - vb
+  name: LocaleFileInfo
+  nameWithType: LocaleFileInfo
+  fullName: FreeRealmsLocaleTools.LocaleParser.LocaleFileInfo
+  type: Class
+  source:
+    remote:
+      path: src/FreeRealmsLocaleTools/LocaleParser/LocaleFileInfo.cs
+      branch: main
+      repo: https://github.com/Udaya-X2/FreeRealmsLocaleTools
+    id: LocaleFileInfo
+    path: ../src/FreeRealmsLocaleTools/LocaleParser/LocaleFileInfo.cs
+    startLine: 8
+  assemblies:
+  - FreeRealmsLocaleTools
+  namespace: FreeRealmsLocaleTools.LocaleParser
+  summary: Provides properties and instance methods for reading and writing Free Realms locale files.
+  example: []
+  syntax:
+    content: public class LocaleFileInfo
+    content.vb: Public Class LocaleFileInfo
+  inheritance:
+  - System.Object
+  inheritedMembers:
+  - System.Object.Equals(System.Object)
+  - System.Object.Equals(System.Object,System.Object)
+  - System.Object.GetHashCode
+  - System.Object.GetType
+  - System.Object.MemberwiseClone
+  - System.Object.ReferenceEquals(System.Object,System.Object)
+  - System.Object.ToString
+- uid: FreeRealmsLocaleTools.LocaleParser.LocaleFileInfo.#ctor
+  commentId: M:FreeRealmsLocaleTools.LocaleParser.LocaleFileInfo.#ctor
+  id: '#ctor'
+  parent: FreeRealmsLocaleTools.LocaleParser.LocaleFileInfo
+  langs:
+  - csharp
+  - vb
+  name: LocaleFileInfo()
+  nameWithType: LocaleFileInfo.LocaleFileInfo()
+  fullName: FreeRealmsLocaleTools.LocaleParser.LocaleFileInfo.LocaleFileInfo()
+  type: Constructor
+  source:
+    remote:
+      path: src/FreeRealmsLocaleTools/LocaleParser/LocaleFileInfo.cs
+      branch: main
+      repo: https://github.com/Udaya-X2/FreeRealmsLocaleTools
+    id: .ctor
+    path: ../src/FreeRealmsLocaleTools/LocaleParser/LocaleFileInfo.cs
+    startLine: 24
+  assemblies:
+  - FreeRealmsLocaleTools
+  namespace: FreeRealmsLocaleTools.LocaleParser
+  summary: Initializes an empty instance of <xref href="FreeRealmsLocaleTools.LocaleParser.LocaleFileInfo" data-throw-if-not-resolved="false"></xref>.
+  example: []
+  syntax:
+    content: public LocaleFileInfo()
+    content.vb: Public Sub New()
+  overload: FreeRealmsLocaleTools.LocaleParser.LocaleFileInfo.#ctor*
+  nameWithType.vb: LocaleFileInfo.New()
+  fullName.vb: FreeRealmsLocaleTools.LocaleParser.LocaleFileInfo.New()
+  name.vb: New()
+- uid: FreeRealmsLocaleTools.LocaleParser.LocaleFileInfo.#ctor(System.String,System.Boolean)
+  commentId: M:FreeRealmsLocaleTools.LocaleParser.LocaleFileInfo.#ctor(System.String,System.Boolean)
+  id: '#ctor(System.String,System.Boolean)'
+  parent: FreeRealmsLocaleTools.LocaleParser.LocaleFileInfo
+  langs:
+  - csharp
+  - vb
+  name: LocaleFileInfo(string, bool)
+  nameWithType: LocaleFileInfo.LocaleFileInfo(string, bool)
+  fullName: FreeRealmsLocaleTools.LocaleParser.LocaleFileInfo.LocaleFileInfo(string, bool)
+  type: Constructor
+  source:
+    remote:
+      path: src/FreeRealmsLocaleTools/LocaleParser/LocaleFileInfo.cs
+      branch: main
+      repo: https://github.com/Udaya-X2/FreeRealmsLocaleTools
+    id: .ctor
+    path: ../src/FreeRealmsLocaleTools/LocaleParser/LocaleFileInfo.cs
+    startLine: 41
+  assemblies:
+  - FreeRealmsLocaleTools
+  namespace: FreeRealmsLocaleTools.LocaleParser
+  summary: Initializes a new instance of <xref href="FreeRealmsLocaleTools.LocaleParser.LocaleFileInfo" data-throw-if-not-resolved="false"></xref> from the specified locale .dat file.
+  example: []
+  syntax:
+    content: public LocaleFileInfo(string localeDatPath, bool lazyInit = true)
+    parameters:
+    - id: localeDatPath
+      type: System.String
+    - id: lazyInit
+      type: System.Boolean
+    content.vb: Public Sub New(localeDatPath As String, lazyInit As Boolean = True)
+  overload: FreeRealmsLocaleTools.LocaleParser.LocaleFileInfo.#ctor*
+  exceptions:
+  - type: System.ArgumentNullException
+    commentId: T:System.ArgumentNullException
+    description: ''
+  nameWithType.vb: LocaleFileInfo.New(String, Boolean)
+  fullName.vb: FreeRealmsLocaleTools.LocaleParser.LocaleFileInfo.New(String, Boolean)
+  name.vb: New(String, Boolean)
+- uid: FreeRealmsLocaleTools.LocaleParser.LocaleFileInfo.#ctor(System.String,System.String,System.Boolean)
+  commentId: M:FreeRealmsLocaleTools.LocaleParser.LocaleFileInfo.#ctor(System.String,System.String,System.Boolean)
+  id: '#ctor(System.String,System.String,System.Boolean)'
+  parent: FreeRealmsLocaleTools.LocaleParser.LocaleFileInfo
+  langs:
+  - csharp
+  - vb
+  name: LocaleFileInfo(string, string, bool)
+  nameWithType: LocaleFileInfo.LocaleFileInfo(string, string, bool)
+  fullName: FreeRealmsLocaleTools.LocaleParser.LocaleFileInfo.LocaleFileInfo(string, string, bool)
+  type: Constructor
+  source:
+    remote:
+      path: src/FreeRealmsLocaleTools/LocaleParser/LocaleFileInfo.cs
+      branch: main
+      repo: https://github.com/Udaya-X2/FreeRealmsLocaleTools
+    id: .ctor
+    path: ../src/FreeRealmsLocaleTools/LocaleParser/LocaleFileInfo.cs
+    startLine: 61
+  assemblies:
+  - FreeRealmsLocaleTools
+  namespace: FreeRealmsLocaleTools.LocaleParser
+  summary: Initializes a new instance of <xref href="FreeRealmsLocaleTools.LocaleParser.LocaleFileInfo" data-throw-if-not-resolved="false"></xref> from the specified locale .dat and .dir file.
+  example: []
+  syntax:
+    content: public LocaleFileInfo(string localeDatPath, string localeDirPath, bool lazyInit = true)
+    parameters:
+    - id: localeDatPath
+      type: System.String
+    - id: localeDirPath
+      type: System.String
+    - id: lazyInit
+      type: System.Boolean
+    content.vb: Public Sub New(localeDatPath As String, localeDirPath As String, lazyInit As Boolean = True)
+  overload: FreeRealmsLocaleTools.LocaleParser.LocaleFileInfo.#ctor*
+  exceptions:
+  - type: System.ArgumentNullException
+    commentId: T:System.ArgumentNullException
+    description: ''
+  nameWithType.vb: LocaleFileInfo.New(String, String, Boolean)
+  fullName.vb: FreeRealmsLocaleTools.LocaleParser.LocaleFileInfo.New(String, String, Boolean)
+  name.vb: New(String, String, Boolean)
+- uid: FreeRealmsLocaleTools.LocaleParser.LocaleFileInfo.LocaleDatFile
+  commentId: P:FreeRealmsLocaleTools.LocaleParser.LocaleFileInfo.LocaleDatFile
+  id: LocaleDatFile
+  parent: FreeRealmsLocaleTools.LocaleParser.LocaleFileInfo
+  langs:
+  - csharp
+  - vb
+  name: LocaleDatFile
+  nameWithType: LocaleFileInfo.LocaleDatFile
+  fullName: FreeRealmsLocaleTools.LocaleParser.LocaleFileInfo.LocaleDatFile
+  type: Property
+  source:
+    remote:
+      path: src/FreeRealmsLocaleTools/LocaleParser/LocaleFileInfo.cs
+      branch: main
+      repo: https://github.com/Udaya-X2/FreeRealmsLocaleTools
+    id: LocaleDatFile
+    path: ../src/FreeRealmsLocaleTools/LocaleParser/LocaleFileInfo.cs
+    startLine: 100
+  assemblies:
+  - FreeRealmsLocaleTools
+  namespace: FreeRealmsLocaleTools.LocaleParser
+  summary: Gets the locale .dat file.
+  example: []
+  syntax:
+    content: public FileInfo LocaleDatFile { get; }
+    parameters: []
+    return:
+      type: System.IO.FileInfo
+    content.vb: Public Property LocaleDatFile As FileInfo
+  overload: FreeRealmsLocaleTools.LocaleParser.LocaleFileInfo.LocaleDatFile*
+- uid: FreeRealmsLocaleTools.LocaleParser.LocaleFileInfo.LocaleDirFile
+  commentId: P:FreeRealmsLocaleTools.LocaleParser.LocaleFileInfo.LocaleDirFile
+  id: LocaleDirFile
+  parent: FreeRealmsLocaleTools.LocaleParser.LocaleFileInfo
+  langs:
+  - csharp
+  - vb
+  name: LocaleDirFile
+  nameWithType: LocaleFileInfo.LocaleDirFile
+  fullName: FreeRealmsLocaleTools.LocaleParser.LocaleFileInfo.LocaleDirFile
+  type: Property
+  source:
+    remote:
+      path: src/FreeRealmsLocaleTools/LocaleParser/LocaleFileInfo.cs
+      branch: main
+      repo: https://github.com/Udaya-X2/FreeRealmsLocaleTools
+    id: LocaleDirFile
+    path: ../src/FreeRealmsLocaleTools/LocaleParser/LocaleFileInfo.cs
+    startLine: 106
+  assemblies:
+  - FreeRealmsLocaleTools
+  namespace: FreeRealmsLocaleTools.LocaleParser
+  summary: >-
+    Gets the locale .dir file, or the locale .dat file with its
+
+    extension changed to ".dir" if no .dir file was not given.
+  example: []
+  syntax:
+    content: public FileInfo LocaleDirFile { get; }
+    parameters: []
+    return:
+      type: System.IO.FileInfo
+    content.vb: Public Property LocaleDirFile As FileInfo
+  overload: FreeRealmsLocaleTools.LocaleParser.LocaleFileInfo.LocaleDirFile*
+- uid: FreeRealmsLocaleTools.LocaleParser.LocaleFileInfo.Preamble
+  commentId: P:FreeRealmsLocaleTools.LocaleParser.LocaleFileInfo.Preamble
+  id: Preamble
+  parent: FreeRealmsLocaleTools.LocaleParser.LocaleFileInfo
+  langs:
+  - csharp
+  - vb
+  name: Preamble
+  nameWithType: LocaleFileInfo.Preamble
+  fullName: FreeRealmsLocaleTools.LocaleParser.LocaleFileInfo.Preamble
+  type: Property
+  source:
+    remote:
+      path: src/FreeRealmsLocaleTools/LocaleParser/LocaleFileInfo.cs
+      branch: main
+      repo: https://github.com/Udaya-X2/FreeRealmsLocaleTools
+    id: Preamble
+    path: ../src/FreeRealmsLocaleTools/LocaleParser/LocaleFileInfo.cs
+    startLine: 111
+  assemblies:
+  - FreeRealmsLocaleTools
+  namespace: FreeRealmsLocaleTools.LocaleParser
+  summary: Gets the preamble bytes at the beginning of the locale .dat file.
+  example: []
+  syntax:
+    content: public ReadOnlySpan<byte> Preamble { get; }
+    parameters: []
+    return:
+      type: System.ReadOnlySpan{System.Byte}
+    content.vb: Public Property Preamble As ReadOnlySpan(Of Byte)
+  overload: FreeRealmsLocaleTools.LocaleParser.LocaleFileInfo.Preamble*
+- uid: FreeRealmsLocaleTools.LocaleParser.LocaleFileInfo.Metadata
+  commentId: P:FreeRealmsLocaleTools.LocaleParser.LocaleFileInfo.Metadata
+  id: Metadata
+  parent: FreeRealmsLocaleTools.LocaleParser.LocaleFileInfo
+  langs:
+  - csharp
+  - vb
+  name: Metadata
+  nameWithType: LocaleFileInfo.Metadata
+  fullName: FreeRealmsLocaleTools.LocaleParser.LocaleFileInfo.Metadata
+  type: Property
+  source:
+    remote:
+      path: src/FreeRealmsLocaleTools/LocaleParser/LocaleFileInfo.cs
+      branch: main
+      repo: https://github.com/Udaya-X2/FreeRealmsLocaleTools
+    id: Metadata
+    path: ../src/FreeRealmsLocaleTools/LocaleParser/LocaleFileInfo.cs
+    startLine: 120
+  assemblies:
+  - FreeRealmsLocaleTools
+  namespace: FreeRealmsLocaleTools.LocaleParser
+  summary: Gets the locale metadata.
+  example: []
+  syntax:
+    content: public LocaleMetadata Metadata { get; }
+    parameters: []
+    return:
+      type: FreeRealmsLocaleTools.LocaleParser.LocaleMetadata
+    content.vb: Public Property Metadata As LocaleMetadata
+  overload: FreeRealmsLocaleTools.LocaleParser.LocaleFileInfo.Metadata*
+- uid: FreeRealmsLocaleTools.LocaleParser.LocaleFileInfo.Locations
+  commentId: P:FreeRealmsLocaleTools.LocaleParser.LocaleFileInfo.Locations
+  id: Locations
+  parent: FreeRealmsLocaleTools.LocaleParser.LocaleFileInfo
+  langs:
+  - csharp
+  - vb
+  name: Locations
+  nameWithType: LocaleFileInfo.Locations
+  fullName: FreeRealmsLocaleTools.LocaleParser.LocaleFileInfo.Locations
+  type: Property
+  source:
+    remote:
+      path: src/FreeRealmsLocaleTools/LocaleParser/LocaleFileInfo.cs
+      branch: main
+      repo: https://github.com/Udaya-X2/FreeRealmsLocaleTools
+    id: Locations
+    path: ../src/FreeRealmsLocaleTools/LocaleParser/LocaleFileInfo.cs
+    startLine: 125
+  assemblies:
+  - FreeRealmsLocaleTools
+  namespace: FreeRealmsLocaleTools.LocaleParser
+  summary: Gets the locale entry locations read from the .dir file, or an empty array if no .dir file was given.
+  example: []
+  syntax:
+    content: public LocaleEntryLocation[] Locations { get; }
+    parameters: []
+    return:
+      type: FreeRealmsLocaleTools.LocaleParser.LocaleEntryLocation[]
+    content.vb: Public Property Locations As LocaleEntryLocation()
+  overload: FreeRealmsLocaleTools.LocaleParser.LocaleFileInfo.Locations*
+- uid: FreeRealmsLocaleTools.LocaleParser.LocaleFileInfo.Entries
+  commentId: P:FreeRealmsLocaleTools.LocaleParser.LocaleFileInfo.Entries
+  id: Entries
+  parent: FreeRealmsLocaleTools.LocaleParser.LocaleFileInfo
+  langs:
+  - csharp
+  - vb
+  name: Entries
+  nameWithType: LocaleFileInfo.Entries
+  fullName: FreeRealmsLocaleTools.LocaleParser.LocaleFileInfo.Entries
+  type: Property
+  source:
+    remote:
+      path: src/FreeRealmsLocaleTools/LocaleParser/LocaleFileInfo.cs
+      branch: main
+      repo: https://github.com/Udaya-X2/FreeRealmsLocaleTools
+    id: Entries
+    path: ../src/FreeRealmsLocaleTools/LocaleParser/LocaleFileInfo.cs
+    startLine: 130
+  assemblies:
+  - FreeRealmsLocaleTools
+  namespace: FreeRealmsLocaleTools.LocaleParser
+  summary: Gets the locale entries read from the .dat file.
+  example: []
+  syntax:
+    content: public LocaleEntry[] Entries { get; }
+    parameters: []
+    return:
+      type: FreeRealmsLocaleTools.LocaleParser.LocaleEntry[]
+    content.vb: Public Property Entries As LocaleEntry()
+  overload: FreeRealmsLocaleTools.LocaleParser.LocaleFileInfo.Entries*
+- uid: FreeRealmsLocaleTools.LocaleParser.LocaleFileInfo.CanAddEntries
+  commentId: P:FreeRealmsLocaleTools.LocaleParser.LocaleFileInfo.CanAddEntries
+  id: CanAddEntries
+  parent: FreeRealmsLocaleTools.LocaleParser.LocaleFileInfo
+  langs:
+  - csharp
+  - vb
+  name: CanAddEntries
+  nameWithType: LocaleFileInfo.CanAddEntries
+  fullName: FreeRealmsLocaleTools.LocaleParser.LocaleFileInfo.CanAddEntries
+  type: Property
+  source:
+    remote:
+      path: src/FreeRealmsLocaleTools/LocaleParser/LocaleFileInfo.cs
+      branch: main
+      repo: https://github.com/Udaya-X2/FreeRealmsLocaleTools
+    id: CanAddEntries
+    path: ../src/FreeRealmsLocaleTools/LocaleParser/LocaleFileInfo.cs
+    startLine: 135
+  assemblies:
+  - FreeRealmsLocaleTools
+  namespace: FreeRealmsLocaleTools.LocaleParser
+  summary: Gets whether adding locale entries is supported.
+  example: []
+  syntax:
+    content: public bool CanAddEntries { get; }
+    parameters: []
+    return:
+      type: System.Boolean
+    content.vb: Public ReadOnly Property CanAddEntries As Boolean
+  overload: FreeRealmsLocaleTools.LocaleParser.LocaleFileInfo.CanAddEntries*
+- uid: FreeRealmsLocaleTools.LocaleParser.LocaleFileInfo.IdToEntry
+  commentId: P:FreeRealmsLocaleTools.LocaleParser.LocaleFileInfo.IdToEntry
+  id: IdToEntry
+  parent: FreeRealmsLocaleTools.LocaleParser.LocaleFileInfo
+  langs:
+  - csharp
+  - vb
+  name: IdToEntry
+  nameWithType: LocaleFileInfo.IdToEntry
+  fullName: FreeRealmsLocaleTools.LocaleParser.LocaleFileInfo.IdToEntry
+  type: Property
+  source:
+    remote:
+      path: src/FreeRealmsLocaleTools/LocaleParser/LocaleFileInfo.cs
+      branch: main
+      repo: https://github.com/Udaya-X2/FreeRealmsLocaleTools
+    id: IdToEntry
+    path: ../src/FreeRealmsLocaleTools/LocaleParser/LocaleFileInfo.cs
+    startLine: 141
+  assemblies:
+  - FreeRealmsLocaleTools
+  namespace: FreeRealmsLocaleTools.LocaleParser
+  summary: Gets a sorted mapping from IDs to locale entries.
+  example: []
+  syntax:
+    content: public SortedDictionary<int, LocaleEntry> IdToEntry { get; }
+    parameters: []
+    return:
+      type: System.Collections.Generic.SortedDictionary{System.Int32,FreeRealmsLocaleTools.LocaleParser.LocaleEntry}
+    content.vb: Public ReadOnly Property IdToEntry As SortedDictionary(Of Integer, LocaleEntry)
+  overload: FreeRealmsLocaleTools.LocaleParser.LocaleFileInfo.IdToEntry*
+  exceptions:
+  - type: System.InvalidOperationException
+    commentId: T:System.InvalidOperationException
+    description: ''
+- uid: FreeRealmsLocaleTools.LocaleParser.LocaleFileInfo.HashToEntry
+  commentId: P:FreeRealmsLocaleTools.LocaleParser.LocaleFileInfo.HashToEntry
+  id: HashToEntry
+  parent: FreeRealmsLocaleTools.LocaleParser.LocaleFileInfo
+  langs:
+  - csharp
+  - vb
+  name: HashToEntry
+  nameWithType: LocaleFileInfo.HashToEntry
+  fullName: FreeRealmsLocaleTools.LocaleParser.LocaleFileInfo.HashToEntry
+  type: Property
+  source:
+    remote:
+      path: src/FreeRealmsLocaleTools/LocaleParser/LocaleFileInfo.cs
+      branch: main
+      repo: https://github.com/Udaya-X2/FreeRealmsLocaleTools
+    id: HashToEntry
+    path: ../src/FreeRealmsLocaleTools/LocaleParser/LocaleFileInfo.cs
+    startLine: 157
+  assemblies:
+  - FreeRealmsLocaleTools
+  namespace: FreeRealmsLocaleTools.LocaleParser
+  summary: Gets a sorted mapping from hashes to locale entries.
+  example: []
+  syntax:
+    content: public SortedDictionary<uint, List<LocaleEntry>> HashToEntry { get; }
+    parameters: []
+    return:
+      type: System.Collections.Generic.SortedDictionary{System.UInt32,System.Collections.Generic.List{FreeRealmsLocaleTools.LocaleParser.LocaleEntry}}
+    content.vb: Public ReadOnly Property HashToEntry As SortedDictionary(Of UInteger, List(Of LocaleEntry))
+  overload: FreeRealmsLocaleTools.LocaleParser.LocaleFileInfo.HashToEntry*
+- uid: FreeRealmsLocaleTools.LocaleParser.LocaleFileInfo.StoredEntries
+  commentId: P:FreeRealmsLocaleTools.LocaleParser.LocaleFileInfo.StoredEntries
+  id: StoredEntries
+  parent: FreeRealmsLocaleTools.LocaleParser.LocaleFileInfo
+  langs:
+  - csharp
+  - vb
+  name: StoredEntries
+  nameWithType: LocaleFileInfo.StoredEntries
+  fullName: FreeRealmsLocaleTools.LocaleParser.LocaleFileInfo.StoredEntries
+  type: Property
+  source:
+    remote:
+      path: src/FreeRealmsLocaleTools/LocaleParser/LocaleFileInfo.cs
+      branch: main
+      repo: https://github.com/Udaya-X2/FreeRealmsLocaleTools
+    id: StoredEntries
+    path: ../src/FreeRealmsLocaleTools/LocaleParser/LocaleFileInfo.cs
+    startLine: 168
+  assemblies:
+  - FreeRealmsLocaleTools
+  namespace: FreeRealmsLocaleTools.LocaleParser
+  summary: Gets a view of the stored locale entries, including updates, ordered by hash.
+  example: []
+  syntax:
+    content: public IEnumerable<LocaleEntry> StoredEntries { get; }
+    parameters: []
+    return:
+      type: System.Collections.Generic.IEnumerable{FreeRealmsLocaleTools.LocaleParser.LocaleEntry}
+    content.vb: Public ReadOnly Property StoredEntries As IEnumerable(Of LocaleEntry)
+  overload: FreeRealmsLocaleTools.LocaleParser.LocaleFileInfo.StoredEntries*
+- uid: FreeRealmsLocaleTools.LocaleParser.LocaleFileInfo.AddEntries(System.Collections.Generic.IEnumerable{System.String})
+  commentId: M:FreeRealmsLocaleTools.LocaleParser.LocaleFileInfo.AddEntries(System.Collections.Generic.IEnumerable{System.String})
+  id: AddEntries(System.Collections.Generic.IEnumerable{System.String})
+  parent: FreeRealmsLocaleTools.LocaleParser.LocaleFileInfo
+  langs:
+  - csharp
+  - vb
+  name: AddEntries(IEnumerable<string>)
+  nameWithType: LocaleFileInfo.AddEntries(IEnumerable<string>)
+  fullName: FreeRealmsLocaleTools.LocaleParser.LocaleFileInfo.AddEntries(System.Collections.Generic.IEnumerable<string>)
+  type: Method
+  source:
+    remote:
+      path: src/FreeRealmsLocaleTools/LocaleParser/LocaleFileInfo.cs
+      branch: main
+      repo: https://github.com/Udaya-X2/FreeRealmsLocaleTools
+    id: AddEntries
+    path: ../src/FreeRealmsLocaleTools/LocaleParser/LocaleFileInfo.cs
+    startLine: 196
+  assemblies:
+  - FreeRealmsLocaleTools
+  namespace: FreeRealmsLocaleTools.LocaleParser
+  summary: Adds the specified collection of strings as locale entries.
+  remarks: The stored entries can be written with any of the <code>WriteEntries()</code> methods.
+  example: []
+  syntax:
+    content: public List<int> AddEntries(IEnumerable<string> contents)
+    parameters:
+    - id: contents
+      type: System.Collections.Generic.IEnumerable{System.String}
+    return:
+      type: System.Collections.Generic.List{System.Int32}
+      description: The IDs of the new locale entries.
+    content.vb: Public Function AddEntries(contents As IEnumerable(Of String)) As List(Of Integer)
+  overload: FreeRealmsLocaleTools.LocaleParser.LocaleFileInfo.AddEntries*
+  exceptions:
+  - type: System.ArgumentNullException
+    commentId: T:System.ArgumentNullException
+    description: ''
+  - type: System.InvalidOperationException
+    commentId: T:System.InvalidOperationException
+    description: ''
+  nameWithType.vb: LocaleFileInfo.AddEntries(IEnumerable(Of String))
+  fullName.vb: FreeRealmsLocaleTools.LocaleParser.LocaleFileInfo.AddEntries(System.Collections.Generic.IEnumerable(Of String))
+  name.vb: AddEntries(IEnumerable(Of String))
+- uid: FreeRealmsLocaleTools.LocaleParser.LocaleFileInfo.AddEntry(System.String)
+  commentId: M:FreeRealmsLocaleTools.LocaleParser.LocaleFileInfo.AddEntry(System.String)
+  id: AddEntry(System.String)
+  parent: FreeRealmsLocaleTools.LocaleParser.LocaleFileInfo
+  langs:
+  - csharp
+  - vb
+  name: AddEntry(string)
+  nameWithType: LocaleFileInfo.AddEntry(string)
+  fullName: FreeRealmsLocaleTools.LocaleParser.LocaleFileInfo.AddEntry(string)
+  type: Method
+  source:
+    remote:
+      path: src/FreeRealmsLocaleTools/LocaleParser/LocaleFileInfo.cs
+      branch: main
+      repo: https://github.com/Udaya-X2/FreeRealmsLocaleTools
+    id: AddEntry
+    path: ../src/FreeRealmsLocaleTools/LocaleParser/LocaleFileInfo.cs
+    startLine: 217
+  assemblies:
+  - FreeRealmsLocaleTools
+  namespace: FreeRealmsLocaleTools.LocaleParser
+  summary: Adds a locale entry with the specified text.
+  remarks: The stored entries can be written with any of the <code>WriteEntries()</code> methods.
+  example: []
+  syntax:
+    content: public int AddEntry(string text)
+    parameters:
+    - id: text
+      type: System.String
+    return:
+      type: System.Int32
+      description: The ID of the new locale entry.
+    content.vb: Public Function AddEntry(text As String) As Integer
+  overload: FreeRealmsLocaleTools.LocaleParser.LocaleFileInfo.AddEntry*
+  exceptions:
+  - type: System.ArgumentNullException
+    commentId: T:System.ArgumentNullException
+    description: ''
+  - type: System.InvalidOperationException
+    commentId: T:System.InvalidOperationException
+    description: ''
+  nameWithType.vb: LocaleFileInfo.AddEntry(String)
+  fullName.vb: FreeRealmsLocaleTools.LocaleParser.LocaleFileInfo.AddEntry(String)
+  name.vb: AddEntry(String)
+- uid: FreeRealmsLocaleTools.LocaleParser.LocaleFileInfo.UpdateEntries(System.String,System.String)
+  commentId: M:FreeRealmsLocaleTools.LocaleParser.LocaleFileInfo.UpdateEntries(System.String,System.String)
+  id: UpdateEntries(System.String,System.String)
+  parent: FreeRealmsLocaleTools.LocaleParser.LocaleFileInfo
+  langs:
+  - csharp
+  - vb
+  name: UpdateEntries(string, string)
+  nameWithType: LocaleFileInfo.UpdateEntries(string, string)
+  fullName: FreeRealmsLocaleTools.LocaleParser.LocaleFileInfo.UpdateEntries(string, string)
+  type: Method
+  source:
+    remote:
+      path: src/FreeRealmsLocaleTools/LocaleParser/LocaleFileInfo.cs
+      branch: main
+      repo: https://github.com/Udaya-X2/FreeRealmsLocaleTools
+    id: UpdateEntries
+    path: ../src/FreeRealmsLocaleTools/LocaleParser/LocaleFileInfo.cs
+    startLine: 241
+  assemblies:
+  - FreeRealmsLocaleTools
+  namespace: FreeRealmsLocaleTools.LocaleParser
+  summary: Replaces the text of all entries that have the specified old text with the new text.
+  remarks: The stored entries can be written with any of the <code>WriteEntries()</code> methods.
+  example: []
+  syntax:
+    content: public int UpdateEntries(string oldText, string newText)
+    parameters:
+    - id: oldText
+      type: System.String
+    - id: newText
+      type: System.String
+    return:
+      type: System.Int32
+      description: The number of locale entries with text replaced.
+    content.vb: Public Function UpdateEntries(oldText As String, newText As String) As Integer
+  overload: FreeRealmsLocaleTools.LocaleParser.LocaleFileInfo.UpdateEntries*
+  exceptions:
+  - type: System.ArgumentNullException
+    commentId: T:System.ArgumentNullException
+    description: ''
+  nameWithType.vb: LocaleFileInfo.UpdateEntries(String, String)
+  fullName.vb: FreeRealmsLocaleTools.LocaleParser.LocaleFileInfo.UpdateEntries(String, String)
+  name.vb: UpdateEntries(String, String)
+- uid: FreeRealmsLocaleTools.LocaleParser.LocaleFileInfo.UpdateEntries(System.Func{FreeRealmsLocaleTools.LocaleParser.LocaleEntry,System.Boolean},System.String)
+  commentId: M:FreeRealmsLocaleTools.LocaleParser.LocaleFileInfo.UpdateEntries(System.Func{FreeRealmsLocaleTools.LocaleParser.LocaleEntry,System.Boolean},System.String)
+  id: UpdateEntries(System.Func{FreeRealmsLocaleTools.LocaleParser.LocaleEntry,System.Boolean},System.String)
+  parent: FreeRealmsLocaleTools.LocaleParser.LocaleFileInfo
+  langs:
+  - csharp
+  - vb
+  name: UpdateEntries(Func<LocaleEntry, bool>, string)
+  nameWithType: LocaleFileInfo.UpdateEntries(Func<LocaleEntry, bool>, string)
+  fullName: FreeRealmsLocaleTools.LocaleParser.LocaleFileInfo.UpdateEntries(System.Func<FreeRealmsLocaleTools.LocaleParser.LocaleEntry, bool>, string)
+  type: Method
+  source:
+    remote:
+      path: src/FreeRealmsLocaleTools/LocaleParser/LocaleFileInfo.cs
+      branch: main
+      repo: https://github.com/Udaya-X2/FreeRealmsLocaleTools
+    id: UpdateEntries
+    path: ../src/FreeRealmsLocaleTools/LocaleParser/LocaleFileInfo.cs
+    startLine: 249
+  assemblies:
+  - FreeRealmsLocaleTools
+  namespace: FreeRealmsLocaleTools.LocaleParser
+  summary: Replaces the text from all entries that match the specified predicate with the specified text.
+  remarks: The stored entries can be written with any of the <code>WriteEntries()</code> methods.
+  example: []
+  syntax:
+    content: public int UpdateEntries(Func<LocaleEntry, bool> predicate, string text)
+    parameters:
+    - id: predicate
+      type: System.Func{FreeRealmsLocaleTools.LocaleParser.LocaleEntry,System.Boolean}
+    - id: text
+      type: System.String
+    return:
+      type: System.Int32
+      description: The number of locale entries with text replaced.
+    content.vb: Public Function UpdateEntries(predicate As Func(Of LocaleEntry, Boolean), text As String) As Integer
+  overload: FreeRealmsLocaleTools.LocaleParser.LocaleFileInfo.UpdateEntries*
+  exceptions:
+  - type: System.ArgumentNullException
+    commentId: T:System.ArgumentNullException
+    description: ''
+  nameWithType.vb: LocaleFileInfo.UpdateEntries(Func(Of LocaleEntry, Boolean), String)
+  fullName.vb: FreeRealmsLocaleTools.LocaleParser.LocaleFileInfo.UpdateEntries(System.Func(Of FreeRealmsLocaleTools.LocaleParser.LocaleEntry, Boolean), String)
+  name.vb: UpdateEntries(Func(Of LocaleEntry, Boolean), String)
+- uid: FreeRealmsLocaleTools.LocaleParser.LocaleFileInfo.UpdateEntries(System.Func{FreeRealmsLocaleTools.LocaleParser.LocaleEntry,System.Boolean},System.Func{FreeRealmsLocaleTools.LocaleParser.LocaleEntry,System.String})
+  commentId: M:FreeRealmsLocaleTools.LocaleParser.LocaleFileInfo.UpdateEntries(System.Func{FreeRealmsLocaleTools.LocaleParser.LocaleEntry,System.Boolean},System.Func{FreeRealmsLocaleTools.LocaleParser.LocaleEntry,System.String})
+  id: UpdateEntries(System.Func{FreeRealmsLocaleTools.LocaleParser.LocaleEntry,System.Boolean},System.Func{FreeRealmsLocaleTools.LocaleParser.LocaleEntry,System.String})
+  parent: FreeRealmsLocaleTools.LocaleParser.LocaleFileInfo
+  langs:
+  - csharp
+  - vb
+  name: UpdateEntries(Func<LocaleEntry, bool>, Func<LocaleEntry, string>)
+  nameWithType: LocaleFileInfo.UpdateEntries(Func<LocaleEntry, bool>, Func<LocaleEntry, string>)
+  fullName: FreeRealmsLocaleTools.LocaleParser.LocaleFileInfo.UpdateEntries(System.Func<FreeRealmsLocaleTools.LocaleParser.LocaleEntry, bool>, System.Func<FreeRealmsLocaleTools.LocaleParser.LocaleEntry, string>)
+  type: Method
+  source:
+    remote:
+      path: src/FreeRealmsLocaleTools/LocaleParser/LocaleFileInfo.cs
+      branch: main
+      repo: https://github.com/Udaya-X2/FreeRealmsLocaleTools
+    id: UpdateEntries
+    path: ../src/FreeRealmsLocaleTools/LocaleParser/LocaleFileInfo.cs
+    startLine: 263
+  assemblies:
+  - FreeRealmsLocaleTools
+  namespace: FreeRealmsLocaleTools.LocaleParser
+  summary: Replaces the text from all entries that match the specified predicate with the text from the given selector.
+  remarks: The stored entries can be written with any of the <code>WriteEntries()</code> methods.
+  example: []
+  syntax:
+    content: public int UpdateEntries(Func<LocaleEntry, bool> predicate, Func<LocaleEntry, string> selector)
+    parameters:
+    - id: predicate
+      type: System.Func{FreeRealmsLocaleTools.LocaleParser.LocaleEntry,System.Boolean}
+    - id: selector
+      type: System.Func{FreeRealmsLocaleTools.LocaleParser.LocaleEntry,System.String}
+    return:
+      type: System.Int32
+      description: The number of locale entries with text replaced.
+    content.vb: Public Function UpdateEntries(predicate As Func(Of LocaleEntry, Boolean), selector As Func(Of LocaleEntry, String)) As Integer
+  overload: FreeRealmsLocaleTools.LocaleParser.LocaleFileInfo.UpdateEntries*
+  exceptions:
+  - type: System.ArgumentNullException
+    commentId: T:System.ArgumentNullException
+    description: ''
+  nameWithType.vb: LocaleFileInfo.UpdateEntries(Func(Of LocaleEntry, Boolean), Func(Of LocaleEntry, String))
+  fullName.vb: FreeRealmsLocaleTools.LocaleParser.LocaleFileInfo.UpdateEntries(System.Func(Of FreeRealmsLocaleTools.LocaleParser.LocaleEntry, Boolean), System.Func(Of FreeRealmsLocaleTools.LocaleParser.LocaleEntry, String))
+  name.vb: UpdateEntries(Func(Of LocaleEntry, Boolean), Func(Of LocaleEntry, String))
+- uid: FreeRealmsLocaleTools.LocaleParser.LocaleFileInfo.UpdateEntries(System.Collections.Generic.IEnumerable{System.String},System.Collections.Generic.IEnumerable{System.String})
+  commentId: M:FreeRealmsLocaleTools.LocaleParser.LocaleFileInfo.UpdateEntries(System.Collections.Generic.IEnumerable{System.String},System.Collections.Generic.IEnumerable{System.String})
+  id: UpdateEntries(System.Collections.Generic.IEnumerable{System.String},System.Collections.Generic.IEnumerable{System.String})
+  parent: FreeRealmsLocaleTools.LocaleParser.LocaleFileInfo
+  langs:
+  - csharp
+  - vb
+  name: UpdateEntries(IEnumerable<string>, IEnumerable<string>)
+  nameWithType: LocaleFileInfo.UpdateEntries(IEnumerable<string>, IEnumerable<string>)
+  fullName: FreeRealmsLocaleTools.LocaleParser.LocaleFileInfo.UpdateEntries(System.Collections.Generic.IEnumerable<string>, System.Collections.Generic.IEnumerable<string>)
+  type: Method
+  source:
+    remote:
+      path: src/FreeRealmsLocaleTools/LocaleParser/LocaleFileInfo.cs
+      branch: main
+      repo: https://github.com/Udaya-X2/FreeRealmsLocaleTools
+    id: UpdateEntries
+    path: ../src/FreeRealmsLocaleTools/LocaleParser/LocaleFileInfo.cs
+    startLine: 324
+  assemblies:
+  - FreeRealmsLocaleTools
+  namespace: FreeRealmsLocaleTools.LocaleParser
+  summary: Replaces the text of entries matching the first sequence with the corresponding text from the second sequence.
+  remarks: The stored entries can be written with any of the <code>WriteEntries()</code> methods.
+  example: []
+  syntax:
+    content: public int UpdateEntries(IEnumerable<string> first, IEnumerable<string> second)
+    parameters:
+    - id: first
+      type: System.Collections.Generic.IEnumerable{System.String}
+    - id: second
+      type: System.Collections.Generic.IEnumerable{System.String}
+    return:
+      type: System.Int32
+      description: The number of locale entries with text replaced.
+    content.vb: Public Function UpdateEntries(first As IEnumerable(Of String), second As IEnumerable(Of String)) As Integer
+  overload: FreeRealmsLocaleTools.LocaleParser.LocaleFileInfo.UpdateEntries*
+  exceptions:
+  - type: System.ArgumentNullException
+    commentId: T:System.ArgumentNullException
+    description: ''
+  nameWithType.vb: LocaleFileInfo.UpdateEntries(IEnumerable(Of String), IEnumerable(Of String))
+  fullName.vb: FreeRealmsLocaleTools.LocaleParser.LocaleFileInfo.UpdateEntries(System.Collections.Generic.IEnumerable(Of String), System.Collections.Generic.IEnumerable(Of String))
+  name.vb: UpdateEntries(IEnumerable(Of String), IEnumerable(Of String))
+- uid: FreeRealmsLocaleTools.LocaleParser.LocaleFileInfo.UpdateEntries(System.Collections.Generic.IEnumerable{System.ValueTuple{System.String,System.String}})
+  commentId: M:FreeRealmsLocaleTools.LocaleParser.LocaleFileInfo.UpdateEntries(System.Collections.Generic.IEnumerable{System.ValueTuple{System.String,System.String}})
+  id: UpdateEntries(System.Collections.Generic.IEnumerable{System.ValueTuple{System.String,System.String}})
+  parent: FreeRealmsLocaleTools.LocaleParser.LocaleFileInfo
+  langs:
+  - csharp
+  - vb
+  name: UpdateEntries(IEnumerable<(string, string)>)
+  nameWithType: LocaleFileInfo.UpdateEntries(IEnumerable<(string, string)>)
+  fullName: FreeRealmsLocaleTools.LocaleParser.LocaleFileInfo.UpdateEntries(System.Collections.Generic.IEnumerable<(string, string)>)
+  type: Method
+  source:
+    remote:
+      path: src/FreeRealmsLocaleTools/LocaleParser/LocaleFileInfo.cs
+      branch: main
+      repo: https://github.com/Udaya-X2/FreeRealmsLocaleTools
+    id: UpdateEntries
+    path: ../src/FreeRealmsLocaleTools/LocaleParser/LocaleFileInfo.cs
+    startLine: 333
+  assemblies:
+  - FreeRealmsLocaleTools
+  namespace: FreeRealmsLocaleTools.LocaleParser
+  summary: Replaces the text of entries matching the first item with the second item in the sequence.
+  remarks: The stored entries can be written with any of the <code>WriteEntries()</code> methods.
+  example: []
+  syntax:
+    content: public int UpdateEntries(IEnumerable<(string, string)> items)
+    parameters:
+    - id: items
+      type: System.Collections.Generic.IEnumerable{System.ValueTuple{System.String,System.String}}
+    return:
+      type: System.Int32
+      description: The number of locale entries with text replaced.
+    content.vb: Public Function UpdateEntries(items As IEnumerable(Of (String, String))) As Integer
+  overload: FreeRealmsLocaleTools.LocaleParser.LocaleFileInfo.UpdateEntries*
+  exceptions:
+  - type: System.ArgumentNullException
+    commentId: T:System.ArgumentNullException
+    description: ''
+  nameWithType.vb: LocaleFileInfo.UpdateEntries(IEnumerable(Of (String, String)))
+  fullName.vb: FreeRealmsLocaleTools.LocaleParser.LocaleFileInfo.UpdateEntries(System.Collections.Generic.IEnumerable(Of (String, String)))
+  name.vb: UpdateEntries(IEnumerable(Of (String, String)))
+- uid: FreeRealmsLocaleTools.LocaleParser.LocaleFileInfo.UpdateEntries(System.Collections.Generic.Dictionary{System.String,System.String})
+  commentId: M:FreeRealmsLocaleTools.LocaleParser.LocaleFileInfo.UpdateEntries(System.Collections.Generic.Dictionary{System.String,System.String})
+  id: UpdateEntries(System.Collections.Generic.Dictionary{System.String,System.String})
+  parent: FreeRealmsLocaleTools.LocaleParser.LocaleFileInfo
+  langs:
+  - csharp
+  - vb
+  name: UpdateEntries(Dictionary<string, string>)
+  nameWithType: LocaleFileInfo.UpdateEntries(Dictionary<string, string>)
+  fullName: FreeRealmsLocaleTools.LocaleParser.LocaleFileInfo.UpdateEntries(System.Collections.Generic.Dictionary<string, string>)
+  type: Method
+  source:
+    remote:
+      path: src/FreeRealmsLocaleTools/LocaleParser/LocaleFileInfo.cs
+      branch: main
+      repo: https://github.com/Udaya-X2/FreeRealmsLocaleTools
+    id: UpdateEntries
+    path: ../src/FreeRealmsLocaleTools/LocaleParser/LocaleFileInfo.cs
+    startLine: 351
+  assemblies:
+  - FreeRealmsLocaleTools
+  namespace: FreeRealmsLocaleTools.LocaleParser
+  summary: Replaces the text of all entries matching keys in the dictionary with the corresponding values.
+  remarks: The stored entries can be written with any of the <code>WriteEntries()</code> methods.
+  example: []
+  syntax:
+    content: public int UpdateEntries(Dictionary<string, string> replacements)
+    parameters:
+    - id: replacements
+      type: System.Collections.Generic.Dictionary{System.String,System.String}
+    return:
+      type: System.Int32
+      description: The number of locale entries with text replaced.
+    content.vb: Public Function UpdateEntries(replacements As Dictionary(Of String, String)) As Integer
+  overload: FreeRealmsLocaleTools.LocaleParser.LocaleFileInfo.UpdateEntries*
+  exceptions:
+  - type: System.ArgumentNullException
+    commentId: T:System.ArgumentNullException
+    description: ''
+  nameWithType.vb: LocaleFileInfo.UpdateEntries(Dictionary(Of String, String))
+  fullName.vb: FreeRealmsLocaleTools.LocaleParser.LocaleFileInfo.UpdateEntries(System.Collections.Generic.Dictionary(Of String, String))
+  name.vb: UpdateEntries(Dictionary(Of String, String))
+- uid: FreeRealmsLocaleTools.LocaleParser.LocaleFileInfo.UpdateEntry(System.Int32,System.String)
+  commentId: M:FreeRealmsLocaleTools.LocaleParser.LocaleFileInfo.UpdateEntry(System.Int32,System.String)
+  id: UpdateEntry(System.Int32,System.String)
+  parent: FreeRealmsLocaleTools.LocaleParser.LocaleFileInfo
+  langs:
+  - csharp
+  - vb
+  name: UpdateEntry(int, string)
+  nameWithType: LocaleFileInfo.UpdateEntry(int, string)
+  fullName: FreeRealmsLocaleTools.LocaleParser.LocaleFileInfo.UpdateEntry(int, string)
+  type: Method
+  source:
+    remote:
+      path: src/FreeRealmsLocaleTools/LocaleParser/LocaleFileInfo.cs
+      branch: main
+      repo: https://github.com/Udaya-X2/FreeRealmsLocaleTools
+    id: UpdateEntry
+    path: ../src/FreeRealmsLocaleTools/LocaleParser/LocaleFileInfo.cs
+    startLine: 422
+  assemblies:
+  - FreeRealmsLocaleTools
+  namespace: FreeRealmsLocaleTools.LocaleParser
+  summary: Replaces the text of the entry with the given ID with the specified value.
+  remarks: The stored entries can be written with any of the <code>WriteEntries()</code> methods.
+  example: []
+  syntax:
+    content: public bool UpdateEntry(int id, string text)
+    parameters:
+    - id: id
+      type: System.Int32
+    - id: text
+      type: System.String
+    return:
+      type: System.Boolean
+      description: <a href="https://learn.microsoft.com/dotnet/csharp/language-reference/builtin-types/bool">true</a> if the text was replaced; otherwise, <a href="https://learn.microsoft.com/dotnet/csharp/language-reference/builtin-types/bool">false</a>.
+    content.vb: Public Function UpdateEntry(id As Integer, text As String) As Boolean
+  overload: FreeRealmsLocaleTools.LocaleParser.LocaleFileInfo.UpdateEntry*
+  exceptions:
+  - type: System.ArgumentNullException
+    commentId: T:System.ArgumentNullException
+    description: ''
+  - type: System.InvalidOperationException
+    commentId: T:System.InvalidOperationException
+    description: ''
+  nameWithType.vb: LocaleFileInfo.UpdateEntry(Integer, String)
+  fullName.vb: FreeRealmsLocaleTools.LocaleParser.LocaleFileInfo.UpdateEntry(Integer, String)
+  name.vb: UpdateEntry(Integer, String)
+- uid: FreeRealmsLocaleTools.LocaleParser.LocaleFileInfo.RemoveEntries(System.String)
+  commentId: M:FreeRealmsLocaleTools.LocaleParser.LocaleFileInfo.RemoveEntries(System.String)
+  id: RemoveEntries(System.String)
+  parent: FreeRealmsLocaleTools.LocaleParser.LocaleFileInfo
+  langs:
+  - csharp
+  - vb
+  name: RemoveEntries(string)
+  nameWithType: LocaleFileInfo.RemoveEntries(string)
+  fullName: FreeRealmsLocaleTools.LocaleParser.LocaleFileInfo.RemoveEntries(string)
+  type: Method
+  source:
+    remote:
+      path: src/FreeRealmsLocaleTools/LocaleParser/LocaleFileInfo.cs
+      branch: main
+      repo: https://github.com/Udaya-X2/FreeRealmsLocaleTools
+    id: RemoveEntries
+    path: ../src/FreeRealmsLocaleTools/LocaleParser/LocaleFileInfo.cs
+    startLine: 459
+  assemblies:
+  - FreeRealmsLocaleTools
+  namespace: FreeRealmsLocaleTools.LocaleParser
+  summary: Removes all entries with the specified text.
+  remarks: The stored entries can be written with any of the <code>WriteEntries()</code> methods.
+  example: []
+  syntax:
+    content: public int RemoveEntries(string text)
+    parameters:
+    - id: text
+      type: System.String
+    return:
+      type: System.Int32
+      description: The number of locale entries removed.
+    content.vb: Public Function RemoveEntries(text As String) As Integer
+  overload: FreeRealmsLocaleTools.LocaleParser.LocaleFileInfo.RemoveEntries*
+  nameWithType.vb: LocaleFileInfo.RemoveEntries(String)
+  fullName.vb: FreeRealmsLocaleTools.LocaleParser.LocaleFileInfo.RemoveEntries(String)
+  name.vb: RemoveEntries(String)
+- uid: FreeRealmsLocaleTools.LocaleParser.LocaleFileInfo.RemoveEntries(System.Func{FreeRealmsLocaleTools.LocaleParser.LocaleEntry,System.Boolean})
+  commentId: M:FreeRealmsLocaleTools.LocaleParser.LocaleFileInfo.RemoveEntries(System.Func{FreeRealmsLocaleTools.LocaleParser.LocaleEntry,System.Boolean})
+  id: RemoveEntries(System.Func{FreeRealmsLocaleTools.LocaleParser.LocaleEntry,System.Boolean})
+  parent: FreeRealmsLocaleTools.LocaleParser.LocaleFileInfo
+  langs:
+  - csharp
+  - vb
+  name: RemoveEntries(Func<LocaleEntry, bool>)
+  nameWithType: LocaleFileInfo.RemoveEntries(Func<LocaleEntry, bool>)
+  fullName: FreeRealmsLocaleTools.LocaleParser.LocaleFileInfo.RemoveEntries(System.Func<FreeRealmsLocaleTools.LocaleParser.LocaleEntry, bool>)
+  type: Method
+  source:
+    remote:
+      path: src/FreeRealmsLocaleTools/LocaleParser/LocaleFileInfo.cs
+      branch: main
+      repo: https://github.com/Udaya-X2/FreeRealmsLocaleTools
+    id: RemoveEntries
+    path: ../src/FreeRealmsLocaleTools/LocaleParser/LocaleFileInfo.cs
+    startLine: 467
+  assemblies:
+  - FreeRealmsLocaleTools
+  namespace: FreeRealmsLocaleTools.LocaleParser
+  summary: Removes all entries that match the specified predicate.
+  remarks: The stored entries can be written with any of the <code>WriteEntries()</code> methods.
+  example: []
+  syntax:
+    content: public int RemoveEntries(Func<LocaleEntry, bool> predicate)
+    parameters:
+    - id: predicate
+      type: System.Func{FreeRealmsLocaleTools.LocaleParser.LocaleEntry,System.Boolean}
+    return:
+      type: System.Int32
+      description: The number of locale entries removed.
+    content.vb: Public Function RemoveEntries(predicate As Func(Of LocaleEntry, Boolean)) As Integer
+  overload: FreeRealmsLocaleTools.LocaleParser.LocaleFileInfo.RemoveEntries*
+  exceptions:
+  - type: System.ArgumentNullException
+    commentId: T:System.ArgumentNullException
+    description: ''
+  nameWithType.vb: LocaleFileInfo.RemoveEntries(Func(Of LocaleEntry, Boolean))
+  fullName.vb: FreeRealmsLocaleTools.LocaleParser.LocaleFileInfo.RemoveEntries(System.Func(Of FreeRealmsLocaleTools.LocaleParser.LocaleEntry, Boolean))
+  name.vb: RemoveEntries(Func(Of LocaleEntry, Boolean))
+- uid: FreeRealmsLocaleTools.LocaleParser.LocaleFileInfo.RemoveEntry(System.Int32)
+  commentId: M:FreeRealmsLocaleTools.LocaleParser.LocaleFileInfo.RemoveEntry(System.Int32)
+  id: RemoveEntry(System.Int32)
+  parent: FreeRealmsLocaleTools.LocaleParser.LocaleFileInfo
+  langs:
+  - csharp
+  - vb
+  name: RemoveEntry(int)
+  nameWithType: LocaleFileInfo.RemoveEntry(int)
+  fullName: FreeRealmsLocaleTools.LocaleParser.LocaleFileInfo.RemoveEntry(int)
+  type: Method
+  source:
+    remote:
+      path: src/FreeRealmsLocaleTools/LocaleParser/LocaleFileInfo.cs
+      branch: main
+      repo: https://github.com/Udaya-X2/FreeRealmsLocaleTools
+    id: RemoveEntry
+    path: ../src/FreeRealmsLocaleTools/LocaleParser/LocaleFileInfo.cs
+    startLine: 522
+  assemblies:
+  - FreeRealmsLocaleTools
+  namespace: FreeRealmsLocaleTools.LocaleParser
+  summary: Removes the entry with the specified ID.
+  remarks: The stored entries can be written with any of the <code>WriteEntries()</code> methods.
+  example: []
+  syntax:
+    content: public bool RemoveEntry(int id)
+    parameters:
+    - id: id
+      type: System.Int32
+    return:
+      type: System.Boolean
+      description: <a href="https://learn.microsoft.com/dotnet/csharp/language-reference/builtin-types/bool">true</a> if the entry was removed; otherwise, <a href="https://learn.microsoft.com/dotnet/csharp/language-reference/builtin-types/bool">false</a>.
+    content.vb: Public Function RemoveEntry(id As Integer) As Boolean
+  overload: FreeRealmsLocaleTools.LocaleParser.LocaleFileInfo.RemoveEntry*
+  exceptions:
+  - type: System.InvalidOperationException
+    commentId: T:System.InvalidOperationException
+    description: ''
+  nameWithType.vb: LocaleFileInfo.RemoveEntry(Integer)
+  fullName.vb: FreeRealmsLocaleTools.LocaleParser.LocaleFileInfo.RemoveEntry(Integer)
+  name.vb: RemoveEntry(Integer)
+- uid: FreeRealmsLocaleTools.LocaleParser.LocaleFileInfo.WriteEntries
+  commentId: M:FreeRealmsLocaleTools.LocaleParser.LocaleFileInfo.WriteEntries
+  id: WriteEntries
+  parent: FreeRealmsLocaleTools.LocaleParser.LocaleFileInfo
+  langs:
+  - csharp
+  - vb
+  name: WriteEntries()
+  nameWithType: LocaleFileInfo.WriteEntries()
+  fullName: FreeRealmsLocaleTools.LocaleParser.LocaleFileInfo.WriteEntries()
+  type: Method
+  source:
+    remote:
+      path: src/FreeRealmsLocaleTools/LocaleParser/LocaleFileInfo.cs
+      branch: main
+      repo: https://github.com/Udaya-X2/FreeRealmsLocaleTools
+    id: WriteEntries
+    path: ../src/FreeRealmsLocaleTools/LocaleParser/LocaleFileInfo.cs
+    startLine: 555
+  assemblies:
+  - FreeRealmsLocaleTools
+  namespace: FreeRealmsLocaleTools.LocaleParser
+  summary: Writes the stored locale entries to the .dat file and .dir file specified upon creation of this instance.
+  example: []
+  syntax:
+    content: public LocaleFileInfo WriteEntries()
+    return:
+      type: FreeRealmsLocaleTools.LocaleParser.LocaleFileInfo
+      description: A new instance of <xref href="FreeRealmsLocaleTools.LocaleParser.LocaleFileInfo" data-throw-if-not-resolved="false"></xref> with the updated entries, locations, and metadata.
+    content.vb: Public Function WriteEntries() As LocaleFileInfo
+  overload: FreeRealmsLocaleTools.LocaleParser.LocaleFileInfo.WriteEntries*
+- uid: FreeRealmsLocaleTools.LocaleParser.LocaleFileInfo.WriteEntries(System.String,System.String)
+  commentId: M:FreeRealmsLocaleTools.LocaleParser.LocaleFileInfo.WriteEntries(System.String,System.String)
+  id: WriteEntries(System.String,System.String)
+  parent: FreeRealmsLocaleTools.LocaleParser.LocaleFileInfo
+  langs:
+  - csharp
+  - vb
+  name: WriteEntries(string, string)
+  nameWithType: LocaleFileInfo.WriteEntries(string, string)
+  fullName: FreeRealmsLocaleTools.LocaleParser.LocaleFileInfo.WriteEntries(string, string)
+  type: Method
+  source:
+    remote:
+      path: src/FreeRealmsLocaleTools/LocaleParser/LocaleFileInfo.cs
+      branch: main
+      repo: https://github.com/Udaya-X2/FreeRealmsLocaleTools
+    id: WriteEntries
+    path: ../src/FreeRealmsLocaleTools/LocaleParser/LocaleFileInfo.cs
+    startLine: 562
+  assemblies:
+  - FreeRealmsLocaleTools
+  namespace: FreeRealmsLocaleTools.LocaleParser
+  summary: Writes the stored locale entries to the specified .dat file and .dir file.
+  example: []
+  syntax:
+    content: public LocaleFileInfo WriteEntries(string localeDatPath, string localeDirPath)
+    parameters:
+    - id: localeDatPath
+      type: System.String
+    - id: localeDirPath
+      type: System.String
+    return:
+      type: FreeRealmsLocaleTools.LocaleParser.LocaleFileInfo
+      description: A new instance of <xref href="FreeRealmsLocaleTools.LocaleParser.LocaleFileInfo" data-throw-if-not-resolved="false"></xref> for the specified .dat file and .dir file.
+    content.vb: Public Function WriteEntries(localeDatPath As String, localeDirPath As String) As LocaleFileInfo
+  overload: FreeRealmsLocaleTools.LocaleParser.LocaleFileInfo.WriteEntries*
+  exceptions:
+  - type: System.ArgumentNullException
+    commentId: T:System.ArgumentNullException
+    description: ''
+  nameWithType.vb: LocaleFileInfo.WriteEntries(String, String)
+  fullName.vb: FreeRealmsLocaleTools.LocaleParser.LocaleFileInfo.WriteEntries(String, String)
+  name.vb: WriteEntries(String, String)
+- uid: FreeRealmsLocaleTools.LocaleParser.LocaleFileInfo.WriteEntries(System.IO.FileInfo,System.IO.FileInfo)
+  commentId: M:FreeRealmsLocaleTools.LocaleParser.LocaleFileInfo.WriteEntries(System.IO.FileInfo,System.IO.FileInfo)
+  id: WriteEntries(System.IO.FileInfo,System.IO.FileInfo)
+  parent: FreeRealmsLocaleTools.LocaleParser.LocaleFileInfo
+  langs:
+  - csharp
+  - vb
+  name: WriteEntries(FileInfo, FileInfo)
+  nameWithType: LocaleFileInfo.WriteEntries(FileInfo, FileInfo)
+  fullName: FreeRealmsLocaleTools.LocaleParser.LocaleFileInfo.WriteEntries(System.IO.FileInfo, System.IO.FileInfo)
+  type: Method
+  source:
+    remote:
+      path: src/FreeRealmsLocaleTools/LocaleParser/LocaleFileInfo.cs
+      branch: main
+      repo: https://github.com/Udaya-X2/FreeRealmsLocaleTools
+    id: WriteEntries
+    path: ../src/FreeRealmsLocaleTools/LocaleParser/LocaleFileInfo.cs
+    startLine: 573
+  assemblies:
+  - FreeRealmsLocaleTools
+  namespace: FreeRealmsLocaleTools.LocaleParser
+  summary: Writes the stored locale entries to the specified .dat file and .dir file.
+  example: []
+  syntax:
+    content: public LocaleFileInfo WriteEntries(FileInfo localeDatFile, FileInfo localeDirFile)
+    parameters:
+    - id: localeDatFile
+      type: System.IO.FileInfo
+    - id: localeDirFile
+      type: System.IO.FileInfo
+    return:
+      type: FreeRealmsLocaleTools.LocaleParser.LocaleFileInfo
+      description: A new instance of <xref href="FreeRealmsLocaleTools.LocaleParser.LocaleFileInfo" data-throw-if-not-resolved="false"></xref> for the specified .dat file and .dir file.
+    content.vb: Public Function WriteEntries(localeDatFile As FileInfo, localeDirFile As FileInfo) As LocaleFileInfo
+  overload: FreeRealmsLocaleTools.LocaleParser.LocaleFileInfo.WriteEntries*
+  exceptions:
+  - type: System.ArgumentNullException
+    commentId: T:System.ArgumentNullException
+    description: ''
+references:
+- uid: FreeRealmsLocaleTools.LocaleParser
+  commentId: N:FreeRealmsLocaleTools.LocaleParser
+  href: FreeRealmsLocaleTools.html
+  name: FreeRealmsLocaleTools.LocaleParser
+  nameWithType: FreeRealmsLocaleTools.LocaleParser
+  fullName: FreeRealmsLocaleTools.LocaleParser
+  spec.csharp:
+  - uid: FreeRealmsLocaleTools
+    name: FreeRealmsLocaleTools
+    href: FreeRealmsLocaleTools.html
+  - name: .
+  - uid: FreeRealmsLocaleTools.LocaleParser
+    name: LocaleParser
+    href: FreeRealmsLocaleTools.LocaleParser.html
+  spec.vb:
+  - uid: FreeRealmsLocaleTools
+    name: FreeRealmsLocaleTools
+    href: FreeRealmsLocaleTools.html
+  - name: .
+  - uid: FreeRealmsLocaleTools.LocaleParser
+    name: LocaleParser
+    href: FreeRealmsLocaleTools.LocaleParser.html
+- uid: System.Object
+  commentId: T:System.Object
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object
+  name: object
+  nameWithType: object
+  fullName: object
+  nameWithType.vb: Object
+  fullName.vb: Object
+  name.vb: Object
+- uid: System.Object.Equals(System.Object)
+  commentId: M:System.Object.Equals(System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  name: Equals(object)
+  nameWithType: object.Equals(object)
+  fullName: object.Equals(object)
+  nameWithType.vb: Object.Equals(Object)
+  fullName.vb: Object.Equals(Object)
+  name.vb: Equals(Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.Equals(System.Object,System.Object)
+  commentId: M:System.Object.Equals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  name: Equals(object, object)
+  nameWithType: object.Equals(object, object)
+  fullName: object.Equals(object, object)
+  nameWithType.vb: Object.Equals(Object, Object)
+  fullName.vb: Object.Equals(Object, Object)
+  name.vb: Equals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.GetHashCode
+  commentId: M:System.Object.GetHashCode
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  name: GetHashCode()
+  nameWithType: object.GetHashCode()
+  fullName: object.GetHashCode()
+  nameWithType.vb: Object.GetHashCode()
+  fullName.vb: Object.GetHashCode()
+  spec.csharp:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  - name: (
+  - name: )
+- uid: System.Object.GetType
+  commentId: M:System.Object.GetType
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  name: GetType()
+  nameWithType: object.GetType()
+  fullName: object.GetType()
+  nameWithType.vb: Object.GetType()
+  fullName.vb: Object.GetType()
+  spec.csharp:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+- uid: System.Object.MemberwiseClone
+  commentId: M:System.Object.MemberwiseClone
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  name: MemberwiseClone()
+  nameWithType: object.MemberwiseClone()
+  fullName: object.MemberwiseClone()
+  nameWithType.vb: Object.MemberwiseClone()
+  fullName.vb: Object.MemberwiseClone()
+  spec.csharp:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  - name: (
+  - name: )
+- uid: System.Object.ReferenceEquals(System.Object,System.Object)
+  commentId: M:System.Object.ReferenceEquals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  name: ReferenceEquals(object, object)
+  nameWithType: object.ReferenceEquals(object, object)
+  fullName: object.ReferenceEquals(object, object)
+  nameWithType.vb: Object.ReferenceEquals(Object, Object)
+  fullName.vb: Object.ReferenceEquals(Object, Object)
+  name.vb: ReferenceEquals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.ToString
+  commentId: M:System.Object.ToString
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  name: ToString()
+  nameWithType: object.ToString()
+  fullName: object.ToString()
+  nameWithType.vb: Object.ToString()
+  fullName.vb: Object.ToString()
+  spec.csharp:
+  - uid: System.Object.ToString
+    name: ToString
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.ToString
+    name: ToString
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  - name: (
+  - name: )
+- uid: System
+  commentId: N:System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System
+  nameWithType: System
+  fullName: System
+- uid: FreeRealmsLocaleTools.LocaleParser.LocaleFileInfo
+  commentId: T:FreeRealmsLocaleTools.LocaleParser.LocaleFileInfo
+  parent: FreeRealmsLocaleTools.LocaleParser
+  href: FreeRealmsLocaleTools.LocaleParser.LocaleFileInfo.html
+  name: LocaleFileInfo
+  nameWithType: LocaleFileInfo
+  fullName: FreeRealmsLocaleTools.LocaleParser.LocaleFileInfo
+- uid: FreeRealmsLocaleTools.LocaleParser.LocaleFileInfo.#ctor*
+  commentId: Overload:FreeRealmsLocaleTools.LocaleParser.LocaleFileInfo.#ctor
+  href: FreeRealmsLocaleTools.LocaleParser.LocaleFileInfo.html#FreeRealmsLocaleTools_LocaleParser_LocaleFileInfo__ctor
+  name: LocaleFileInfo
+  nameWithType: LocaleFileInfo.LocaleFileInfo
+  fullName: FreeRealmsLocaleTools.LocaleParser.LocaleFileInfo.LocaleFileInfo
+  nameWithType.vb: LocaleFileInfo.New
+  fullName.vb: FreeRealmsLocaleTools.LocaleParser.LocaleFileInfo.New
+  name.vb: New
+- uid: System.ArgumentNullException
+  commentId: T:System.ArgumentNullException
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.argumentnullexception
+  name: ArgumentNullException
+  nameWithType: ArgumentNullException
+  fullName: System.ArgumentNullException
+- uid: System.String
+  commentId: T:System.String
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.string
+  name: string
+  nameWithType: string
+  fullName: string
+  nameWithType.vb: String
+  fullName.vb: String
+  name.vb: String
+- uid: System.Boolean
+  commentId: T:System.Boolean
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.boolean
+  name: bool
+  nameWithType: bool
+  fullName: bool
+  nameWithType.vb: Boolean
+  fullName.vb: Boolean
+  name.vb: Boolean
+- uid: FreeRealmsLocaleTools.LocaleParser.LocaleFileInfo.LocaleDatFile*
+  commentId: Overload:FreeRealmsLocaleTools.LocaleParser.LocaleFileInfo.LocaleDatFile
+  href: FreeRealmsLocaleTools.LocaleParser.LocaleFileInfo.html#FreeRealmsLocaleTools_LocaleParser_LocaleFileInfo_LocaleDatFile
+  name: LocaleDatFile
+  nameWithType: LocaleFileInfo.LocaleDatFile
+  fullName: FreeRealmsLocaleTools.LocaleParser.LocaleFileInfo.LocaleDatFile
+- uid: System.IO.FileInfo
+  commentId: T:System.IO.FileInfo
+  parent: System.IO
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.io.fileinfo
+  name: FileInfo
+  nameWithType: FileInfo
+  fullName: System.IO.FileInfo
+- uid: System.IO
+  commentId: N:System.IO
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System.IO
+  nameWithType: System.IO
+  fullName: System.IO
+  spec.csharp:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.IO
+    name: IO
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.io
+  spec.vb:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.IO
+    name: IO
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.io
+- uid: FreeRealmsLocaleTools.LocaleParser.LocaleFileInfo.LocaleDirFile*
+  commentId: Overload:FreeRealmsLocaleTools.LocaleParser.LocaleFileInfo.LocaleDirFile
+  href: FreeRealmsLocaleTools.LocaleParser.LocaleFileInfo.html#FreeRealmsLocaleTools_LocaleParser_LocaleFileInfo_LocaleDirFile
+  name: LocaleDirFile
+  nameWithType: LocaleFileInfo.LocaleDirFile
+  fullName: FreeRealmsLocaleTools.LocaleParser.LocaleFileInfo.LocaleDirFile
+- uid: FreeRealmsLocaleTools.LocaleParser.LocaleFileInfo.Preamble*
+  commentId: Overload:FreeRealmsLocaleTools.LocaleParser.LocaleFileInfo.Preamble
+  href: FreeRealmsLocaleTools.LocaleParser.LocaleFileInfo.html#FreeRealmsLocaleTools_LocaleParser_LocaleFileInfo_Preamble
+  name: Preamble
+  nameWithType: LocaleFileInfo.Preamble
+  fullName: FreeRealmsLocaleTools.LocaleParser.LocaleFileInfo.Preamble
+- uid: System.ReadOnlySpan{System.Byte}
+  commentId: T:System.ReadOnlySpan{System.Byte}
+  parent: System
+  definition: System.ReadOnlySpan`1
+  href: https://learn.microsoft.com/dotnet/api/system.readonlyspan-1
+  name: ReadOnlySpan<byte>
+  nameWithType: ReadOnlySpan<byte>
+  fullName: System.ReadOnlySpan<byte>
+  nameWithType.vb: ReadOnlySpan(Of Byte)
+  fullName.vb: System.ReadOnlySpan(Of Byte)
+  name.vb: ReadOnlySpan(Of Byte)
+  spec.csharp:
+  - uid: System.ReadOnlySpan`1
+    name: ReadOnlySpan
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.readonlyspan-1
+  - name: <
+  - uid: System.Byte
+    name: byte
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.byte
+  - name: '>'
+  spec.vb:
+  - uid: System.ReadOnlySpan`1
+    name: ReadOnlySpan
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.readonlyspan-1
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: System.Byte
+    name: Byte
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.byte
+  - name: )
+- uid: System.ReadOnlySpan`1
+  commentId: T:System.ReadOnlySpan`1
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.readonlyspan-1
+  name: ReadOnlySpan<T>
+  nameWithType: ReadOnlySpan<T>
+  fullName: System.ReadOnlySpan<T>
+  nameWithType.vb: ReadOnlySpan(Of T)
+  fullName.vb: System.ReadOnlySpan(Of T)
+  name.vb: ReadOnlySpan(Of T)
+  spec.csharp:
+  - uid: System.ReadOnlySpan`1
+    name: ReadOnlySpan
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.readonlyspan-1
+  - name: <
+  - name: T
+  - name: '>'
+  spec.vb:
+  - uid: System.ReadOnlySpan`1
+    name: ReadOnlySpan
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.readonlyspan-1
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+- uid: FreeRealmsLocaleTools.LocaleParser.LocaleFileInfo.Metadata*
+  commentId: Overload:FreeRealmsLocaleTools.LocaleParser.LocaleFileInfo.Metadata
+  href: FreeRealmsLocaleTools.LocaleParser.LocaleFileInfo.html#FreeRealmsLocaleTools_LocaleParser_LocaleFileInfo_Metadata
+  name: Metadata
+  nameWithType: LocaleFileInfo.Metadata
+  fullName: FreeRealmsLocaleTools.LocaleParser.LocaleFileInfo.Metadata
+- uid: FreeRealmsLocaleTools.LocaleParser.LocaleMetadata
+  commentId: T:FreeRealmsLocaleTools.LocaleParser.LocaleMetadata
+  parent: FreeRealmsLocaleTools.LocaleParser
+  href: FreeRealmsLocaleTools.LocaleParser.LocaleMetadata.html
+  name: LocaleMetadata
+  nameWithType: LocaleMetadata
+  fullName: FreeRealmsLocaleTools.LocaleParser.LocaleMetadata
+- uid: FreeRealmsLocaleTools.LocaleParser.LocaleFileInfo.Locations*
+  commentId: Overload:FreeRealmsLocaleTools.LocaleParser.LocaleFileInfo.Locations
+  href: FreeRealmsLocaleTools.LocaleParser.LocaleFileInfo.html#FreeRealmsLocaleTools_LocaleParser_LocaleFileInfo_Locations
+  name: Locations
+  nameWithType: LocaleFileInfo.Locations
+  fullName: FreeRealmsLocaleTools.LocaleParser.LocaleFileInfo.Locations
+- uid: FreeRealmsLocaleTools.LocaleParser.LocaleEntryLocation[]
+  isExternal: true
+  href: FreeRealmsLocaleTools.LocaleParser.LocaleEntryLocation.html
+  name: LocaleEntryLocation[]
+  nameWithType: LocaleEntryLocation[]
+  fullName: FreeRealmsLocaleTools.LocaleParser.LocaleEntryLocation[]
+  nameWithType.vb: LocaleEntryLocation()
+  fullName.vb: FreeRealmsLocaleTools.LocaleParser.LocaleEntryLocation()
+  name.vb: LocaleEntryLocation()
+  spec.csharp:
+  - uid: FreeRealmsLocaleTools.LocaleParser.LocaleEntryLocation
+    name: LocaleEntryLocation
+    href: FreeRealmsLocaleTools.LocaleParser.LocaleEntryLocation.html
+  - name: '['
+  - name: ']'
+  spec.vb:
+  - uid: FreeRealmsLocaleTools.LocaleParser.LocaleEntryLocation
+    name: LocaleEntryLocation
+    href: FreeRealmsLocaleTools.LocaleParser.LocaleEntryLocation.html
+  - name: (
+  - name: )
+- uid: FreeRealmsLocaleTools.LocaleParser.LocaleFileInfo.Entries*
+  commentId: Overload:FreeRealmsLocaleTools.LocaleParser.LocaleFileInfo.Entries
+  href: FreeRealmsLocaleTools.LocaleParser.LocaleFileInfo.html#FreeRealmsLocaleTools_LocaleParser_LocaleFileInfo_Entries
+  name: Entries
+  nameWithType: LocaleFileInfo.Entries
+  fullName: FreeRealmsLocaleTools.LocaleParser.LocaleFileInfo.Entries
+- uid: FreeRealmsLocaleTools.LocaleParser.LocaleEntry[]
+  isExternal: true
+  href: FreeRealmsLocaleTools.LocaleParser.LocaleEntry.html
+  name: LocaleEntry[]
+  nameWithType: LocaleEntry[]
+  fullName: FreeRealmsLocaleTools.LocaleParser.LocaleEntry[]
+  nameWithType.vb: LocaleEntry()
+  fullName.vb: FreeRealmsLocaleTools.LocaleParser.LocaleEntry()
+  name.vb: LocaleEntry()
+  spec.csharp:
+  - uid: FreeRealmsLocaleTools.LocaleParser.LocaleEntry
+    name: LocaleEntry
+    href: FreeRealmsLocaleTools.LocaleParser.LocaleEntry.html
+  - name: '['
+  - name: ']'
+  spec.vb:
+  - uid: FreeRealmsLocaleTools.LocaleParser.LocaleEntry
+    name: LocaleEntry
+    href: FreeRealmsLocaleTools.LocaleParser.LocaleEntry.html
+  - name: (
+  - name: )
+- uid: FreeRealmsLocaleTools.LocaleParser.LocaleFileInfo.CanAddEntries*
+  commentId: Overload:FreeRealmsLocaleTools.LocaleParser.LocaleFileInfo.CanAddEntries
+  href: FreeRealmsLocaleTools.LocaleParser.LocaleFileInfo.html#FreeRealmsLocaleTools_LocaleParser_LocaleFileInfo_CanAddEntries
+  name: CanAddEntries
+  nameWithType: LocaleFileInfo.CanAddEntries
+  fullName: FreeRealmsLocaleTools.LocaleParser.LocaleFileInfo.CanAddEntries
+- uid: System.InvalidOperationException
+  commentId: T:System.InvalidOperationException
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.invalidoperationexception
+  name: InvalidOperationException
+  nameWithType: InvalidOperationException
+  fullName: System.InvalidOperationException
+- uid: FreeRealmsLocaleTools.LocaleParser.LocaleFileInfo.IdToEntry*
+  commentId: Overload:FreeRealmsLocaleTools.LocaleParser.LocaleFileInfo.IdToEntry
+  href: FreeRealmsLocaleTools.LocaleParser.LocaleFileInfo.html#FreeRealmsLocaleTools_LocaleParser_LocaleFileInfo_IdToEntry
+  name: IdToEntry
+  nameWithType: LocaleFileInfo.IdToEntry
+  fullName: FreeRealmsLocaleTools.LocaleParser.LocaleFileInfo.IdToEntry
+- uid: System.Collections.Generic.SortedDictionary{System.Int32,FreeRealmsLocaleTools.LocaleParser.LocaleEntry}
+  commentId: T:System.Collections.Generic.SortedDictionary{System.Int32,FreeRealmsLocaleTools.LocaleParser.LocaleEntry}
+  parent: System.Collections.Generic
+  definition: System.Collections.Generic.SortedDictionary`2
+  href: https://learn.microsoft.com/dotnet/api/system.collections.generic.sorteddictionary-2
+  name: SortedDictionary<int, LocaleEntry>
+  nameWithType: SortedDictionary<int, LocaleEntry>
+  fullName: System.Collections.Generic.SortedDictionary<int, FreeRealmsLocaleTools.LocaleParser.LocaleEntry>
+  nameWithType.vb: SortedDictionary(Of Integer, LocaleEntry)
+  fullName.vb: System.Collections.Generic.SortedDictionary(Of Integer, FreeRealmsLocaleTools.LocaleParser.LocaleEntry)
+  name.vb: SortedDictionary(Of Integer, LocaleEntry)
+  spec.csharp:
+  - uid: System.Collections.Generic.SortedDictionary`2
+    name: SortedDictionary
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.sorteddictionary-2
+  - name: <
+  - uid: System.Int32
+    name: int
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.int32
+  - name: ','
+  - name: " "
+  - uid: FreeRealmsLocaleTools.LocaleParser.LocaleEntry
+    name: LocaleEntry
+    href: FreeRealmsLocaleTools.LocaleParser.LocaleEntry.html
+  - name: '>'
+  spec.vb:
+  - uid: System.Collections.Generic.SortedDictionary`2
+    name: SortedDictionary
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.sorteddictionary-2
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: System.Int32
+    name: Integer
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.int32
+  - name: ','
+  - name: " "
+  - uid: FreeRealmsLocaleTools.LocaleParser.LocaleEntry
+    name: LocaleEntry
+    href: FreeRealmsLocaleTools.LocaleParser.LocaleEntry.html
+  - name: )
+- uid: System.Collections.Generic.SortedDictionary`2
+  commentId: T:System.Collections.Generic.SortedDictionary`2
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.collections.generic.sorteddictionary-2
+  name: SortedDictionary<TKey, TValue>
+  nameWithType: SortedDictionary<TKey, TValue>
+  fullName: System.Collections.Generic.SortedDictionary<TKey, TValue>
+  nameWithType.vb: SortedDictionary(Of TKey, TValue)
+  fullName.vb: System.Collections.Generic.SortedDictionary(Of TKey, TValue)
+  name.vb: SortedDictionary(Of TKey, TValue)
+  spec.csharp:
+  - uid: System.Collections.Generic.SortedDictionary`2
+    name: SortedDictionary
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.sorteddictionary-2
+  - name: <
+  - name: TKey
+  - name: ','
+  - name: " "
+  - name: TValue
+  - name: '>'
+  spec.vb:
+  - uid: System.Collections.Generic.SortedDictionary`2
+    name: SortedDictionary
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.sorteddictionary-2
+  - name: (
+  - name: Of
+  - name: " "
+  - name: TKey
+  - name: ','
+  - name: " "
+  - name: TValue
+  - name: )
+- uid: System.Collections.Generic
+  commentId: N:System.Collections.Generic
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System.Collections.Generic
+  nameWithType: System.Collections.Generic
+  fullName: System.Collections.Generic
+  spec.csharp:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Collections
+    name: Collections
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections
+  - name: .
+  - uid: System.Collections.Generic
+    name: Generic
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic
+  spec.vb:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Collections
+    name: Collections
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections
+  - name: .
+  - uid: System.Collections.Generic
+    name: Generic
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic
+- uid: FreeRealmsLocaleTools.LocaleParser.LocaleFileInfo.HashToEntry*
+  commentId: Overload:FreeRealmsLocaleTools.LocaleParser.LocaleFileInfo.HashToEntry
+  href: FreeRealmsLocaleTools.LocaleParser.LocaleFileInfo.html#FreeRealmsLocaleTools_LocaleParser_LocaleFileInfo_HashToEntry
+  name: HashToEntry
+  nameWithType: LocaleFileInfo.HashToEntry
+  fullName: FreeRealmsLocaleTools.LocaleParser.LocaleFileInfo.HashToEntry
+- uid: System.Collections.Generic.SortedDictionary{System.UInt32,System.Collections.Generic.List{FreeRealmsLocaleTools.LocaleParser.LocaleEntry}}
+  commentId: T:System.Collections.Generic.SortedDictionary{System.UInt32,System.Collections.Generic.List{FreeRealmsLocaleTools.LocaleParser.LocaleEntry}}
+  parent: System.Collections.Generic
+  definition: System.Collections.Generic.SortedDictionary`2
+  href: https://learn.microsoft.com/dotnet/api/system.collections.generic.sorteddictionary-2
+  name: SortedDictionary<uint, List<LocaleEntry>>
+  nameWithType: SortedDictionary<uint, List<LocaleEntry>>
+  fullName: System.Collections.Generic.SortedDictionary<uint, System.Collections.Generic.List<FreeRealmsLocaleTools.LocaleParser.LocaleEntry>>
+  nameWithType.vb: SortedDictionary(Of UInteger, List(Of LocaleEntry))
+  fullName.vb: System.Collections.Generic.SortedDictionary(Of UInteger, System.Collections.Generic.List(Of FreeRealmsLocaleTools.LocaleParser.LocaleEntry))
+  name.vb: SortedDictionary(Of UInteger, List(Of LocaleEntry))
+  spec.csharp:
+  - uid: System.Collections.Generic.SortedDictionary`2
+    name: SortedDictionary
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.sorteddictionary-2
+  - name: <
+  - uid: System.UInt32
+    name: uint
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.uint32
+  - name: ','
+  - name: " "
+  - uid: System.Collections.Generic.List`1
+    name: List
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  - name: <
+  - uid: FreeRealmsLocaleTools.LocaleParser.LocaleEntry
+    name: LocaleEntry
+    href: FreeRealmsLocaleTools.LocaleParser.LocaleEntry.html
+  - name: '>'
+  - name: '>'
+  spec.vb:
+  - uid: System.Collections.Generic.SortedDictionary`2
+    name: SortedDictionary
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.sorteddictionary-2
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: System.UInt32
+    name: UInteger
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.uint32
+  - name: ','
+  - name: " "
+  - uid: System.Collections.Generic.List`1
+    name: List
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: FreeRealmsLocaleTools.LocaleParser.LocaleEntry
+    name: LocaleEntry
+    href: FreeRealmsLocaleTools.LocaleParser.LocaleEntry.html
+  - name: )
+  - name: )
+- uid: FreeRealmsLocaleTools.LocaleParser.LocaleFileInfo.StoredEntries*
+  commentId: Overload:FreeRealmsLocaleTools.LocaleParser.LocaleFileInfo.StoredEntries
+  href: FreeRealmsLocaleTools.LocaleParser.LocaleFileInfo.html#FreeRealmsLocaleTools_LocaleParser_LocaleFileInfo_StoredEntries
+  name: StoredEntries
+  nameWithType: LocaleFileInfo.StoredEntries
+  fullName: FreeRealmsLocaleTools.LocaleParser.LocaleFileInfo.StoredEntries
+- uid: System.Collections.Generic.IEnumerable{FreeRealmsLocaleTools.LocaleParser.LocaleEntry}
+  commentId: T:System.Collections.Generic.IEnumerable{FreeRealmsLocaleTools.LocaleParser.LocaleEntry}
+  parent: System.Collections.Generic
+  definition: System.Collections.Generic.IEnumerable`1
+  href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1
+  name: IEnumerable<LocaleEntry>
+  nameWithType: IEnumerable<LocaleEntry>
+  fullName: System.Collections.Generic.IEnumerable<FreeRealmsLocaleTools.LocaleParser.LocaleEntry>
+  nameWithType.vb: IEnumerable(Of LocaleEntry)
+  fullName.vb: System.Collections.Generic.IEnumerable(Of FreeRealmsLocaleTools.LocaleParser.LocaleEntry)
+  name.vb: IEnumerable(Of LocaleEntry)
+  spec.csharp:
+  - uid: System.Collections.Generic.IEnumerable`1
+    name: IEnumerable
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1
+  - name: <
+  - uid: FreeRealmsLocaleTools.LocaleParser.LocaleEntry
+    name: LocaleEntry
+    href: FreeRealmsLocaleTools.LocaleParser.LocaleEntry.html
+  - name: '>'
+  spec.vb:
+  - uid: System.Collections.Generic.IEnumerable`1
+    name: IEnumerable
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: FreeRealmsLocaleTools.LocaleParser.LocaleEntry
+    name: LocaleEntry
+    href: FreeRealmsLocaleTools.LocaleParser.LocaleEntry.html
+  - name: )
+- uid: System.Collections.Generic.IEnumerable`1
+  commentId: T:System.Collections.Generic.IEnumerable`1
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1
+  name: IEnumerable<T>
+  nameWithType: IEnumerable<T>
+  fullName: System.Collections.Generic.IEnumerable<T>
+  nameWithType.vb: IEnumerable(Of T)
+  fullName.vb: System.Collections.Generic.IEnumerable(Of T)
+  name.vb: IEnumerable(Of T)
+  spec.csharp:
+  - uid: System.Collections.Generic.IEnumerable`1
+    name: IEnumerable
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1
+  - name: <
+  - name: T
+  - name: '>'
+  spec.vb:
+  - uid: System.Collections.Generic.IEnumerable`1
+    name: IEnumerable
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+- uid: FreeRealmsLocaleTools.LocaleParser.LocaleFileInfo.AddEntries*
+  commentId: Overload:FreeRealmsLocaleTools.LocaleParser.LocaleFileInfo.AddEntries
+  href: FreeRealmsLocaleTools.LocaleParser.LocaleFileInfo.html#FreeRealmsLocaleTools_LocaleParser_LocaleFileInfo_AddEntries_System_Collections_Generic_IEnumerable_System_String__
+  name: AddEntries
+  nameWithType: LocaleFileInfo.AddEntries
+  fullName: FreeRealmsLocaleTools.LocaleParser.LocaleFileInfo.AddEntries
+- uid: System.Collections.Generic.IEnumerable{System.String}
+  commentId: T:System.Collections.Generic.IEnumerable{System.String}
+  parent: System.Collections.Generic
+  definition: System.Collections.Generic.IEnumerable`1
+  href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1
+  name: IEnumerable<string>
+  nameWithType: IEnumerable<string>
+  fullName: System.Collections.Generic.IEnumerable<string>
+  nameWithType.vb: IEnumerable(Of String)
+  fullName.vb: System.Collections.Generic.IEnumerable(Of String)
+  name.vb: IEnumerable(Of String)
+  spec.csharp:
+  - uid: System.Collections.Generic.IEnumerable`1
+    name: IEnumerable
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1
+  - name: <
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: '>'
+  spec.vb:
+  - uid: System.Collections.Generic.IEnumerable`1
+    name: IEnumerable
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+- uid: System.Collections.Generic.List{System.Int32}
+  commentId: T:System.Collections.Generic.List{System.Int32}
+  parent: System.Collections.Generic
+  definition: System.Collections.Generic.List`1
+  href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  name: List<int>
+  nameWithType: List<int>
+  fullName: System.Collections.Generic.List<int>
+  nameWithType.vb: List(Of Integer)
+  fullName.vb: System.Collections.Generic.List(Of Integer)
+  name.vb: List(Of Integer)
+  spec.csharp:
+  - uid: System.Collections.Generic.List`1
+    name: List
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  - name: <
+  - uid: System.Int32
+    name: int
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.int32
+  - name: '>'
+  spec.vb:
+  - uid: System.Collections.Generic.List`1
+    name: List
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: System.Int32
+    name: Integer
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.int32
+  - name: )
+- uid: System.Collections.Generic.List`1
+  commentId: T:System.Collections.Generic.List`1
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  name: List<T>
+  nameWithType: List<T>
+  fullName: System.Collections.Generic.List<T>
+  nameWithType.vb: List(Of T)
+  fullName.vb: System.Collections.Generic.List(Of T)
+  name.vb: List(Of T)
+  spec.csharp:
+  - uid: System.Collections.Generic.List`1
+    name: List
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  - name: <
+  - name: T
+  - name: '>'
+  spec.vb:
+  - uid: System.Collections.Generic.List`1
+    name: List
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+- uid: FreeRealmsLocaleTools.LocaleParser.LocaleFileInfo.AddEntry*
+  commentId: Overload:FreeRealmsLocaleTools.LocaleParser.LocaleFileInfo.AddEntry
+  href: FreeRealmsLocaleTools.LocaleParser.LocaleFileInfo.html#FreeRealmsLocaleTools_LocaleParser_LocaleFileInfo_AddEntry_System_String_
+  name: AddEntry
+  nameWithType: LocaleFileInfo.AddEntry
+  fullName: FreeRealmsLocaleTools.LocaleParser.LocaleFileInfo.AddEntry
+- uid: System.Int32
+  commentId: T:System.Int32
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.int32
+  name: int
+  nameWithType: int
+  fullName: int
+  nameWithType.vb: Integer
+  fullName.vb: Integer
+  name.vb: Integer
+- uid: FreeRealmsLocaleTools.LocaleParser.LocaleFileInfo.UpdateEntries*
+  commentId: Overload:FreeRealmsLocaleTools.LocaleParser.LocaleFileInfo.UpdateEntries
+  href: FreeRealmsLocaleTools.LocaleParser.LocaleFileInfo.html#FreeRealmsLocaleTools_LocaleParser_LocaleFileInfo_UpdateEntries_System_String_System_String_
+  name: UpdateEntries
+  nameWithType: LocaleFileInfo.UpdateEntries
+  fullName: FreeRealmsLocaleTools.LocaleParser.LocaleFileInfo.UpdateEntries
+- uid: System.Func{FreeRealmsLocaleTools.LocaleParser.LocaleEntry,System.Boolean}
+  commentId: T:System.Func{FreeRealmsLocaleTools.LocaleParser.LocaleEntry,System.Boolean}
+  parent: System
+  definition: System.Func`2
+  href: https://learn.microsoft.com/dotnet/api/system.func-2
+  name: Func<LocaleEntry, bool>
+  nameWithType: Func<LocaleEntry, bool>
+  fullName: System.Func<FreeRealmsLocaleTools.LocaleParser.LocaleEntry, bool>
+  nameWithType.vb: Func(Of LocaleEntry, Boolean)
+  fullName.vb: System.Func(Of FreeRealmsLocaleTools.LocaleParser.LocaleEntry, Boolean)
+  name.vb: Func(Of LocaleEntry, Boolean)
+  spec.csharp:
+  - uid: System.Func`2
+    name: Func
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.func-2
+  - name: <
+  - uid: FreeRealmsLocaleTools.LocaleParser.LocaleEntry
+    name: LocaleEntry
+    href: FreeRealmsLocaleTools.LocaleParser.LocaleEntry.html
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: bool
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: '>'
+  spec.vb:
+  - uid: System.Func`2
+    name: Func
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.func-2
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: FreeRealmsLocaleTools.LocaleParser.LocaleEntry
+    name: LocaleEntry
+    href: FreeRealmsLocaleTools.LocaleParser.LocaleEntry.html
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: Boolean
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: )
+- uid: System.Func`2
+  commentId: T:System.Func`2
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.func-2
+  name: Func<T, TResult>
+  nameWithType: Func<T, TResult>
+  fullName: System.Func<T, TResult>
+  nameWithType.vb: Func(Of T, TResult)
+  fullName.vb: System.Func(Of T, TResult)
+  name.vb: Func(Of T, TResult)
+  spec.csharp:
+  - uid: System.Func`2
+    name: Func
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.func-2
+  - name: <
+  - name: T
+  - name: ','
+  - name: " "
+  - name: TResult
+  - name: '>'
+  spec.vb:
+  - uid: System.Func`2
+    name: Func
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.func-2
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: ','
+  - name: " "
+  - name: TResult
+  - name: )
+- uid: System.Func{FreeRealmsLocaleTools.LocaleParser.LocaleEntry,System.String}
+  commentId: T:System.Func{FreeRealmsLocaleTools.LocaleParser.LocaleEntry,System.String}
+  parent: System
+  definition: System.Func`2
+  href: https://learn.microsoft.com/dotnet/api/system.func-2
+  name: Func<LocaleEntry, string>
+  nameWithType: Func<LocaleEntry, string>
+  fullName: System.Func<FreeRealmsLocaleTools.LocaleParser.LocaleEntry, string>
+  nameWithType.vb: Func(Of LocaleEntry, String)
+  fullName.vb: System.Func(Of FreeRealmsLocaleTools.LocaleParser.LocaleEntry, String)
+  name.vb: Func(Of LocaleEntry, String)
+  spec.csharp:
+  - uid: System.Func`2
+    name: Func
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.func-2
+  - name: <
+  - uid: FreeRealmsLocaleTools.LocaleParser.LocaleEntry
+    name: LocaleEntry
+    href: FreeRealmsLocaleTools.LocaleParser.LocaleEntry.html
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: '>'
+  spec.vb:
+  - uid: System.Func`2
+    name: Func
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.func-2
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: FreeRealmsLocaleTools.LocaleParser.LocaleEntry
+    name: LocaleEntry
+    href: FreeRealmsLocaleTools.LocaleParser.LocaleEntry.html
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+- uid: System.Collections.Generic.IEnumerable{System.ValueTuple{System.String,System.String}}
+  commentId: T:System.Collections.Generic.IEnumerable{System.ValueTuple{System.String,System.String}}
+  parent: System.Collections.Generic
+  definition: System.Collections.Generic.IEnumerable`1
+  href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1
+  name: IEnumerable<(string, string)>
+  nameWithType: IEnumerable<(string, string)>
+  fullName: System.Collections.Generic.IEnumerable<(string, string)>
+  nameWithType.vb: IEnumerable(Of (String, String))
+  fullName.vb: System.Collections.Generic.IEnumerable(Of (String, String))
+  name.vb: IEnumerable(Of (String, String))
+  spec.csharp:
+  - uid: System.Collections.Generic.IEnumerable`1
+    name: IEnumerable
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1
+  - name: <
+  - name: (
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+  - name: '>'
+  spec.vb:
+  - uid: System.Collections.Generic.IEnumerable`1
+    name: IEnumerable
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1
+  - name: (
+  - name: Of
+  - name: " "
+  - name: (
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+  - name: )
+- uid: System.Collections.Generic.Dictionary{System.String,System.String}
+  commentId: T:System.Collections.Generic.Dictionary{System.String,System.String}
+  parent: System.Collections.Generic
+  definition: System.Collections.Generic.Dictionary`2
+  href: https://learn.microsoft.com/dotnet/api/system.collections.generic.dictionary-2
+  name: Dictionary<string, string>
+  nameWithType: Dictionary<string, string>
+  fullName: System.Collections.Generic.Dictionary<string, string>
+  nameWithType.vb: Dictionary(Of String, String)
+  fullName.vb: System.Collections.Generic.Dictionary(Of String, String)
+  name.vb: Dictionary(Of String, String)
+  spec.csharp:
+  - uid: System.Collections.Generic.Dictionary`2
+    name: Dictionary
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.dictionary-2
+  - name: <
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: '>'
+  spec.vb:
+  - uid: System.Collections.Generic.Dictionary`2
+    name: Dictionary
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.dictionary-2
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+- uid: System.Collections.Generic.Dictionary`2
+  commentId: T:System.Collections.Generic.Dictionary`2
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.collections.generic.dictionary-2
+  name: Dictionary<TKey, TValue>
+  nameWithType: Dictionary<TKey, TValue>
+  fullName: System.Collections.Generic.Dictionary<TKey, TValue>
+  nameWithType.vb: Dictionary(Of TKey, TValue)
+  fullName.vb: System.Collections.Generic.Dictionary(Of TKey, TValue)
+  name.vb: Dictionary(Of TKey, TValue)
+  spec.csharp:
+  - uid: System.Collections.Generic.Dictionary`2
+    name: Dictionary
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.dictionary-2
+  - name: <
+  - name: TKey
+  - name: ','
+  - name: " "
+  - name: TValue
+  - name: '>'
+  spec.vb:
+  - uid: System.Collections.Generic.Dictionary`2
+    name: Dictionary
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.dictionary-2
+  - name: (
+  - name: Of
+  - name: " "
+  - name: TKey
+  - name: ','
+  - name: " "
+  - name: TValue
+  - name: )
+- uid: FreeRealmsLocaleTools.LocaleParser.LocaleFileInfo.UpdateEntry*
+  commentId: Overload:FreeRealmsLocaleTools.LocaleParser.LocaleFileInfo.UpdateEntry
+  href: FreeRealmsLocaleTools.LocaleParser.LocaleFileInfo.html#FreeRealmsLocaleTools_LocaleParser_LocaleFileInfo_UpdateEntry_System_Int32_System_String_
+  name: UpdateEntry
+  nameWithType: LocaleFileInfo.UpdateEntry
+  fullName: FreeRealmsLocaleTools.LocaleParser.LocaleFileInfo.UpdateEntry
+- uid: FreeRealmsLocaleTools.LocaleParser.LocaleFileInfo.RemoveEntries*
+  commentId: Overload:FreeRealmsLocaleTools.LocaleParser.LocaleFileInfo.RemoveEntries
+  href: FreeRealmsLocaleTools.LocaleParser.LocaleFileInfo.html#FreeRealmsLocaleTools_LocaleParser_LocaleFileInfo_RemoveEntries_System_String_
+  name: RemoveEntries
+  nameWithType: LocaleFileInfo.RemoveEntries
+  fullName: FreeRealmsLocaleTools.LocaleParser.LocaleFileInfo.RemoveEntries
+- uid: FreeRealmsLocaleTools.LocaleParser.LocaleFileInfo.RemoveEntry*
+  commentId: Overload:FreeRealmsLocaleTools.LocaleParser.LocaleFileInfo.RemoveEntry
+  href: FreeRealmsLocaleTools.LocaleParser.LocaleFileInfo.html#FreeRealmsLocaleTools_LocaleParser_LocaleFileInfo_RemoveEntry_System_Int32_
+  name: RemoveEntry
+  nameWithType: LocaleFileInfo.RemoveEntry
+  fullName: FreeRealmsLocaleTools.LocaleParser.LocaleFileInfo.RemoveEntry
+- uid: FreeRealmsLocaleTools.LocaleParser.LocaleFileInfo.WriteEntries*
+  commentId: Overload:FreeRealmsLocaleTools.LocaleParser.LocaleFileInfo.WriteEntries
+  href: FreeRealmsLocaleTools.LocaleParser.LocaleFileInfo.html#FreeRealmsLocaleTools_LocaleParser_LocaleFileInfo_WriteEntries
+  name: WriteEntries
+  nameWithType: LocaleFileInfo.WriteEntries
+  fullName: FreeRealmsLocaleTools.LocaleParser.LocaleFileInfo.WriteEntries

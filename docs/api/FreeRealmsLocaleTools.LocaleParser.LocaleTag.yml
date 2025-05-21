@@ -1,0 +1,371 @@
+### YamlMime:ManagedReference
+items:
+- uid: FreeRealmsLocaleTools.LocaleParser.LocaleTag
+  commentId: T:FreeRealmsLocaleTools.LocaleParser.LocaleTag
+  id: LocaleTag
+  parent: FreeRealmsLocaleTools.LocaleParser
+  children:
+  - FreeRealmsLocaleTools.LocaleParser.LocaleTag.mcdn
+  - FreeRealmsLocaleTools.LocaleParser.LocaleTag.mcdt
+  - FreeRealmsLocaleTools.LocaleParser.LocaleTag.mgdt
+  - FreeRealmsLocaleTools.LocaleParser.LocaleTag.ucdn
+  - FreeRealmsLocaleTools.LocaleParser.LocaleTag.ucdt
+  - FreeRealmsLocaleTools.LocaleParser.LocaleTag.ugdn
+  - FreeRealmsLocaleTools.LocaleParser.LocaleTag.ugdt
+  - FreeRealmsLocaleTools.LocaleParser.LocaleTag.uidt
+  - FreeRealmsLocaleTools.LocaleParser.LocaleTag.umdt
+  - FreeRealmsLocaleTools.LocaleParser.LocaleTag.utdt
+  langs:
+  - csharp
+  - vb
+  name: LocaleTag
+  nameWithType: LocaleTag
+  fullName: FreeRealmsLocaleTools.LocaleParser.LocaleTag
+  type: Enum
+  source:
+    remote:
+      path: src/FreeRealmsLocaleTools/LocaleParser/LocaleTag.cs
+      branch: main
+      repo: https://github.com/Udaya-X2/FreeRealmsLocaleTools
+    id: LocaleTag
+    path: ../src/FreeRealmsLocaleTools/LocaleParser/LocaleTag.cs
+    startLine: 5
+  assemblies:
+  - FreeRealmsLocaleTools
+  namespace: FreeRealmsLocaleTools.LocaleParser
+  summary: Specifies the types of 4-letter tags that can appear in locale entries.
+  example: []
+  syntax:
+    content: public enum LocaleTag
+    content.vb: Public Enum LocaleTag
+- uid: FreeRealmsLocaleTools.LocaleParser.LocaleTag.ucdt
+  commentId: F:FreeRealmsLocaleTools.LocaleParser.LocaleTag.ucdt
+  id: ucdt
+  parent: FreeRealmsLocaleTools.LocaleParser.LocaleTag
+  langs:
+  - csharp
+  - vb
+  name: ucdt
+  nameWithType: LocaleTag.ucdt
+  fullName: FreeRealmsLocaleTools.LocaleParser.LocaleTag.ucdt
+  type: Field
+  source:
+    remote:
+      path: src/FreeRealmsLocaleTools/LocaleParser/LocaleTag.cs
+      branch: main
+      repo: https://github.com/Udaya-X2/FreeRealmsLocaleTools
+    id: ucdt
+    path: ../src/FreeRealmsLocaleTools/LocaleParser/LocaleTag.cs
+    startLine: 10
+  assemblies:
+  - FreeRealmsLocaleTools
+  namespace: FreeRealmsLocaleTools.LocaleParser
+  summary: Used for most text.
+  example: []
+  syntax:
+    content: ucdt = 0
+    return:
+      type: FreeRealmsLocaleTools.LocaleParser.LocaleTag
+- uid: FreeRealmsLocaleTools.LocaleParser.LocaleTag.ucdn
+  commentId: F:FreeRealmsLocaleTools.LocaleParser.LocaleTag.ucdn
+  id: ucdn
+  parent: FreeRealmsLocaleTools.LocaleParser.LocaleTag
+  langs:
+  - csharp
+  - vb
+  name: ucdn
+  nameWithType: LocaleTag.ucdn
+  fullName: FreeRealmsLocaleTools.LocaleParser.LocaleTag.ucdn
+  type: Field
+  source:
+    remote:
+      path: src/FreeRealmsLocaleTools/LocaleParser/LocaleTag.cs
+      branch: main
+      repo: https://github.com/Udaya-X2/FreeRealmsLocaleTools
+    id: ucdn
+    path: ../src/FreeRealmsLocaleTools/LocaleParser/LocaleTag.cs
+    startLine: 14
+  assemblies:
+  - FreeRealmsLocaleTools
+  namespace: FreeRealmsLocaleTools.LocaleParser
+  summary: Used for most blank text.
+  example: []
+  syntax:
+    content: ucdn = 1
+    return:
+      type: FreeRealmsLocaleTools.LocaleParser.LocaleTag
+- uid: FreeRealmsLocaleTools.LocaleParser.LocaleTag.ugdt
+  commentId: F:FreeRealmsLocaleTools.LocaleParser.LocaleTag.ugdt
+  id: ugdt
+  parent: FreeRealmsLocaleTools.LocaleParser.LocaleTag
+  langs:
+  - csharp
+  - vb
+  name: ugdt
+  nameWithType: LocaleTag.ugdt
+  fullName: FreeRealmsLocaleTools.LocaleParser.LocaleTag.ugdt
+  type: Field
+  source:
+    remote:
+      path: src/FreeRealmsLocaleTools/LocaleParser/LocaleTag.cs
+      branch: main
+      repo: https://github.com/Udaya-X2/FreeRealmsLocaleTools
+    id: ugdt
+    path: ../src/FreeRealmsLocaleTools/LocaleParser/LocaleTag.cs
+    startLine: 18
+  assemblies:
+  - FreeRealmsLocaleTools
+  namespace: FreeRealmsLocaleTools.LocaleParser
+  summary: Used for some text.
+  example: []
+  syntax:
+    content: ugdt = 2
+    return:
+      type: FreeRealmsLocaleTools.LocaleParser.LocaleTag
+- uid: FreeRealmsLocaleTools.LocaleParser.LocaleTag.ugdn
+  commentId: F:FreeRealmsLocaleTools.LocaleParser.LocaleTag.ugdn
+  id: ugdn
+  parent: FreeRealmsLocaleTools.LocaleParser.LocaleTag
+  langs:
+  - csharp
+  - vb
+  name: ugdn
+  nameWithType: LocaleTag.ugdn
+  fullName: FreeRealmsLocaleTools.LocaleParser.LocaleTag.ugdn
+  type: Field
+  source:
+    remote:
+      path: src/FreeRealmsLocaleTools/LocaleParser/LocaleTag.cs
+      branch: main
+      repo: https://github.com/Udaya-X2/FreeRealmsLocaleTools
+    id: ugdn
+    path: ../src/FreeRealmsLocaleTools/LocaleParser/LocaleTag.cs
+    startLine: 22
+  assemblies:
+  - FreeRealmsLocaleTools
+  namespace: FreeRealmsLocaleTools.LocaleParser
+  summary: Used for some blank text.
+  example: []
+  syntax:
+    content: ugdn = 3
+    return:
+      type: FreeRealmsLocaleTools.LocaleParser.LocaleTag
+- uid: FreeRealmsLocaleTools.LocaleParser.LocaleTag.utdt
+  commentId: F:FreeRealmsLocaleTools.LocaleParser.LocaleTag.utdt
+  id: utdt
+  parent: FreeRealmsLocaleTools.LocaleParser.LocaleTag
+  langs:
+  - csharp
+  - vb
+  name: utdt
+  nameWithType: LocaleTag.utdt
+  fullName: FreeRealmsLocaleTools.LocaleParser.LocaleTag.utdt
+  type: Field
+  source:
+    remote:
+      path: src/FreeRealmsLocaleTools/LocaleParser/LocaleTag.cs
+      branch: main
+      repo: https://github.com/Udaya-X2/FreeRealmsLocaleTools
+    id: utdt
+    path: ../src/FreeRealmsLocaleTools/LocaleParser/LocaleTag.cs
+    startLine: 26
+  assemblies:
+  - FreeRealmsLocaleTools
+  namespace: FreeRealmsLocaleTools.LocaleParser
+  summary: Used for some text in non-English locales.
+  example: []
+  syntax:
+    content: utdt = 4
+    return:
+      type: FreeRealmsLocaleTools.LocaleParser.LocaleTag
+- uid: FreeRealmsLocaleTools.LocaleParser.LocaleTag.umdt
+  commentId: F:FreeRealmsLocaleTools.LocaleParser.LocaleTag.umdt
+  id: umdt
+  parent: FreeRealmsLocaleTools.LocaleParser.LocaleTag
+  langs:
+  - csharp
+  - vb
+  name: umdt
+  nameWithType: LocaleTag.umdt
+  fullName: FreeRealmsLocaleTools.LocaleParser.LocaleTag.umdt
+  type: Field
+  source:
+    remote:
+      path: src/FreeRealmsLocaleTools/LocaleParser/LocaleTag.cs
+      branch: main
+      repo: https://github.com/Udaya-X2/FreeRealmsLocaleTools
+    id: umdt
+    path: ../src/FreeRealmsLocaleTools/LocaleParser/LocaleTag.cs
+    startLine: 30
+  assemblies:
+  - FreeRealmsLocaleTools
+  namespace: FreeRealmsLocaleTools.LocaleParser
+  summary: Used for possessive pronoun macros in German locales.
+  example: []
+  syntax:
+    content: umdt = 5
+    return:
+      type: FreeRealmsLocaleTools.LocaleParser.LocaleTag
+- uid: FreeRealmsLocaleTools.LocaleParser.LocaleTag.uidt
+  commentId: F:FreeRealmsLocaleTools.LocaleParser.LocaleTag.uidt
+  id: uidt
+  parent: FreeRealmsLocaleTools.LocaleParser.LocaleTag
+  langs:
+  - csharp
+  - vb
+  name: uidt
+  nameWithType: LocaleTag.uidt
+  fullName: FreeRealmsLocaleTools.LocaleParser.LocaleTag.uidt
+  type: Field
+  source:
+    remote:
+      path: src/FreeRealmsLocaleTools/LocaleParser/LocaleTag.cs
+      branch: main
+      repo: https://github.com/Udaya-X2/FreeRealmsLocaleTools
+    id: uidt
+    path: ../src/FreeRealmsLocaleTools/LocaleParser/LocaleTag.cs
+    startLine: 34
+  assemblies:
+  - FreeRealmsLocaleTools
+  namespace: FreeRealmsLocaleTools.LocaleParser
+  summary: Used for the text "informal" in French and German locales.
+  example: []
+  syntax:
+    content: uidt = 6
+    return:
+      type: FreeRealmsLocaleTools.LocaleParser.LocaleTag
+- uid: FreeRealmsLocaleTools.LocaleParser.LocaleTag.mcdt
+  commentId: F:FreeRealmsLocaleTools.LocaleParser.LocaleTag.mcdt
+  id: mcdt
+  parent: FreeRealmsLocaleTools.LocaleParser.LocaleTag
+  langs:
+  - csharp
+  - vb
+  name: mcdt
+  nameWithType: LocaleTag.mcdt
+  fullName: FreeRealmsLocaleTools.LocaleParser.LocaleTag.mcdt
+  type: Field
+  source:
+    remote:
+      path: src/FreeRealmsLocaleTools/LocaleParser/LocaleTag.cs
+      branch: main
+      repo: https://github.com/Udaya-X2/FreeRealmsLocaleTools
+    id: mcdt
+    path: ../src/FreeRealmsLocaleTools/LocaleParser/LocaleTag.cs
+    startLine: 41
+  assemblies:
+  - FreeRealmsLocaleTools
+  namespace: FreeRealmsLocaleTools.LocaleParser
+  summary: >-
+    Used for text followed by
+
+    <pre><code class="lang-csharp">\t0017\tGlobal.Text.&lt;ID&gt;</code></pre>
+
+    Where ID is a number such that the Jenkins lookup2 function returns the hash corresponding
+
+    to the text's locale entry when "Global.Text.&lt;ID&gt;" is given as the key.
+  example: []
+  syntax:
+    content: mcdt = 7
+    return:
+      type: FreeRealmsLocaleTools.LocaleParser.LocaleTag
+- uid: FreeRealmsLocaleTools.LocaleParser.LocaleTag.mcdn
+  commentId: F:FreeRealmsLocaleTools.LocaleParser.LocaleTag.mcdn
+  id: mcdn
+  parent: FreeRealmsLocaleTools.LocaleParser.LocaleTag
+  langs:
+  - csharp
+  - vb
+  name: mcdn
+  nameWithType: LocaleTag.mcdn
+  fullName: FreeRealmsLocaleTools.LocaleParser.LocaleTag.mcdn
+  type: Field
+  source:
+    remote:
+      path: src/FreeRealmsLocaleTools/LocaleParser/LocaleTag.cs
+      branch: main
+      repo: https://github.com/Udaya-X2/FreeRealmsLocaleTools
+    id: mcdn
+    path: ../src/FreeRealmsLocaleTools/LocaleParser/LocaleTag.cs
+    startLine: 48
+  assemblies:
+  - FreeRealmsLocaleTools
+  namespace: FreeRealmsLocaleTools.LocaleParser
+  summary: >-
+    Used for blank text followed by
+
+    <pre><code class="lang-csharp">\t0017\tGlobal.Text.&lt;ID&gt;</code></pre>
+
+    Where ID is a number such that the Jenkins lookup2 function returns the hash corresponding
+
+    to the text's locale entry when "Global.Text.&lt;ID&gt;" is given as the key.
+  example: []
+  syntax:
+    content: mcdn = 8
+    return:
+      type: FreeRealmsLocaleTools.LocaleParser.LocaleTag
+- uid: FreeRealmsLocaleTools.LocaleParser.LocaleTag.mgdt
+  commentId: F:FreeRealmsLocaleTools.LocaleParser.LocaleTag.mgdt
+  id: mgdt
+  parent: FreeRealmsLocaleTools.LocaleParser.LocaleTag
+  langs:
+  - csharp
+  - vb
+  name: mgdt
+  nameWithType: LocaleTag.mgdt
+  fullName: FreeRealmsLocaleTools.LocaleParser.LocaleTag.mgdt
+  type: Field
+  source:
+    remote:
+      path: src/FreeRealmsLocaleTools/LocaleParser/LocaleTag.cs
+      branch: main
+      repo: https://github.com/Udaya-X2/FreeRealmsLocaleTools
+    id: mgdt
+    path: ../src/FreeRealmsLocaleTools/LocaleParser/LocaleTag.cs
+    startLine: 55
+  assemblies:
+  - FreeRealmsLocaleTools
+  namespace: FreeRealmsLocaleTools.LocaleParser
+  summary: >-
+    Used for older TCG locale text followed by
+
+    <pre><code class="lang-csharp">\t0006\t&lt;KEY&gt;</code></pre>
+
+    Where key is a string such that the Jenkins lookup2 function returns the hash
+
+    corresponding to the text's locale entry when KEY is given as the key.
+  example: []
+  syntax:
+    content: mgdt = 9
+    return:
+      type: FreeRealmsLocaleTools.LocaleParser.LocaleTag
+references:
+- uid: FreeRealmsLocaleTools.LocaleParser
+  commentId: N:FreeRealmsLocaleTools.LocaleParser
+  href: FreeRealmsLocaleTools.html
+  name: FreeRealmsLocaleTools.LocaleParser
+  nameWithType: FreeRealmsLocaleTools.LocaleParser
+  fullName: FreeRealmsLocaleTools.LocaleParser
+  spec.csharp:
+  - uid: FreeRealmsLocaleTools
+    name: FreeRealmsLocaleTools
+    href: FreeRealmsLocaleTools.html
+  - name: .
+  - uid: FreeRealmsLocaleTools.LocaleParser
+    name: LocaleParser
+    href: FreeRealmsLocaleTools.LocaleParser.html
+  spec.vb:
+  - uid: FreeRealmsLocaleTools
+    name: FreeRealmsLocaleTools
+    href: FreeRealmsLocaleTools.html
+  - name: .
+  - uid: FreeRealmsLocaleTools.LocaleParser
+    name: LocaleParser
+    href: FreeRealmsLocaleTools.LocaleParser.html
+- uid: FreeRealmsLocaleTools.LocaleParser.LocaleTag
+  commentId: T:FreeRealmsLocaleTools.LocaleParser.LocaleTag
+  parent: FreeRealmsLocaleTools.LocaleParser
+  href: FreeRealmsLocaleTools.LocaleParser.LocaleTag.html
+  name: LocaleTag
+  nameWithType: LocaleTag
+  fullName: FreeRealmsLocaleTools.LocaleParser.LocaleTag

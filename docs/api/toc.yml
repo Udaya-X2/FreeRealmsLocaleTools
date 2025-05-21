@@ -1,0 +1,44 @@
+### YamlMime:TableOfContent
+items:
+- uid: FreeRealmsLocaleTools.IdHashing
+  name: FreeRealmsLocaleTools.IdHashing
+  type: Namespace
+  items:
+  - uid: FreeRealmsLocaleTools.IdHashing.JenkinsLookup2
+    name: JenkinsLookup2
+    type: Class
+  - uid: FreeRealmsLocaleTools.IdHashing.Preimaging
+    name: Preimaging
+    type: Class
+- uid: FreeRealmsLocaleTools.LocaleParser
+  name: FreeRealmsLocaleTools.LocaleParser
+  type: Namespace
+  items:
+  - uid: FreeRealmsLocaleTools.LocaleParser.Game
+    name: Game
+    type: Enum
+  - uid: FreeRealmsLocaleTools.LocaleParser.Locale
+    name: Locale
+    type: Enum
+  - uid: FreeRealmsLocaleTools.LocaleParser.LocaleEntry
+    name: LocaleEntry
+    type: Class
+  - uid: FreeRealmsLocaleTools.LocaleParser.LocaleEntryLocation
+    name: LocaleEntryLocation
+    type: Class
+  - uid: FreeRealmsLocaleTools.LocaleParser.LocaleFile
+    name: LocaleFile
+    type: Class
+  - uid: FreeRealmsLocaleTools.LocaleParser.LocaleFileInfo
+    name: LocaleFileInfo
+    type: Class
+  - uid: FreeRealmsLocaleTools.LocaleParser.LocaleMetadata
+    name: LocaleMetadata
+    type: Class
+  - uid: FreeRealmsLocaleTools.LocaleParser.LocaleReader
+    name: LocaleReader
+    type: Class
+  - uid: FreeRealmsLocaleTools.LocaleParser.LocaleTag
+    name: LocaleTag
+    type: Enum
+memberLayout: SamePage

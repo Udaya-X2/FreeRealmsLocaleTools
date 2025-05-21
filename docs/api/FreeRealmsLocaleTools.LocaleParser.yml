@@ -1,0 +1,108 @@
+### YamlMime:ManagedReference
+items:
+- uid: FreeRealmsLocaleTools.LocaleParser
+  commentId: N:FreeRealmsLocaleTools.LocaleParser
+  id: FreeRealmsLocaleTools.LocaleParser
+  children:
+  - FreeRealmsLocaleTools.LocaleParser.Game
+  - FreeRealmsLocaleTools.LocaleParser.Locale
+  - FreeRealmsLocaleTools.LocaleParser.LocaleEntry
+  - FreeRealmsLocaleTools.LocaleParser.LocaleEntryLocation
+  - FreeRealmsLocaleTools.LocaleParser.LocaleFile
+  - FreeRealmsLocaleTools.LocaleParser.LocaleFileInfo
+  - FreeRealmsLocaleTools.LocaleParser.LocaleMetadata
+  - FreeRealmsLocaleTools.LocaleParser.LocaleReader
+  - FreeRealmsLocaleTools.LocaleParser.LocaleTag
+  langs:
+  - csharp
+  - vb
+  name: FreeRealmsLocaleTools.LocaleParser
+  nameWithType: FreeRealmsLocaleTools.LocaleParser
+  fullName: FreeRealmsLocaleTools.LocaleParser
+  type: Namespace
+  assemblies:
+  - FreeRealmsLocaleTools
+references:
+- uid: FreeRealmsLocaleTools.LocaleParser.Game
+  commentId: T:FreeRealmsLocaleTools.LocaleParser.Game
+  parent: FreeRealmsLocaleTools.LocaleParser
+  href: FreeRealmsLocaleTools.LocaleParser.Game.html
+  name: Game
+  nameWithType: Game
+  fullName: FreeRealmsLocaleTools.LocaleParser.Game
+- uid: FreeRealmsLocaleTools.LocaleParser.Locale
+  commentId: T:FreeRealmsLocaleTools.LocaleParser.Locale
+  parent: FreeRealmsLocaleTools.LocaleParser
+  href: FreeRealmsLocaleTools.LocaleParser.Locale.html
+  name: Locale
+  nameWithType: Locale
+  fullName: FreeRealmsLocaleTools.LocaleParser.Locale
+- uid: FreeRealmsLocaleTools.LocaleParser.LocaleEntry
+  commentId: T:FreeRealmsLocaleTools.LocaleParser.LocaleEntry
+  parent: FreeRealmsLocaleTools.LocaleParser
+  href: FreeRealmsLocaleTools.LocaleParser.LocaleEntry.html
+  name: LocaleEntry
+  nameWithType: LocaleEntry
+  fullName: FreeRealmsLocaleTools.LocaleParser.LocaleEntry
+- uid: FreeRealmsLocaleTools.LocaleParser.LocaleEntryLocation
+  commentId: T:FreeRealmsLocaleTools.LocaleParser.LocaleEntryLocation
+  parent: FreeRealmsLocaleTools.LocaleParser
+  href: FreeRealmsLocaleTools.LocaleParser.LocaleEntryLocation.html
+  name: LocaleEntryLocation
+  nameWithType: LocaleEntryLocation
+  fullName: FreeRealmsLocaleTools.LocaleParser.LocaleEntryLocation
+- uid: FreeRealmsLocaleTools.LocaleParser.LocaleFile
+  commentId: T:FreeRealmsLocaleTools.LocaleParser.LocaleFile
+  href: FreeRealmsLocaleTools.LocaleParser.LocaleFile.html
+  name: LocaleFile
+  nameWithType: LocaleFile
+  fullName: FreeRealmsLocaleTools.LocaleParser.LocaleFile
+- uid: FreeRealmsLocaleTools.LocaleParser.LocaleFileInfo
+  commentId: T:FreeRealmsLocaleTools.LocaleParser.LocaleFileInfo
+  parent: FreeRealmsLocaleTools.LocaleParser
+  href: FreeRealmsLocaleTools.LocaleParser.LocaleFileInfo.html
+  name: LocaleFileInfo
+  nameWithType: LocaleFileInfo
+  fullName: FreeRealmsLocaleTools.LocaleParser.LocaleFileInfo
+- uid: FreeRealmsLocaleTools.LocaleParser.LocaleMetadata
+  commentId: T:FreeRealmsLocaleTools.LocaleParser.LocaleMetadata
+  parent: FreeRealmsLocaleTools.LocaleParser
+  href: FreeRealmsLocaleTools.LocaleParser.LocaleMetadata.html
+  name: LocaleMetadata
+  nameWithType: LocaleMetadata
+  fullName: FreeRealmsLocaleTools.LocaleParser.LocaleMetadata
+- uid: FreeRealmsLocaleTools.LocaleParser.LocaleReader
+  commentId: T:FreeRealmsLocaleTools.LocaleParser.LocaleReader
+  href: FreeRealmsLocaleTools.LocaleParser.LocaleReader.html
+  name: LocaleReader
+  nameWithType: LocaleReader
+  fullName: FreeRealmsLocaleTools.LocaleParser.LocaleReader
+- uid: FreeRealmsLocaleTools.LocaleParser.LocaleTag
+  commentId: T:FreeRealmsLocaleTools.LocaleParser.LocaleTag
+  parent: FreeRealmsLocaleTools.LocaleParser
+  href: FreeRealmsLocaleTools.LocaleParser.LocaleTag.html
+  name: LocaleTag
+  nameWithType: LocaleTag
+  fullName: FreeRealmsLocaleTools.LocaleParser.LocaleTag
+- uid: FreeRealmsLocaleTools.LocaleParser
+  commentId: N:FreeRealmsLocaleTools.LocaleParser
+  href: FreeRealmsLocaleTools.html
+  name: FreeRealmsLocaleTools.LocaleParser
+  nameWithType: FreeRealmsLocaleTools.LocaleParser
+  fullName: FreeRealmsLocaleTools.LocaleParser
+  spec.csharp:
+  - uid: FreeRealmsLocaleTools
+    name: FreeRealmsLocaleTools
+    href: FreeRealmsLocaleTools.html
+  - name: .
+  - uid: FreeRealmsLocaleTools.LocaleParser
+    name: LocaleParser
+    href: FreeRealmsLocaleTools.LocaleParser.html
+  spec.vb:
+  - uid: FreeRealmsLocaleTools
+    name: FreeRealmsLocaleTools
+    href: FreeRealmsLocaleTools.html
+  - name: .
+  - uid: FreeRealmsLocaleTools.LocaleParser
+    name: LocaleParser
+    href: FreeRealmsLocaleTools.LocaleParser.html
