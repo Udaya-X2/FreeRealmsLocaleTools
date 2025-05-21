@@ -1,7 +1,8 @@
 # FreeRealmsLocaleTools
 
-A library which allows developers to read, write, and update text entries from
-Free Realms locale files.
+A .NET library which allows developers to read and write text entries
+from Free Realms locale files. It also includes other utilities such as
+acquiring the name IDs of text entries and modifying locale metadata.
 
 ## Background
 
@@ -19,7 +20,7 @@ API reference, samples, and tutorials.
 
 ## Installation
 
-Download either the DLL or full source code from the [releases page](https://github.com/Udaya-X2/FreeRealmsLocaleTools/releases) and add it as a project reference in your assembly.
+Download the DLL from the [releases page](https://github.com/Udaya-X2/FreeRealmsLocaleTools/releases) and add it as a project reference in your assembly.
 
 ## Code Samples
 
@@ -28,16 +29,10 @@ Download either the DLL or full source code from the [releases page](https://git
 ```cs
 using FreeRealmsLocaleTools.LocaleParser;
 
-public class Program
-{
-    public static void Main()
-    {
-        LocaleFileInfo localeFile = new("data/en_us_data.dat", "data/en_us_data.dir");
-        int nameId = localeFile.AddEntry("Illusion: Necronomicus - 15 minutes");
-        Console.WriteLine(localeFile.IdToEntry[nameId]);
-        localeFile.WriteEntries("data/en_us_data.dat", "data/en_us_data.dir");
-    }
-}
+LocaleFileInfo localeFile = new("data/en_us_data.dat", "data/en_us_data.dir");
+int nameId = localeFile.AddEntry("Illusion: Necronomicus - 15 minutes");
+Console.WriteLine(localeFile.IdToEntry[nameId]);
+localeFile.WriteEntries();
 ```
 
 Console output:
@@ -53,16 +48,10 @@ using CsvHelper;
 using FreeRealmsLocaleTools.LocaleParser;
 using System.Globalization;
 
-public class Program
-{
-    public static void Main()
-    {
-        LocaleFileInfo localeFile = new("data/en_us_data.dat", "data/en_us_data.dir");
-        using StreamWriter writer = new("names.csv");
-        using CsvWriter csv = new(writer, CultureInfo.InvariantCulture);
-        csv.WriteRecords(localeFile.IdToEntry.Select(x => new { Id = x.Key, x.Value.Text }));
-    }
-}
+LocaleFileInfo localeFile = new("data/en_us_data.dat", "data/en_us_data.dir");
+using StreamWriter writer = new("names.csv");
+using CsvWriter csv = new(writer, CultureInfo.InvariantCulture);
+csv.WriteRecords(localeFile.IdToEntry.Select(x => new { Id = x.Key, x.Value.Text }));
 ```
 
 First 5 lines of names.csv:
@@ -80,16 +69,10 @@ Id,Text
 ```cs
 using FreeRealmsLocaleTools.LocaleParser;
 
-public class Program
-{
-    public static void Main()
-    {
-        LocaleMetadata metadata = LocaleFile.ReadMetadata("data/en_us_data.dir");
-        Console.WriteLine($"Locale = {metadata.Locale}");
-        Console.WriteLine($"Count = {metadata.Count}");
-        Console.WriteLine($"Date = {metadata.Date}");
-    }
-}
+LocaleMetadata metadata = LocaleFile.ReadMetadata("data/en_us_data.dir");
+Console.WriteLine($"Locale = {metadata.Locale}");
+Console.WriteLine($"Count = {metadata.Count}");
+Console.WriteLine($"Date = {metadata.Date}");
 ```
 
 Console output:
