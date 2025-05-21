@@ -8,6 +8,7 @@ public static class JenkinsLookup2
     /// <summary>
     /// Hashes a variable-length key into a 32-bit value.
     /// </summary>
+    /// <param name="key">The key to hash.</param>
     /// <exception cref="ArgumentNullException"/>
     public static uint Hash(string key)
     {

@@ -79,6 +79,8 @@ public record LocaleMetadata()
     /// <summary>
     /// Creates a new instance of <see cref="LocaleMetadata"/> from the specified .dat file and locale entries.
     /// </summary>
+    /// <param name="localeDatFile">The path to the locale .dat file.</param>
+    /// <param name="entries">A collection of locale entries.</param>
     /// <returns>A new metadata instance with some properties initialized.</returns>
     /// <exception cref="ArgumentNullException"/>
     public static LocaleMetadata Create(string localeDatFile, IEnumerable<LocaleEntry> entries)
@@ -92,6 +94,8 @@ public record LocaleMetadata()
     /// <summary>
     /// Creates a copy of this metadata and updates its properties with the specified .dat file and locale entries.
     /// </summary>
+    /// <param name="localeDatFile">The path to the locale .dat file.</param>
+    /// <param name="entries">A collection of locale entries.</param>
     /// <returns>A copy of this metadata instance with the updated properties.</returns>
     /// <exception cref="ArgumentNullException"/>
     public LocaleMetadata Update(string localeDatFile, IEnumerable<LocaleEntry> entries)
@@ -139,6 +143,8 @@ public record LocaleMetadata()
     /// <summary>
     /// Sets the metadata property with the given name to the specified value.
     /// </summary>
+    /// <param name="name">The name of the property.</param>
+    /// <param name="value">The value to assign.</param>
     /// <returns>The value assigned to the metadata property.</returns>
     /// <exception cref="ArgumentException"/>
     public object? SetProperty(string name, string value) => name switch

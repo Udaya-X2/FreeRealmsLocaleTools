@@ -22,6 +22,7 @@ public static partial class LocaleFile
     /// <summary>
     /// Opens the locale file, reads all locale entries from the file, and then closes the file.
     /// </summary>
+    /// <param name="localeDatPath">The path to the locale .dat file.</param>
     /// <returns>An array containing all locale entries from the specified file.</returns>
     /// <exception cref="ArgumentNullException"/>
     public static LocaleEntry[] ReadEntries(string localeDatPath)
@@ -35,6 +36,8 @@ public static partial class LocaleFile
     /// <summary>
     /// Opens the locale files, reads all locale entries from the files, and then closes the files.
     /// </summary>
+    /// <param name="localeDatPath">The path to the locale .dat file.</param>
+    /// <param name="localeDirPath">The path to the locale .dir file.</param>
     /// <returns>An array containing all locale entries from the specified files.</returns>
     /// <exception cref="ArgumentNullException"/>
     public static LocaleEntry[] ReadEntries(string localeDatPath, string localeDirPath)
@@ -50,6 +53,10 @@ public static partial class LocaleFile
     /// Opens the locale file, reads all locale entries specified
     /// in <paramref name="locations"/>, and then closes the file.
     /// </summary>
+    /// <param name="localeDatPath">The path to the locale .dat file.</param>
+    /// <param name="locations">
+    /// The collection of locale entry locations to read from <paramref name="localeDatPath"/>.
+    /// </param>
     /// <returns>An array containing all locale entries specified in <paramref name="locations"/>.</returns>
     /// <exception cref="ArgumentNullException"/>
     public static LocaleEntry[] ReadEntries(string localeDatPath, IEnumerable<LocaleEntryLocation> locations)
@@ -76,6 +83,7 @@ public static partial class LocaleFile
     /// <summary>
     /// Reads the preamble bytes at the beginning of the specified locale .dat file.
     /// </summary>
+    /// <param name="localeDatPath">The path to the locale .dat file.</param>
     /// <returns>The bytes at the beginning of the locale .dat file.</returns>
     /// <exception cref="ArgumentNullException"/>
     /// <exception cref="InvalidDataException"/>
@@ -90,6 +98,7 @@ public static partial class LocaleFile
     /// <summary>
     /// Reads the preamble bytes at the beginning of the specified stream.
     /// </summary>
+    /// <param name="stream">The stream to read.</param>
     /// <returns>The bytes at the beginning of the stream.</returns>
     /// <exception cref="ArgumentNullException"/>
     /// <exception cref="InvalidDataException"/>
@@ -118,6 +127,7 @@ public static partial class LocaleFile
     /// <summary>
     /// Reads the metadata lines from the specified .dir file.
     /// </summary>
+    /// <param name="localeDirPath">The path to the locale .dir file.</param>
     /// <returns>The metadata from the specified .dir file.</returns>
     /// <exception cref="ArgumentNullException"/>
     /// <exception cref="InvalidDataException"/>
@@ -152,6 +162,7 @@ public static partial class LocaleFile
     /// <summary>
     /// Reads the location of each locale entry from the specified .dir file, and returns them in an array.
     /// </summary>
+    /// <param name="localeDirPath">The path to the locale .dir file.</param>
     /// <returns>An array of locale entry locations.</returns>
     /// <exception cref="ArgumentNullException"/>
     public static LocaleEntryLocation[] ReadEntryLocations(string localeDirPath)
@@ -162,6 +173,9 @@ public static partial class LocaleFile
     /// <summary>
     /// Adds the specified collection of strings as locale entries to the given .dat file and .dir file.
     /// </summary>
+    /// <param name="localeDatPath">The path to the locale .dat file.</param>
+    /// <param name="localeDirPath">The path to the locale .dir file.</param>
+    /// <param name="strings">The collection of strings to add as entries.</param>
     /// <returns>A <see cref="LocaleFileInfo"/> instance that wraps the locale files.</returns>
     /// <exception cref="ArgumentNullException"/>
     public static LocaleFileInfo AddEntries(string localeDatPath, string localeDirPath, IEnumerable<string> strings)
@@ -179,6 +193,10 @@ public static partial class LocaleFile
     /// Replaces the text of all locale entries matching the predicate with
     /// the specified selector text from the given .dat file and .dir file.
     /// </summary>
+    /// <param name="localeDatPath">The path to the locale .dat file.</param>
+    /// <param name="localeDirPath">The path to the locale .dir file.</param>
+    /// <param name="predicate">A function to test each locale entry for a condition.</param>
+    /// <param name="selector">A transform function to apply to matching entries' text.</param>
     /// <returns>A <see cref="LocaleFileInfo"/> instance that wraps the locale files.</returns>
     /// <exception cref="ArgumentNullException"/>
     public static LocaleFileInfo UpdateEntries(string localeDatPath,
@@ -199,6 +217,9 @@ public static partial class LocaleFile
     /// <summary>
     /// Removes all locale entries that match the specified predicate from the given .dat file and .dir file.
     /// </summary>
+    /// <param name="localeDatPath">The path to the locale .dat file.</param>
+    /// <param name="localeDirPath">The path to the locale .dir file.</param>
+    /// <param name="predicate">A function to test each locale entry for a condition.</param>
     /// <returns>A <see cref="LocaleFileInfo"/> instance that wraps the locale files.</returns>
     /// <exception cref="ArgumentNullException"/>
     public static LocaleFileInfo RemoveEntries(string localeDatPath,

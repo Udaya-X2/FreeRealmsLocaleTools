@@ -34,24 +34,21 @@ public enum LocaleTag
     /// </summary>
     uidt,
     /// <summary>
-    /// Used for text followed by
-    /// <code>\t0017\tGlobal.Text.&lt;ID&gt;</code>
-    /// Where ID is a number such that the Jenkins lookup2 function returns the hash corresponding
+    /// Used for text followed by <c>\t0017\tGlobal.Text.&lt;ID&gt;</c>, where ID is a number such
+    /// that <see cref="IdHashing.JenkinsLookup2.Hash(string)"/> returns the hash corresponding
     /// to the text's locale entry when "Global.Text.&lt;ID&gt;" is given as the key.
     /// </summary>
     mcdt,
     /// <summary>
-    /// Used for blank text followed by
-    /// <code>\t0017\tGlobal.Text.&lt;ID&gt;</code>
-    /// Where ID is a number such that the Jenkins lookup2 function returns the hash corresponding
-    /// to the text's locale entry when "Global.Text.&lt;ID&gt;" is given as the key.
+    /// Used for blank text followed by <c>\t0017\tGlobal.Text.&lt;ID&gt;</c>, where ID is a
+    /// number such that <see cref="IdHashing.JenkinsLookup2.Hash(string)"/> returns the hash
+    /// corresponding to the text's locale entry when "Global.Text.&lt;ID&gt;" is given as the key.
     /// </summary>
     mcdn,
     /// <summary>
-    /// Used for older TCG locale text followed by
-    /// <code>\t0006\t&lt;KEY&gt;</code>
-    /// Where key is a string such that the Jenkins lookup2 function returns the hash
-    /// corresponding to the text's locale entry when KEY is given as the key.
+    /// Used for older TCG locale text followed by <c>\t0006\t&lt;KEY&gt;</c>, where KEY is
+    /// a string such that <see cref="IdHashing.JenkinsLookup2.Hash(string)"/> returns the
+    /// hash corresponding to the text's locale entry when KEY is given as the key.
     /// </summary>
     mgdt
 }

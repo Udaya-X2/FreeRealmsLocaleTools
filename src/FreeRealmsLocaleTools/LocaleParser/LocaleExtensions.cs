@@ -9,6 +9,9 @@ internal static class LocaleExtensions
     /// Invokes a transform function on each element of a sequence and returns the maximum
     /// <see langword="int"/> value, or the default value when the sequence is empty.
     /// </summary>
+    /// <param name="source">A sequence of values.</param>
+    /// <param name="selector">A transform function to apply to each element.</param>
+    /// <param name="defaultValue">The default value to return when the sequence is empty.</param>
     /// <returns>
     /// The maximum value in the sequence, or <paramref name="defaultValue"/> when the sequence is empty.
     /// </returns>

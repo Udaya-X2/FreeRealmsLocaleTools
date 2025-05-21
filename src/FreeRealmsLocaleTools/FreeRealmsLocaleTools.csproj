@@ -7,4 +7,12 @@
     <GenerateDocumentationFile>True</GenerateDocumentationFile>
   </PropertyGroup>
 
+  <ItemGroup>
+    <EditorConfigFiles Remove="C:\Users\udaya\GitHub\FreeRealmsLocaleTools\src\FreeRealmsLocaleTools\.editorconfig" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="C:\Users\udaya\GitHub\FreeRealmsLocaleTools\src\FreeRealmsLocaleTools\.editorconfig" />
+  </ItemGroup>
+
 </Project>

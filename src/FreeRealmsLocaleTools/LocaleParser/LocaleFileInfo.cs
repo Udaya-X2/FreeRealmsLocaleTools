@@ -38,6 +38,10 @@ public class LocaleFileInfo
     /// <summary>
     /// Initializes a new instance of <see cref="LocaleFileInfo"/> from the specified locale .dat file.
     /// </summary>
+    /// <param name="localeDatPath">The path to the locale .dat file.</param>
+    /// <param name="lazyInit">
+    /// Whether to lazily initialize properties required to add/remove/update locale entries.
+    /// </param>
     /// <exception cref="ArgumentNullException"/>
     public LocaleFileInfo(string localeDatPath, bool lazyInit = true)
     {
@@ -58,6 +62,11 @@ public class LocaleFileInfo
     /// <summary>
     /// Initializes a new instance of <see cref="LocaleFileInfo"/> from the specified locale .dat and .dir file.
     /// </summary>
+    /// <param name="localeDatPath">The path to the locale .dat file.</param>
+    /// <param name="localeDirPath">The path to the locale .dir file.</param>
+    /// <param name="lazyInit">
+    /// Whether to lazily initialize properties required to add/remove/update locale entries.
+    /// </param>
     /// <exception cref="ArgumentNullException"/>
     public LocaleFileInfo(string localeDatPath, string localeDirPath, bool lazyInit = true)
     {
@@ -83,7 +92,7 @@ public class LocaleFileInfo
     /// <summary>
     /// Initializes a new instance of <see cref="LocaleFileInfo"/> from the specified parameters.
     /// </summary>
-    /// <exception cref="ArgumentNullException"/>/// <exception cref="ArgumentNullException"/>
+    /// <exception cref="ArgumentNullException"/>
     private LocaleFileInfo(FileInfo localeDatFile, FileInfo localeDirFile, ReadOnlySpan<byte> preamble,
                            LocaleMetadata metadata, LocaleEntryLocation[] locations, LocaleEntry[] entries)
     {
@@ -190,6 +199,7 @@ public class LocaleFileInfo
     /// <summary>
     /// Adds the specified collection of strings as locale entries.
     /// </summary>
+    /// <param name="contents">The collection of strings to add as entries.</param>
     /// <remarks>The stored entries can be written with any of the <c>WriteEntries()</c> methods.</remarks>
     /// <returns>The IDs of the new locale entries.</returns>
     /// <exception cref="ArgumentNullException"/>
@@ -211,6 +221,7 @@ public class LocaleFileInfo
     /// <summary>
     /// Adds a locale entry with the specified text.
     /// </summary>
+    /// <param name="text">The text to add as an entry.</param>
     /// <remarks><inheritdoc cref="AddEntries(IEnumerable{string})"/></remarks>
     /// <returns>The ID of the new locale entry.</returns>
     /// <exception cref="ArgumentNullException"/>
@@ -236,6 +247,8 @@ public class LocaleFileInfo
     /// <summary>
     /// Replaces the text of all entries that have the specified old text with the new text.
     /// </summary>
+    /// <param name="oldText">The text that will be replaced.</param>
+    /// <param name="newText">The text that will replace all occurrences of <paramref name="oldText"/>.</param>
     /// <remarks><inheritdoc cref="AddEntries(IEnumerable{string})"/></remarks>
     /// <returns>The number of locale entries with text replaced.</returns>
     /// <exception cref="ArgumentNullException"/>
@@ -244,11 +257,14 @@ public class LocaleFileInfo
     /// <summary>
     /// Replaces the text from all entries that match the specified predicate with the specified text.
     /// </summary>
+    /// <param name="predicate">A function to test each locale entry for a condition.</param>
+    /// <param name="text">The text that will replace all entries matching <paramref name="predicate"/>.</param>
     /// <remarks><inheritdoc cref="AddEntries(IEnumerable{string})"/></remarks>
     /// <returns>The number of locale entries with text replaced.</returns>
     /// <exception cref="ArgumentNullException"/>
     public int UpdateEntries(Func<LocaleEntry, bool> predicate, string text)
     {
+
         ArgumentNullException.ThrowIfNull(predicate, nameof(predicate));
         ArgumentNullException.ThrowIfNull(text, nameof(text));
 
@@ -258,6 +274,8 @@ public class LocaleFileInfo
     /// <summary>
     /// Replaces the text from all entries that match the specified predicate with the text from the given selector.
     /// </summary>
+    /// <param name="predicate">A function to test each locale entry for a condition.</param>
+    /// <param name="selector">A transform function to apply to matching entries' text.</param>
     /// <remarks><inheritdoc cref="AddEntries(IEnumerable{string})"/></remarks>
     /// <returns>The number of locale entries with text replaced.</returns>
     /// <exception cref="ArgumentNullException"/>
@@ -319,6 +337,8 @@ public class LocaleFileInfo
     /// <summary>
     /// Replaces the text of entries matching the first sequence with the corresponding text from the second sequence.
     /// </summary>
+    /// <param name="first">A collection of strings whose text will be replaced.</param>
+    /// <param name="second">A collection of text replacements for strings in <paramref name="first"/>.</param>
     /// <remarks><inheritdoc cref="AddEntries(IEnumerable{string})"/></remarks>
     /// <returns>The number of locale entries with text replaced.</returns>
     /// <exception cref="ArgumentNullException"/>
@@ -328,6 +348,7 @@ public class LocaleFileInfo
     /// <summary>
     /// Replaces the text of entries matching the first item with the second item in the sequence.
     /// </summary>
+    /// <param name="items">A collection of tuples containing pairs of (oldText, newText) to replace.</param>
     /// <remarks><inheritdoc cref="AddEntries(IEnumerable{string})"/></remarks>
     /// <returns>The number of locale entries with text replaced.</returns>
     /// <exception cref="ArgumentNullException"/>
@@ -346,10 +367,11 @@ public class LocaleFileInfo
     /// <summary>
     /// Replaces the text of all entries matching keys in the dictionary with the corresponding values.
     /// </summary>
+    /// <param name="replacements">A dictionary mapping text to replacement text.</param>
     /// <remarks><inheritdoc cref="AddEntries(IEnumerable{string})"/></remarks>
     /// <returns>The number of locale entries with text replaced.</returns>
     /// <exception cref="ArgumentNullException"/>
-    public int UpdateEntries(Dictionary<string, string> replacements)
+    public int UpdateEntries(IDictionary<string, string> replacements)
     {
         ArgumentNullException.ThrowIfNull(replacements, nameof(replacements));
 
@@ -414,8 +436,10 @@ public class LocaleFileInfo
     }
 
     /// <summary>
-    /// Replaces the text of the entry with the given ID with the specified value.
+    /// Replaces the text of the entry with the given ID with the specified text.
     /// </summary>
+    /// <param name="id">The ID of the locale entry to update.</param>
+    /// <param name="text">The new text to use in the locale entry.</param>
     /// <remarks><inheritdoc cref="AddEntries(IEnumerable{string})"/></remarks>
     /// <returns><see langword="true"/> if the text was replaced; otherwise, <see langword="false"/>.</returns>
     /// <exception cref="ArgumentNullException"/>
@@ -455,6 +479,7 @@ public class LocaleFileInfo
     /// <summary>
     /// Removes all entries with the specified text.
     /// </summary>
+    /// <param name="text">The text that will be removed.</param>
     /// <remarks><inheritdoc cref="AddEntries(IEnumerable{string})"/></remarks>
     /// <returns>The number of locale entries removed.</returns>
     public int RemoveEntries(string text) => RemoveEntries(x => x.Text == text);
@@ -462,6 +487,7 @@ public class LocaleFileInfo
     /// <summary>
     /// Removes all entries that match the specified predicate.
     /// </summary>
+    /// <param name="predicate">A function to test each locale entry with a condition.</param>
     /// <remarks><inheritdoc cref="AddEntries(IEnumerable{string})"/></remarks>
     /// <returns>The number of locale entries removed.</returns>
     /// <exception cref="ArgumentNullException"/>
@@ -517,6 +543,7 @@ public class LocaleFileInfo
     /// <summary>
     /// Removes the entry with the specified ID.
     /// </summary>
+    /// <param name="id">The ID of the locale entry to remove.</param>
     /// <remarks><inheritdoc cref="AddEntries(IEnumerable{string})"/></remarks>
     /// <returns><see langword="true"/> if the entry was removed; otherwise, <see langword="false"/>.</returns>
     /// <exception cref="InvalidOperationException"/>
@@ -558,6 +585,8 @@ public class LocaleFileInfo
     /// <summary>
     /// Writes the stored locale entries to the specified .dat file and .dir file.
     /// </summary>
+    /// <param name="localeDatPath">The path to write the locale .dat file.</param>
+    /// <param name="localeDirPath">The path to write the locale .dir file.</param>
     /// <returns><inheritdoc cref="WriteEntries(FileInfo, FileInfo)"/></returns>
     /// <exception cref="ArgumentNullException"/>
     public LocaleFileInfo WriteEntries(string localeDatPath, string localeDirPath)
@@ -567,6 +596,8 @@ public class LocaleFileInfo
     /// <summary>
     /// Writes the stored locale entries to the specified .dat file and .dir file.
     /// </summary>
+    /// <param name="localeDatFile">The file representing where to write the locale .dat file.</param>
+    /// <param name="localeDirFile">The file representing where to write the locale .dir file.</param>
     /// <returns>
     /// A new instance of <see cref="LocaleFileInfo"/> for the specified .dat file and .dir file.
     /// </returns>

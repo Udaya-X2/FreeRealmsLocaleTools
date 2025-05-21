@@ -11,6 +11,7 @@ public record LocaleEntryLocation(uint Hash, int Offset, int Size)
     /// <summary>
     /// Initializes a new instance of <see cref="LocaleEntryLocation"/> by parsing the given .dir file line.
     /// </summary>
+    /// <param name="line">The locale .dir file line to parse.</param>
     /// <returns>The locale entry location parsed from the contents of <paramref name="line"/>.</returns>
     /// <exception cref="ArgumentNullException"/>
     /// <exception cref="FormatException"/>

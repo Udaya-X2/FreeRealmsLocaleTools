@@ -30,6 +30,7 @@ public class LocaleReader : IDisposable
     /// <summary>
     /// Initializes a new instance of the <see cref="LocaleReader"/> class for the specified locale .dat file.
     /// </summary>
+    /// <param name="localeDatPath">The path to the locale .dat file.</param>
     /// <exception cref="ArgumentNullException"/>
     public LocaleReader(string localeDatPath)
     {

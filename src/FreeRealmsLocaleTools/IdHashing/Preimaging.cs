@@ -19,6 +19,7 @@ public static partial class Preimaging
     /// <summary>
     /// Creates a sorted dictionary mapping hashes to locale entries from the specified collection.
     /// </summary>
+    /// <param name="entries">A collection of locale entries.</param>
     /// <returns>A sorted dictionary mapping hashes to locale entries.</returns>
     /// <exception cref="ArgumentNullException"/>
     public static SortedDictionary<uint, List<LocaleEntry>> CreateHashMapping(IEnumerable<LocaleEntry> entries)
@@ -46,6 +47,7 @@ public static partial class Preimaging
     /// <summary>
     /// Creates an ID for each hashable locale entry in the specified collection.
     /// </summary>
+    /// <param name="entries">A collection of locale entries.</param>
     /// <returns>A sorted dictionary mapping IDs to hashable locale entries.</returns>
     /// <exception cref="ArgumentNullException"/>
     public static SortedDictionary<int, LocaleEntry> CreateIdMapping(IEnumerable<LocaleEntry> entries)
@@ -92,6 +94,9 @@ public static partial class Preimaging
     /// <summary>
     /// Parses the ID from the given m-tag locale entry text.
     /// </summary>
+    /// <param name="text">
+    /// Text from a locale entry with the tag <see cref="LocaleTag.mcdt"/> or <see cref="LocaleTag.mcdn"/>.
+    /// </param>
     /// <returns>The ID of the specified m-tag locale entry text.</returns>
     /// <exception cref="ArgumentNullException"/>
     /// <exception cref="FormatException"/>
@@ -102,11 +107,15 @@ public static partial class Preimaging
     /// Tries to parse the ID from the given m-tag locale entry text.
     /// A return value indicates whether the operation was successful.
     /// </summary>
+    /// <param name="text">
+    /// Text from a locale entry with the tag <see cref="LocaleTag.mcdt"/> or <see cref="LocaleTag.mcdn"/>.
+    /// </param>
+    /// <param name="id">The parsed ID, or an undefined value if unsuccessful.</param>
     /// <returns><see langword="true"/> if the ID was parsed; otherwise, <see langword="false"/>.</returns>
     public static bool TryParseMtagTextId(string? text, out int id)
     {
         Match match = IdRegex().Match(text ?? "");
-        
+
         if (!match.Success)
         {
             id = 0;
@@ -119,6 +128,7 @@ public static partial class Preimaging
     /// <summary>
     /// Generates an array of locale entries from the specified collection of strings.
     /// </summary>
+    /// <param name="strings">A collection of strings.</param>
     /// <returns>An array of locale entries with unique hashes, ordered by distinct ID number.</returns>
     /// <exception cref="ArgumentNullException"/>
     public static LocaleEntry[] GenerateEntries(IEnumerable<string> strings)
@@ -154,6 +164,8 @@ public static partial class Preimaging
     /// <summary>
     /// Initializes a new instance of <see cref="LocaleEntry"/> from the specified ID and text.
     /// </summary>
+    /// <param name="id">The ID to hash in the locale entry.</param>
+    /// <param name="text">The text in the locale entry.</param>
     /// <returns>A locale entry with the specified text and hash generated from the ID.</returns>
     /// <exception cref="ArgumentNullException"/>
     public static LocaleEntry GenerateEntry(int id, string text)
@@ -168,5 +180,6 @@ public static partial class Preimaging
     /// <summary>
     /// Returns the locale hash of the specified ID.
     /// </summary>
+    /// <param name="id">The ID to hash.</param>
     public static uint GetHash(int id) => JenkinsLookup2.Hash($"Global.Text.{id}");
 }

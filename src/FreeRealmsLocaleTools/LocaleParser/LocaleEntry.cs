@@ -11,6 +11,7 @@ public record LocaleEntry(uint Hash, LocaleTag Tag, string Text)
     /// <summary>
     /// Initializes a new instance of <see cref="LocaleEntry"/> by parsing the given .dat file line.
     /// </summary>
+    /// <param name="line">The locale .dat file line to parse.</param>
     /// <returns>The locale entry parsed from the contents of <paramref name="line"/>.</returns>
     /// <exception cref="ArgumentNullException"/>
     /// <exception cref="FormatException"/>
