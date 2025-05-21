@@ -77,7 +77,7 @@ Console.WriteLine($"Date = {metadata.Date}");
 
 Console output:
 
-```cs
+```
 Locale = en_US
 Count = 113286
 Date = Thu Mar 13 10:10:13 PDT 2014
