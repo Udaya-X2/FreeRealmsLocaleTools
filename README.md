@@ -13,6 +13,8 @@ entries while the .dir file contains metadata and information on each entry in
 the .dat file. Combined, the client uses these files to display text based on
 the user's [locale configuration](#supported-locales).
 
+Examples of an [`en_us_data.dat`](https://raw.githubusercontent.com/Udaya-X2/FreeRealmsLocaleTools/refs/heads/main/test/FreeRealmsLocaleTools.Tests/data/en_us_data.dat) and [`en_us_data.dir`](https://raw.githubusercontent.com/Udaya-X2/FreeRealmsLocaleTools/refs/heads/main/test/FreeRealmsLocaleTools.Tests/data/en_us_data.dir) file can be seen [here](https://github.com/Udaya-X2/FreeRealmsLocaleTools/tree/main/test/FreeRealmsLocaleTools.Tests/data).
+
 ## Usage
 
 See [documentation](https://udaya-x2.github.io/FreeRealmsLocaleTools) for
