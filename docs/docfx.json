@@ -40,6 +40,8 @@
     "globalMetadata": {
       "_appName": "FreeRealmsLocaleTools",
       "_appTitle": "FreeRealmsLocaleTools",
+      "_appLogoPath": "images/logo.png",
+      "_appFaviconPath": "images/logo.png",
       "_enableSearch": true,
       "pdf": false,
       "_disableContribution": true

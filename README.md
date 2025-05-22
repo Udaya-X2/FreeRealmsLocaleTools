@@ -104,3 +104,7 @@ Date = Thu Mar 13 10:10:13 PDT 2014
 | 13 | sv_SE  | Swedish              |
 | 14 | pt_BR  | Brazilian Portuguese |
 | 15 | es_MX  | Mexican Spanish      |
+
+## Credits
+
+Logo created by <a href="https://www.freepik.com/icon/languages_4983962">photo3idea_studio</a>.
