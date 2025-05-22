@@ -41,7 +41,7 @@
       "_appName": "FreeRealmsLocaleTools",
       "_appTitle": "FreeRealmsLocaleTools",
       "_enableSearch": true,
-      "pdf": true,
+      "pdf": false,
       "_disableContribution": true
     }
   }
