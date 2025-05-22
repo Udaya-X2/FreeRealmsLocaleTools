@@ -52,10 +52,10 @@ public class LocaleFileInfo
         Entries = LocaleFile.ReadEntries(localeDatPath);
         Metadata = LocaleMetadata.Create(localeDatPath, Entries);
 
-        // If lazy initialization is off, compute ID/Hash -> entry mappings in the constructor.
+        // If lazy initialization is off, compute lazy properties in the constructor.
         if (!lazyInit)
         {
-            _ = (IdToEntry, HashToEntry, UnusedIds);
+            InitializeLazyProperties();
         }
     }
 
@@ -82,10 +82,10 @@ public class LocaleFileInfo
                 ? LocaleFile.ReadEntries(localeDatPath)
                 : LocaleFile.ReadEntries(localeDatPath, localeDirPath);
 
-        // If lazy initialization is off, compute ID/Hash -> entry mappings in the constructor.
+        // If lazy initialization is off, compute lazy properties in the constructor.
         if (!lazyInit)
         {
-            _ = (IdToEntry, HashToEntry, UnusedIds);
+            InitializeLazyProperties();
         }
     }
 
@@ -664,5 +664,19 @@ public class LocaleFileInfo
         }
 
         return lastIndex;
+    }
+
+    /// <summary>
+    /// Computes the values of all lazy initialized properties.
+    /// </summary>
+    private void InitializeLazyProperties()
+    {
+        if (CanAddEntries)
+        {
+            _ = IdToEntry;
+            _ = UnusedIds;
+        }
+
+        _ = HashToEntry;
     }
 }
