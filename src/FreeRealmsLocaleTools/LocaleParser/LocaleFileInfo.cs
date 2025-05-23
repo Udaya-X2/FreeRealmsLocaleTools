@@ -64,23 +64,22 @@ public class LocaleFileInfo
     /// </summary>
     /// <param name="localeDatPath">The path to the locale .dat file.</param>
     /// <param name="localeDirPath">The path to the locale .dir file.</param>
+    /// <param name="options">Specifies how to parse locale entries from the .dat/.dir file.</param>
     /// <param name="lazyInit">
     /// Whether to lazily initialize properties required to add/remove/update locale entries.
     /// </param>
     /// <exception cref="ArgumentNullException"/>
-    public LocaleFileInfo(string localeDatPath, string localeDirPath, bool lazyInit = true)
+    public LocaleFileInfo(string localeDatPath,
+                          string localeDirPath,
+                          ParseOptions options = ParseOptions.Normal,
+                          bool lazyInit = true)
     {
         LocaleDatFile = new(localeDatPath ?? throw new ArgumentNullException(localeDatPath));
         LocaleDirFile = new(localeDirPath ?? throw new ArgumentNullException(localeDirPath));
         Preamble = LocaleFile.ReadPreamble(localeDatPath);
         Metadata = LocaleFile.ReadMetadata(localeDirPath);
         Locations = LocaleFile.ReadEntryLocations(localeDirPath);
-
-        // Some Simplified Chinese TCG locales have incorrect .dir files,
-        // so use the .dat file exclusively to read entries for them.
-        Entries = Metadata.IsTCG() && Metadata.Locale == Locale.zh_CN
-                ? LocaleFile.ReadEntries(localeDatPath)
-                : LocaleFile.ReadEntries(localeDatPath, localeDirPath);
+        Entries = LocaleFile.ReadEntries(localeDatPath, localeDirPath, options);
 
         // If lazy initialization is off, compute lazy properties in the constructor.
         if (!lazyInit)

@@ -38,15 +38,53 @@ public static partial class LocaleFile
     /// </summary>
     /// <param name="localeDatPath">The path to the locale .dat file.</param>
     /// <param name="localeDirPath">The path to the locale .dir file.</param>
+    /// <param name="options">Specifies how to parse locale entries from the .dat/.dir file.</param>
     /// <returns>An array containing all locale entries from the specified files.</returns>
     /// <exception cref="ArgumentNullException"/>
-    public static LocaleEntry[] ReadEntries(string localeDatPath, string localeDirPath)
+    /// <exception cref="InvalidDataException"/>
+    public static LocaleEntry[] ReadEntries(string localeDatPath,
+                                            string localeDirPath,
+                                            ParseOptions options = ParseOptions.Normal)
     {
         ArgumentNullException.ThrowIfNull(localeDatPath, nameof(localeDatPath));
         ArgumentNullException.ThrowIfNull(localeDirPath, nameof(localeDirPath));
 
-        // Read the location of each locale entry from the .dir file.
-        return ReadEntries(localeDatPath, ReadEntryLocations(localeDirPath));
+        if (options == ParseOptions.Normal)
+        {
+            LocaleMetadata? metadata;
+
+            try
+            {
+                metadata = ReadMetadata(localeDirPath);
+            }
+            catch
+            {
+                metadata = null;
+            }
+
+            // Some Simplified Chinese TCG locales have incorrect .dir files,
+            // so use the .dat file exclusively to read entries for them.
+            if (metadata?.Locale == Locale.zh_CN && metadata.IsTCG())
+            {
+                return ReadEntries(localeDatPath);
+            }
+        }
+
+        try
+        {
+            // Read the location of each locale entry from the .dir file.
+            return ReadEntries(localeDatPath, ReadEntryLocations(localeDirPath));
+        }
+        catch
+        {
+            // Upon failure, read each locale entry from the .dat file.
+            if (options == ParseOptions.Lenient)
+            {
+                return ReadEntries(localeDatPath);
+            }
+
+            throw;
+        }
     }
 
     /// <summary>
@@ -59,6 +97,7 @@ public static partial class LocaleFile
     /// </param>
     /// <returns>An array containing all locale entries specified in <paramref name="locations"/>.</returns>
     /// <exception cref="ArgumentNullException"/>
+    /// <exception cref="InvalidDataException"/>
     public static LocaleEntry[] ReadEntries(string localeDatPath, IEnumerable<LocaleEntryLocation> locations)
     {
         ArgumentNullException.ThrowIfNull(localeDatPath, nameof(localeDatPath));
@@ -240,6 +279,7 @@ public static partial class LocaleFile
     /// reads its bytes/chars into the buffers, and returns it.
     /// </summary>
     /// <returns>The locale entry at the given location.</returns>
+    /// <exception cref="InvalidDataException"/>
     private static LocaleEntry ReadEntry(FileStream stream, byte[] buf, char[] cbuf, LocaleEntryLocation location)
     {
         try
