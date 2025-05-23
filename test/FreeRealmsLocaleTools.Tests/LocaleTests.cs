@@ -87,4 +87,50 @@ public class LocaleTests
         int id = _localeFile.AddEntry(text);
         Assert.True(_localeFile.IdToEntry[id].Text == text);
     }
+
+    [Fact]
+    public void ThrowSimplifiedChineseLocales()
+    {
+        foreach ((string localeDatPath, string localeDirPath) in GetAllLocalePaths())
+        {
+            LocaleMetadata metadata = LocaleFile.ReadMetadata(localeDirPath);
+
+            if (metadata.Locale == Locale.zh_CN && metadata.IsTcg())
+            {
+                Assert.Throws<InvalidDataException>(() =>
+                {
+                    LocaleFile.ReadEntries(localeDatPath, localeDirPath, ParseOptions.Strict);
+                });
+            }
+        }
+    }
+
+    private static IEnumerable<(string, string)> GetAllLocalePaths()
+    {
+        foreach (string localeDatPath in GetAllLocaleDatPaths())
+        {
+            string localeDirPath = Path.ChangeExtension(localeDatPath, ".dir");
+
+            if (File.Exists(localeDirPath))
+            {
+                yield return (localeDatPath, localeDirPath);
+            }
+        }
+    }
+
+    private static IEnumerable<string> GetAllLocaleDatPaths()
+    {
+        string frFilesDirectory = Environment.ExpandEnvironmentVariables("%FRF%");
+
+        if (!Directory.Exists(frFilesDirectory)) yield break;
+
+        foreach (string path in Directory.EnumerateFiles(frFilesDirectory, "*data.dat", SearchOption.AllDirectories))
+        {
+            // Skip __MACOSX files.
+            if (!Path.GetFileName(path).StartsWith("._"))
+            {
+                yield return path;
+            }
+        }
+    }
 }
