@@ -141,7 +141,7 @@ public class LocaleFileInfo
     /// <summary>
     /// Gets whether adding locale entries is supported.
     /// </summary>
-    public bool CanAddEntries => !Metadata.IsTCG();
+    public bool CanAddEntries => !Metadata.IsTcg();
 
     /// <summary>
     /// Gets a sorted mapping from IDs to locale entries.

@@ -64,7 +64,7 @@ public static partial class LocaleFile
 
             // Some Simplified Chinese TCG locales have incorrect .dir files,
             // so use the .dat file exclusively to read entries for them.
-            if (metadata?.Locale == Locale.zh_CN && metadata.IsTCG())
+            if (metadata?.Locale == Locale.zh_CN && metadata.IsTcg())
             {
                 return ReadEntries(localeDatPath);
             }

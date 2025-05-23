@@ -187,7 +187,7 @@ public record LocaleMetadata()
     /// <summary>
     /// Returns <see langword="true"/> if the metadata refers to a TCG locale; otherwise <see langword="false"/>.
     /// </summary>
-    public bool IsTCG() => (IsExtracted(), Game) switch
+    public bool IsTcg() => (IsExtracted(), Game) switch
     {
         (true, _) => true,
         (false, LocaleParser.Game.FRLMTCG) => true,
