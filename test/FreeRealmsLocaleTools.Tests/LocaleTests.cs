@@ -66,7 +66,7 @@ public class LocaleTests
     public void ParseMtagId()
     {
         string text = "Increases Damage Addition\t0017\tGlobal.Text.88011";
-        Assert.True(Preimaging.ParseMtagTextId(text) == 88011);
+        Assert.Equal(88011, Preimaging.ParseMtagTextId(text));
         Assert.Throws<FormatException>(() => Preimaging.ParseMtagTextId("abc"));
     }
 
