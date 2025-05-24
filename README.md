@@ -1,24 +1,16 @@
 # FreeRealmsLocaleTools
 
-A .NET library which allows developers to read and write text entries
-from Free Realms locale files. It also includes other utilities such as
-acquiring the name IDs of text entries and modifying locale metadata.
+A .NET library which allows developers to read and write text entries from Free Realms locale files. It also includes other utilities such as acquiring the name IDs of text entries and modifying locale metadata.
 
 ## Background
 
-Locale files are located in the "./locale" and "./tcg/locale" directories of a
-Free Realms client, in the form of `<locale>_data.dat` and `<locale>_data.dir`
-files (i.e., `en_us_data.dat`/`en_us_data.dir`). The .dat file consists of text
-entries while the .dir file contains metadata and information on each entry in
-the .dat file. Combined, the client uses these files to display text based on
-the user's [locale configuration](#supported-locales).
+Locale files are located in the "./locale" and "./tcg/locale" directories of a Free Realms client, in the form of `<locale>_data.dat` and `<locale>_data.dir` files (i.e., `en_us_data.dat`/`en_us_data.dir`). The .dat file consists of text entries while the .dir file contains metadata and information on each entry in the .dat file. Combined, the client uses these files to display text based on the user's [locale configuration](#supported-locales).
 
 Examples of an [`en_us_data.dat`](https://raw.githubusercontent.com/Udaya-X2/FreeRealmsLocaleTools/refs/heads/main/test/FreeRealmsLocaleTools.Tests/data/en_us_data.dat) and [`en_us_data.dir`](https://raw.githubusercontent.com/Udaya-X2/FreeRealmsLocaleTools/refs/heads/main/test/FreeRealmsLocaleTools.Tests/data/en_us_data.dir) file can be seen [here](https://github.com/Udaya-X2/FreeRealmsLocaleTools/tree/main/test/FreeRealmsLocaleTools.Tests/data).
 
 ## Usage
 
-See [documentation](https://udaya-x2.github.io/FreeRealmsLocaleTools) for
-API reference, samples, and tutorials.
+See [documentation](https://udaya-x2.github.io/FreeRealmsLocaleTools) for API reference, samples, and tutorials.
 
 ## Installation
 
