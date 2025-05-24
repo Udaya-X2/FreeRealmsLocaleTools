@@ -22,7 +22,11 @@ API reference, samples, and tutorials.
 
 ## Installation
 
-Download the DLL from the [releases page](https://github.com/Udaya-X2/FreeRealmsLocaleTools/releases) and add it as a project reference in your assembly.
+This project is available as a [NuGet package](https://www.nuget.org/packages/FreeRealmsLocaleTools).
+
+```
+dotnet add package FreeRealmsLocaleTools
+```
 
 ## Code Samples
 
@@ -107,4 +111,4 @@ Date = Thu Mar 13 10:10:13 PDT 2014
 
 ## Credits
 
-Logo created by <a href="https://www.freepik.com/icon/languages_4983962">photo3idea_studio</a>.
+Icon by <a href="https://www.freepik.com/icon/languages_4983962">photo3idea_studio</a>.

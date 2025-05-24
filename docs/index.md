@@ -15,4 +15,8 @@ Here are some additonal links to get you started:
 - [API Reference](api/FreeRealmsLocaleTools.LocaleParser.yml) - Browse the fully documented API here.
 - [Github Repository](https://github.com/Udaya-X2/FreeRealmsLocaleTools) - File issues, contribute pull requests, or check out the code for yourself!
 
+## Credits
+
+Icon by <a href="https://www.freepik.com/icon/languages_4983962">photo3idea_studio</a>.
+
 </div>

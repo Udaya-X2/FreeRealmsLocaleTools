@@ -8,8 +8,11 @@ uid: Introduction
 
 ## Installation
 
-The package is available on the project [releases page](https://github.com/Udaya-X2/FreeRealmsLocaleTools/releases).
-Simply download the DLL and add it as a project reference in your assembly.
+This project is available as a [NuGet package](https://www.nuget.org/packages/FreeRealmsLocaleTools).
+
+```
+dotnet add package FreeRealmsLocaleTools
+```
 
 ## Background
 

@@ -5,6 +5,16 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
     <GenerateDocumentationFile>True</GenerateDocumentationFile>
+    <PackageId>FreeRealmsLocaleTools</PackageId>
+    <Version>1.0.0</Version>
+    <Authors>Udaya</Authors>
+    <PackageDescription>A .NET library for reading and writing Free Realms locale files.</PackageDescription>
+    <RepositoryUrl>https://github.com/Udaya-X2/FreeRealmsLocaleTools</RepositoryUrl>
+    <PackageIcon>logo.png</PackageIcon>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <Description>Free Realms locale file API.</Description>
+    <PackageProjectUrl>https://udaya-x2.github.io/FreeRealmsLocaleTools</PackageProjectUrl>
+    <Copyright>Copyright (c) Udaya 2025</Copyright>
   </PropertyGroup>
 
   <ItemGroup>
@@ -12,6 +22,14 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Include="..\..\docs\images\logo.png">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+    <None Include="..\..\README.md">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
     <None Include="C:\Users\udaya\GitHub\FreeRealmsLocaleTools\src\FreeRealmsLocaleTools\.editorconfig" />
   </ItemGroup>
 
