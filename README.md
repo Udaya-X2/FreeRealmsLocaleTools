@@ -103,4 +103,4 @@ Date = Thu Mar 13 10:10:13 PDT 2014
 
 ## Credits
 
-Icon by <a href="https://www.freepik.com/icon/languages_4983962">photo3idea_studio</a>.
+Icon by [photo3idea_studio](https://www.freepik.com/icon/languages_4983962).
